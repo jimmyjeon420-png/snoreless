@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnoreLess 개인정보처리방침</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.8;
+            color: #1a1a1a;
+            background: #fafafa;
+            padding: 0;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #111;
+        }
+        .updated {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 40px;
+        }
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-top: 36px;
+            margin-bottom: 12px;
+            color: #222;
+        }
+        p, li {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        ul {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+        li { margin-bottom: 8px; }
+        .highlight {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 16px 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .highlight p { margin-bottom: 0; color: #2e7d32; font-weight: 500; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+        }
+        th, td {
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 15px;
+        }
+        th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #555;
+        }
+        .footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SnoreLess 개인정보처리방침</h1>
+        <p class="updated">시행일: 2026년 3월 6일 | 최종 수정: 2026년 3월 6일</p>
+
+        <div class="highlight">
+            <p>SnoreLess는 사용자의 모든 데이터를 기기 안에서만 처리합니다. 외부 서버로 전송되는 정보는 없습니다.</p>
+        </div>
+
+        <h2>1. 수집하는 정보</h2>
+        <table>
+            <tr>
+                <th>정보 유형</th>
+                <th>수집 목적</th>
+                <th>저장 방식</th>
+            </tr>
+            <tr>
+                <td>마이크 오디오</td>
+                <td>코골이 소리 실시간 감지(dB 측정)</td>
+                <td>실시간 처리 후 즉시 폐기. 기기에 저장하지 않음</td>
+            </tr>
+            <tr>
+                <td>코골이 이벤트 데이터</td>
+                <td>코골이 횟수, 시간, 강도 기록</td>
+                <td>기기 내 로컬 저장(SwiftData)</td>
+            </tr>
+            <tr>
+                <td>코골이 구간 녹음</td>
+                <td>사용자 본인 확인용 짧은 녹음</td>
+                <td>기기 내 로컬 저장. 서버 전송 없음</td>
+            </tr>
+            <tr>
+                <td>건강 데이터(HealthKit)</td>
+                <td>수면 분석 연동</td>
+                <td>Apple HealthKit 프레임워크 내 저장(로컬)</td>
+            </tr>
+        </table>
+
+        <h2>2. 외부 서버 전송</h2>
+        <p>SnoreLess는 수집한 어떠한 데이터도 외부 서버로 전송하지 않습니다. 모든 데이터 처리는 100% 사용자의 기기(iPhone, Apple Watch) 안에서 이루어집니다.</p>
+
+        <h2>3. 제3자 제공</h2>
+        <p>사용자의 개인정보를 제3자에게 제공하지 않습니다. 광고 SDK, 분석 SDK 등 외부 서비스를 사용하지 않습니다.</p>
+
+        <h2>4. 파트너 공유 기능</h2>
+        <p>앱 내 "개선 현황 공유" 기능은 사용자가 직접 선택한 상대에게만 요약 데이터를 공유합니다. 이 과정에서도 데이터는 Apple의 기기 간 통신(iMessage, AirDrop 등)을 통해 전달되며, SnoreLess 서버를 거치지 않습니다.</p>
+
+        <h2>5. 데이터 보관 및 삭제</h2>
+        <ul>
+            <li>모든 데이터는 기기 내 SwiftData에 저장됩니다.</li>
+            <li>앱을 삭제하면 모든 데이터가 함께 삭제됩니다.</li>
+            <li>앱 설정에서 언제든 녹음 데이터 및 이벤트 기록을 개별 삭제할 수 있습니다.</li>
+        </ul>
+
+        <h2>6. 마이크 및 백그라운드 오디오 권한</h2>
+        <p>SnoreLess는 다음 목적으로 마이크 접근 권한과 백그라운드 오디오 권한을 요청합니다:</p>
+        <ul>
+            <li><strong>마이크</strong>: 수면 중 코골이 소리의 데시벨(dB)을 측정하여 코골이 여부를 판단합니다.</li>
+            <li><strong>백그라운드 오디오</strong>: 수면 중에도 지속적으로 코골이를 모니터링하기 위해 백그라운드에서 오디오 세션을 유지합니다.</li>
+        </ul>
+        <p>마이크로 수집되는 오디오 스트림은 dB 분석 후 즉시 폐기되며, 사용자가 명시적으로 "녹음 저장"을 활성화한 구간만 로컬에 저장됩니다.</p>
+
+        <h2>7. 아동 개인정보</h2>
+        <p>SnoreLess는 만 14세 미만 아동의 개인정보를 수집하지 않습니다.</p>
+
+        <h2>8. 개인정보처리방침 변경</h2>
+        <p>본 방침이 변경될 경우, 앱 내 공지 및 이 페이지를 통해 사전 안내합니다.</p>
+
+        <h2>9. 연락처</h2>
+        <p>개인정보 관련 문의사항이 있으시면 아래로 연락해 주세요.</p>
+        <ul>
+            <li><strong>개발자</strong>: Sangmyun Jeon</li>
+            <li><strong>이메일</strong>: <a href="mailto:jimmyjeon420@gmail.com">jimmyjeon420@gmail.com</a></li>
+        </ul>
+
+        <div class="footer">
+            <p>&copy; 2026 nicenoodle. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

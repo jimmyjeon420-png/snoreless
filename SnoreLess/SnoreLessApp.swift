@@ -28,10 +28,20 @@ struct SnoreLessApp: App {
     // MARK: - WatchConnector (앱 수명주기 동안 유지)
     @StateObject private var watchConnector = WatchConnector()
 
+    // MARK: - NotificationManager
+    @StateObject private var notificationManager = NotificationManager.shared
+
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(watchConnector)
+                .environmentObject(notificationManager)
+                .onAppear {
+                    // WatchConnector에 ModelContext 주입
+                    watchConnector.setModelContext(
+                        sharedModelContainer.mainContext
+                    )
+                }
         }
         .modelContainer(sharedModelContainer)
     }

@@ -1,7 +1,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
+
     var body: some View {
+        if hasCompletedOnboarding {
+            mainTabView
+                .preferredColorScheme(.dark)
+        } else {
+            OnboardingView()
+        }
+    }
+
+    private var mainTabView: some View {
         TabView {
             DashboardView()
                 .tabItem {
@@ -18,6 +29,7 @@ struct ContentView: View {
                     Label("설정", systemImage: "gearshape.fill")
                 }
         }
+        .tint(.cyan)
     }
 }
 

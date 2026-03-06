@@ -10,7 +10,6 @@ struct HistoryView: View {
     )
     private var sessions: [SleepSession]
 
-    // 날짜 포맷터
     private let dateFormatter: DateFormatter = {
         let f = DateFormatter()
         f.locale = Locale(identifier: "ko_KR")
@@ -23,9 +22,9 @@ struct HistoryView: View {
             Group {
                 if sessions.isEmpty {
                     ContentUnavailableView(
-                        "아직 기록이 없습니다",
+                        "아직 기록이 없어요",
                         systemImage: "moon.zzz",
-                        description: Text("워치에서 수면을 기록하면 여기에 표시됩니다")
+                        description: Text("워치에서 수면을 기록하면\n여기에 나타납니다")
                     )
                 } else {
                     List(sessions) { session in
@@ -34,7 +33,9 @@ struct HistoryView: View {
                         } label: {
                             sessionRow(session)
                         }
+                        .listRowBackground(Color(.systemGray6).opacity(0.4))
                     }
+                    .listStyle(.insetGrouped)
                 }
             }
             .navigationTitle("수면 기록")
@@ -43,25 +44,56 @@ struct HistoryView: View {
 
     // MARK: - 세션 행
     private func sessionRow(_ session: SleepSession) -> some View {
-        HStack {
+        HStack(spacing: 14) {
+            // 날짜 아이콘
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(session.totalSnoreCount == 0
+                          ? Color.green.opacity(0.15)
+                          : Color.cyan.opacity(0.15))
+                    .frame(width: 44, height: 44)
+
+                Image(systemName: session.totalSnoreCount == 0 ? "checkmark.circle.fill" : "moon.fill")
+                    .foregroundStyle(session.totalSnoreCount == 0 ? .green : .cyan)
+                    .font(.title3)
+            }
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(dateFormatter.string(from: session.startTime))
-                    .font(.headline)
-                Text("수면 시간: \(session.durationText)")
                     .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .fontWeight(.medium)
+
+                HStack(spacing: 8) {
+                    Text(session.durationText)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    if session.totalSnoreCount > 0 {
+                        let stopped = session.snoreEvents.filter(\.stoppedAfterHaptic).count
+                        Text("진동 \(stopped)/\(session.totalSnoreCount) 멈춤")
+                            .font(.caption)
+                            .foregroundStyle(.green)
+                    }
+                }
             }
 
             Spacer()
 
             VStack(alignment: .trailing, spacing: 4) {
-                Text("\(session.totalSnoreCount)회")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.blue)
-                Text("코골이")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                if session.totalSnoreCount == 0 {
+                    Text("조용한 밤")
+                        .font(.caption)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.green)
+                } else {
+                    Text("\(session.totalSnoreCount)회")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.cyan)
+                    Text("골았어요")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .padding(.vertical, 4)
@@ -71,4 +103,5 @@ struct HistoryView: View {
 #Preview {
     HistoryView()
         .modelContainer(for: [SleepSession.self, SnoreEvent.self, DailyCheckIn.self], inMemory: true)
+        .preferredColorScheme(.dark)
 }

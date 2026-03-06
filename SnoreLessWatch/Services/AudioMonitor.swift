@@ -13,6 +13,7 @@ class AudioMonitor: ObservableObject {
     let snoreDetector: SnoreDetector
     private let hapticController: HapticController
     private let phoneConnector: PhoneConnector
+    private let snoreRecorder: SnoreRecorder
 
     // MARK: - 공개 상태
     @Published var isMonitoring = false
@@ -36,6 +37,7 @@ class AudioMonitor: ObservableObject {
         self.snoreDetector = SnoreDetector()
         self.hapticController = HapticController()
         self.phoneConnector = PhoneConnector()
+        self.snoreRecorder = SnoreRecorder()
 
         setupSnoreCallback()
     }
@@ -49,9 +51,16 @@ class AudioMonitor: ObservableObject {
                 snoreDetector: self.snoreDetector,
                 phoneConnector: self.phoneConnector
             )
+            // 코골이 구간 녹음 (5초 클립)
+            self.snoreRecorder.recordSnoreClip()
             // 아이폰에 코골이 로그 전송 (비긴급)
             self.phoneConnector.sendSnoreLog(event: eventData)
         }
+    }
+
+    // MARK: - 햅틱 강도 업데이트
+    func updateHapticIntensity(_ intensity: HapticIntensity) {
+        hapticController.updateIntensity(intensity)
     }
 
     // MARK: - 모니터링 시작

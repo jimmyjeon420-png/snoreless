@@ -9,6 +9,18 @@ enum SnoreMessageKey {
     static let sessionEnded = "sessionEnded"
     static let snoreLog = "snoreLog"
     static let settings = "settings"
+
+    // 스마트 알람
+    static let smartAlarmEnabled = "smartAlarmEnabled"
+    static let smartAlarmHour = "smartAlarmHour"
+    static let smartAlarmMinute = "smartAlarmMinute"
+
+    // 녹음 설정
+    static let recordingEnabled = "recordingEnabled"
+
+    // 파일 전송 메타데이터
+    static let snoreRecordingFile = "snoreRecordingFile"
+    static let recordingTimestamp = "recordingTimestamp"
 }
 
 struct SnoreEventData: Codable {
@@ -31,8 +43,8 @@ struct AppSettings: Codable {
     var iPhoneEscalationEnabled: Bool = false   // 기본 OFF
     var hapticSensitivity: Double = 1.0         // 0.5~2.0 (감도 조절)
     var calibrationDuration: TimeInterval = 300  // 캘리브레이션 5분
-    var escalationDelay1: TimeInterval = 5       // 1차→2차 간격
-    var escalationDelay2: TimeInterval = 10      // 2차→3차 간격
+    var escalationDelay1: TimeInterval = 5       // 1차에서 2차 간격
+    var escalationDelay2: TimeInterval = 10      // 2차에서 3차 간격
     var cooldownDuration: TimeInterval = 30      // 쿨다운
 
     static let `default` = AppSettings()

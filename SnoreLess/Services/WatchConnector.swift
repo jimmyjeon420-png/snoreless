@@ -3,7 +3,7 @@ import WatchConnectivity
 import SwiftData
 
 /// 아이폰 측 WatchConnectivity 매니저
-/// 워치에서 오는 코골이 데이터 수신 및 설정 동기화 담당
+/// 워치에서 오는 코골이 데이터 수신, 설정 동기화, 녹음 파일 수신 담당
 class WatchConnector: NSObject, ObservableObject {
     // MARK: - 상태
     @Published var isWatchReachable = false
@@ -44,6 +44,47 @@ class WatchConnector: NSObject, ObservableObject {
         }
     }
 
+    // MARK: - 스마트 알람 설정 전송
+    func sendSmartAlarm(enabled: Bool, hour: Int, minute: Int) {
+        guard WCSession.default.activationState == .activated else { return }
+
+        let message: [String: Any] = [
+            SnoreMessageKey.smartAlarmEnabled: enabled,
+            SnoreMessageKey.smartAlarmHour: hour,
+            SnoreMessageKey.smartAlarmMinute: minute
+        ]
+
+        if WCSession.default.isReachable {
+            WCSession.default.sendMessage(message, replyHandler: nil) { error in
+                print("[WatchConnector] 스마트 알람 전송 실패: \(error)")
+            }
+        } else {
+            // 즉시 전달이 안 되면 applicationContext로 대체
+            do {
+                try WCSession.default.updateApplicationContext(message)
+            } catch {
+                print("[WatchConnector] 스마트 알람 컨텍스트 전송 실패: \(error)")
+            }
+        }
+        print("[WatchConnector] 스마트 알람 동기화: \(enabled ? "ON" : "OFF") \(hour):\(String(format: "%02d", minute))")
+    }
+
+    // MARK: - 녹음 설정 전송
+    func sendRecordingSetting(enabled: Bool) {
+        guard WCSession.default.activationState == .activated else { return }
+
+        let message: [String: Any] = [
+            SnoreMessageKey.recordingEnabled: enabled
+        ]
+
+        if WCSession.default.isReachable {
+            WCSession.default.sendMessage(message, replyHandler: nil) { error in
+                print("[WatchConnector] 녹음 설정 전송 실패: \(error)")
+            }
+        }
+        print("[WatchConnector] 녹음 설정 동기화: \(enabled ? "ON" : "OFF")")
+    }
+
     // MARK: - 수신된 세션 데이터를 SwiftData에 저장
     private func saveSessionData(_ sessionData: SleepSessionData) {
         guard let modelContext = modelContext else {
@@ -76,8 +117,40 @@ class WatchConnector: NSObject, ObservableObject {
         do {
             try modelContext.save()
             print("[WatchConnector] 세션 저장 완료: 이벤트 \(sessionData.snoreEvents.count)개")
+
+            // 아침 리포트 알림
+            let stoppedCount = sessionData.snoreEvents.filter(\.stoppedAfterHaptic).count
+            NotificationManager.shared.scheduleMorningReport(
+                snoreCount: sessionData.snoreEvents.count,
+                stoppedCount: stoppedCount
+            )
         } catch {
             print("[WatchConnector] 세션 저장 실패: \(error)")
+        }
+    }
+
+    // MARK: - 녹음 파일 저장
+    private func saveRecordingFile(_ fileURL: URL, metadata: [String: Any]) {
+        let recordingsDir = SnorePlaybackView.recordingsDirectory
+
+        let timestamp = metadata[SnoreMessageKey.recordingTimestamp] as? TimeInterval ?? Date().timeIntervalSince1970
+        let date = Date(timeIntervalSince1970: timestamp)
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyyMMdd_HHmmss"
+        let filename = "snore_\(formatter.string(from: date)).\(fileURL.pathExtension)"
+
+        let destURL = recordingsDir.appendingPathComponent(filename)
+
+        do {
+            // 이미 같은 이름 파일 있으면 덮어쓰기
+            if FileManager.default.fileExists(atPath: destURL.path) {
+                try FileManager.default.removeItem(at: destURL)
+            }
+            try FileManager.default.moveItem(at: fileURL, to: destURL)
+            print("[WatchConnector] 녹음 파일 저장 완료: \(filename)")
+        } catch {
+            print("[WatchConnector] 녹음 파일 저장 실패: \(error)")
         }
     }
 }
@@ -134,21 +207,22 @@ extension WatchConnector: WCSessionDelegate {
 
     // UserInfo 전송 수신 (백그라운드, 수면 세션 로그)
     func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
-        // Watch PhoneConnector는 JSONSerialization dict + boolean flag로 전송
-        // snoreLog=true 또는 sessionEnded=true 플래그로 구분
-
         if userInfo[SnoreMessageKey.sessionEnded] != nil {
-            // 세션 종료 데이터 — dict에서 SleepSessionData 복원
             decodeAndSaveSession(from: userInfo)
         } else if userInfo[SnoreMessageKey.snoreLog] != nil {
-            // 개별 코골이 이벤트 로그 (비긴급)
             decodeAndLogSnoreEvent(from: userInfo)
         }
     }
 
-    /// dict → SleepSessionData 디코딩 후 저장
+    // 파일 전송 수신 (코골이 녹음)
+    func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        let metadata = file.metadata ?? [:]
+        print("[WatchConnector] 파일 수신: \(file.fileURL.lastPathComponent)")
+        saveRecordingFile(file.fileURL, metadata: metadata)
+    }
+
+    /// dict에서 SleepSessionData 디코딩 후 저장
     private func decodeAndSaveSession(from userInfo: [String: Any]) {
-        // flag key를 제거한 순수 데이터 dict를 JSON으로 변환
         var dict = userInfo
         dict.removeValue(forKey: SnoreMessageKey.sessionEnded)
 
@@ -165,7 +239,7 @@ extension WatchConnector: WCSessionDelegate {
         print("[WatchConnector] 수면 세션 데이터 수신: 이벤트 \(sessionData.snoreEvents.count)개")
     }
 
-    /// dict → SnoreEventData 디코딩 (개별 이벤트 로깅)
+    /// dict에서 SnoreEventData 디코딩 (개별 이벤트 로깅)
     private func decodeAndLogSnoreEvent(from userInfo: [String: Any]) {
         var dict = userInfo
         dict.removeValue(forKey: SnoreMessageKey.snoreLog)
@@ -180,7 +254,6 @@ extension WatchConnector: WCSessionDelegate {
 
     // ApplicationContext 수신
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
-        // 워치에서 보내는 컨텍스트 처리 (필요 시 확장)
         print("[WatchConnector] ApplicationContext 수신: \(applicationContext.keys)")
     }
 }

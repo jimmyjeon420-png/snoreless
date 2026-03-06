@@ -22,6 +22,7 @@ class HapticController {
     private var escalationTimer: Timer?
     private var isEscalating = false
     private var settings = AppSettings()
+    private var hapticIntensity: HapticIntensity = .medium
 
     // MARK: - 에스컬레이션 트리거
     /// 코골이 감지 시 호출 — 3단계 에스컬레이션 시작
@@ -98,23 +99,48 @@ class HapticController {
         }
     }
 
+    // MARK: - 진동 강도 업데이트
+    func updateIntensity(_ intensity: HapticIntensity) {
+        hapticIntensity = intensity
+    }
+
     // MARK: - 햅틱 재생
 
     /// 1차: 약한 진동 (click)
     private func playFirstHaptic() {
-        WKInterfaceDevice.current().play(.click)
+        let device = WKInterfaceDevice.current()
+        switch hapticIntensity {
+        case .light:
+            device.play(.click)
+        case .medium:
+            device.play(.click)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                device.play(.click)
+            }
+        case .strong:
+            device.play(.click)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                device.play(.click)
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                device.play(.click)
+            }
+        }
     }
 
-    /// 2차: 강한 진동 (notification) — 3회 반복으로 확실하게
+    /// 2차: 강한 진동 (notification) — 강도별 반복 횟수 조절
     private func playSecondHaptic() {
-        WKInterfaceDevice.current().play(.notification)
-
-        // 0.3초 간격으로 추가 진동
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            WKInterfaceDevice.current().play(.notification)
+        let device = WKInterfaceDevice.current()
+        let repeatCount: Int
+        switch hapticIntensity {
+        case .light: repeatCount = 1
+        case .medium: repeatCount = 3
+        case .strong: repeatCount = 5
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            WKInterfaceDevice.current().play(.notification)
+        for i in 0..<repeatCount {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
+                device.play(.notification)
+            }
         }
     }
 
