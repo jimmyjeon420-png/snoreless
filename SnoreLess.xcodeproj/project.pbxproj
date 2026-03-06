@@ -1,0 +1,543 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		02817082715D86A8E81D87B3 /* WeeklyReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD3EAD85A9FCA0507D342F /* WeeklyReportView.swift */; };
+		1857F65D7DAB6E1938C2C96B /* WatchConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAC56DBFDD415634C098B87 /* WatchConnector.swift */; };
+		2157025471A8210B78FACBF7 /* SleepTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4790BEA8A07F73549D2E0D75 /* SleepTrackingView.swift */; };
+		21758805AA43C052C49CD882 /* AIAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A12593E4723E9C059373A6 /* AIAnalyzer.swift */; };
+		31F769BAC92F5E2B8C015687 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB43F6B0B285FDABAEB76A5 /* DashboardView.swift */; };
+		50F41B0C9A70E3C3CC342BF9 /* SleepReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362D94D47A34BF0423EC1B5D /* SleepReportView.swift */; };
+		5CF202B4C2256756BDEC6A39 /* SleepModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CED4DFA7738FD9691EF30 /* SleepModels.swift */; };
+		64650F00A43EF4ED65A137A6 /* HapticController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421E34067F7754C62ABF1852 /* HapticController.swift */; };
+		67B6D8623F8BB408B758F989 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DF81E77BE5626C7C4C8CC2 /* SettingsView.swift */; };
+		7436A732462DC03016383591 /* SnoreLessWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2D0D29DBBED0962D96C1E /* SnoreLessWatchApp.swift */; };
+		8C3768D751CE575862A0F558 /* SleepDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CEFED4C7D5D25C4B90C78C /* SleepDataStore.swift */; };
+		9A6971977B87240586265861 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D678FB0173E12A2286942 /* CheckInView.swift */; };
+		A6C1F51E887214B3DF8C3059 /* SnoreDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896F6E998C28F689D7BE8451 /* SnoreDetector.swift */; };
+		AC3BCA5549A8CC400B462200 /* AudioMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76B160F93FC5187BD3EE311 /* AudioMonitor.swift */; };
+		B087C4B208E1CAC83E71022E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890222730FA0395E0CB7D77 /* HistoryView.swift */; };
+		B572ADA29B2D3D66013AE23B /* SnoreMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */; };
+		B955D087D92511D771B92700 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B330738E22A84C31CF1CB /* HapticManager.swift */; };
+		C02C35DFBAF677A2B9A29DF2 /* SnoreMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */; };
+		D91385E29F6699D078E6E813 /* SleepModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CED4DFA7738FD9691EF30 /* SleepModels.swift */; };
+		DC2B395AFD0A93F8EB8AD56E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4971CAB6DD0518EF3F0078F3 /* HealthKitManager.swift */; };
+		DFB5CC0A0DDEC9CCE41F5FAE /* SnoreLessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */; };
+		F4424F793B0BDCAD97E84E6C /* PhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076EB809D766A90A5DC1F502 /* PhoneConnector.swift */; };
+		F9EF683069E00B8C572B3913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77E4A2371E5D7BB67507FEC /* ContentView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9044FF3AC51CCC39F9425F4F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6BDD0B12892C9E80C4036906 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C4B4317C94DA8E6F5685DDA;
+			remoteInfo = SnoreLess;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		076EB809D766A90A5DC1F502 /* PhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnector.swift; sourceTree = "<group>"; };
+		0C0B330738E22A84C31CF1CB /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		1BB43F6B0B285FDABAEB76A5 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		362D94D47A34BF0423EC1B5D /* SleepReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepReportView.swift; sourceTree = "<group>"; };
+		36F9E2680C1BC6DB9D3A6C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		421E34067F7754C62ABF1852 /* HapticController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticController.swift; sourceTree = "<group>"; };
+		4790BEA8A07F73549D2E0D75 /* SleepTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTrackingView.swift; sourceTree = "<group>"; };
+		4971CAB6DD0518EF3F0078F3 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		5890222730FA0395E0CB7D77 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreMessage.swift; sourceTree = "<group>"; };
+		5EE3F846A143BEDD88FE1873 /* SnoreLessWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SnoreLessWatch.entitlements; sourceTree = "<group>"; };
+		71F2D0D29DBBED0962D96C1E /* SnoreLessWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreLessWatchApp.swift; sourceTree = "<group>"; };
+		754D678FB0173E12A2286942 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
+		896F6E998C28F689D7BE8451 /* SnoreDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreDetector.swift; sourceTree = "<group>"; };
+		93E2A055AA0472F1CB612124 /* SnoreLess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SnoreLess.entitlements; sourceTree = "<group>"; };
+		97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreLessApp.swift; sourceTree = "<group>"; };
+		98A12593E4723E9C059373A6 /* AIAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAnalyzer.swift; sourceTree = "<group>"; };
+		A92CED4DFA7738FD9691EF30 /* SleepModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepModels.swift; sourceTree = "<group>"; };
+		B5CEFED4C7D5D25C4B90C78C /* SleepDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepDataStore.swift; sourceTree = "<group>"; };
+		C3CD3EAD85A9FCA0507D342F /* WeeklyReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyReportView.swift; sourceTree = "<group>"; };
+		C77E4A2371E5D7BB67507FEC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D1DF81E77BE5626C7C4C8CC2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		D76B160F93FC5187BD3EE311 /* AudioMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMonitor.swift; sourceTree = "<group>"; };
+		DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnoreLessWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFAC56DBFDD415634C098B87 /* WatchConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnector.swift; sourceTree = "<group>"; };
+		E1C4CB08BB5C405CE12202D8 /* SnoreLess.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SnoreLess.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		03843C0152E78CBB2AD79640 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D76B160F93FC5187BD3EE311 /* AudioMonitor.swift */,
+				421E34067F7754C62ABF1852 /* HapticController.swift */,
+				076EB809D766A90A5DC1F502 /* PhoneConnector.swift */,
+				896F6E998C28F689D7BE8451 /* SnoreDetector.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2FD3684C71E91FAFFF247A24 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				98A12593E4723E9C059373A6 /* AIAnalyzer.swift */,
+				0C0B330738E22A84C31CF1CB /* HapticManager.swift */,
+				4971CAB6DD0518EF3F0078F3 /* HealthKitManager.swift */,
+				B5CEFED4C7D5D25C4B90C78C /* SleepDataStore.swift */,
+				DFAC56DBFDD415634C098B87 /* WatchConnector.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		35E9A279E0F3B1AE353CC9D7 /* SnoreLess */ = {
+			isa = PBXGroup;
+			children = (
+				C77E4A2371E5D7BB67507FEC /* ContentView.swift */,
+				93E2A055AA0472F1CB612124 /* SnoreLess.entitlements */,
+				97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */,
+				4E9CD7150BB1F7FFD389C05E /* Models */,
+				2FD3684C71E91FAFFF247A24 /* Services */,
+				685E9D4F269F7A854943C490 /* Views */,
+			);
+			path = SnoreLess;
+			sourceTree = "<group>";
+		};
+		461C4A9493E5161EAC40F2BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1C4CB08BB5C405CE12202D8 /* SnoreLess.app */,
+				DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		46FBC93F7784A1B9E60D54C9 /* SnoreLessWatch */ = {
+			isa = PBXGroup;
+			children = (
+				36F9E2680C1BC6DB9D3A6C89 /* Info.plist */,
+				4790BEA8A07F73549D2E0D75 /* SleepTrackingView.swift */,
+				5EE3F846A143BEDD88FE1873 /* SnoreLessWatch.entitlements */,
+				71F2D0D29DBBED0962D96C1E /* SnoreLessWatchApp.swift */,
+				03843C0152E78CBB2AD79640 /* Services */,
+			);
+			path = SnoreLessWatch;
+			sourceTree = "<group>";
+		};
+		4E9CD7150BB1F7FFD389C05E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		662F0AE036EB314D6819C7C7 = {
+			isa = PBXGroup;
+			children = (
+				7989D5EC6BD6C0B43DCCE13E /* Shared */,
+				35E9A279E0F3B1AE353CC9D7 /* SnoreLess */,
+				46FBC93F7784A1B9E60D54C9 /* SnoreLessWatch */,
+				461C4A9493E5161EAC40F2BF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		685E9D4F269F7A854943C490 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				754D678FB0173E12A2286942 /* CheckInView.swift */,
+				1BB43F6B0B285FDABAEB76A5 /* DashboardView.swift */,
+				5890222730FA0395E0CB7D77 /* HistoryView.swift */,
+				D1DF81E77BE5626C7C4C8CC2 /* SettingsView.swift */,
+				362D94D47A34BF0423EC1B5D /* SleepReportView.swift */,
+				C3CD3EAD85A9FCA0507D342F /* WeeklyReportView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7989D5EC6BD6C0B43DCCE13E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A92CED4DFA7738FD9691EF30 /* SleepModels.swift */,
+				5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C4B4317C94DA8E6F5685DDA /* SnoreLess */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1802F53702B2D17795860A39 /* Build configuration list for PBXNativeTarget "SnoreLess" */;
+			buildPhases = (
+				4331A6CD75EA796F814345AD /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SnoreLess;
+			packageProductDependencies = (
+			);
+			productName = SnoreLess;
+			productReference = E1C4CB08BB5C405CE12202D8 /* SnoreLess.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5CF4FC3A5C2C9CA3146F869C /* SnoreLessWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5364C4C71DD9F32899102D4 /* Build configuration list for PBXNativeTarget "SnoreLessWatch" */;
+			buildPhases = (
+				32A533BAAB8042B83022A3EF /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EF4E6ADFC4E28B6669A849E7 /* PBXTargetDependency */,
+			);
+			name = SnoreLessWatch;
+			packageProductDependencies = (
+			);
+			productName = SnoreLessWatch;
+			productReference = DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6BDD0B12892C9E80C4036906 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					2C4B4317C94DA8E6F5685DDA = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					5CF4FC3A5C2C9CA3146F869C = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = CE21E2A6D647B700FBC17E95 /* Build configuration list for PBXProject "SnoreLess" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 662F0AE036EB314D6819C7C7;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 461C4A9493E5161EAC40F2BF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C4B4317C94DA8E6F5685DDA /* SnoreLess */,
+				5CF4FC3A5C2C9CA3146F869C /* SnoreLessWatch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		32A533BAAB8042B83022A3EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC3BCA5549A8CC400B462200 /* AudioMonitor.swift in Sources */,
+				64650F00A43EF4ED65A137A6 /* HapticController.swift in Sources */,
+				F4424F793B0BDCAD97E84E6C /* PhoneConnector.swift in Sources */,
+				D91385E29F6699D078E6E813 /* SleepModels.swift in Sources */,
+				2157025471A8210B78FACBF7 /* SleepTrackingView.swift in Sources */,
+				A6C1F51E887214B3DF8C3059 /* SnoreDetector.swift in Sources */,
+				7436A732462DC03016383591 /* SnoreLessWatchApp.swift in Sources */,
+				C02C35DFBAF677A2B9A29DF2 /* SnoreMessage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4331A6CD75EA796F814345AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21758805AA43C052C49CD882 /* AIAnalyzer.swift in Sources */,
+				9A6971977B87240586265861 /* CheckInView.swift in Sources */,
+				F9EF683069E00B8C572B3913 /* ContentView.swift in Sources */,
+				31F769BAC92F5E2B8C015687 /* DashboardView.swift in Sources */,
+				B955D087D92511D771B92700 /* HapticManager.swift in Sources */,
+				DC2B395AFD0A93F8EB8AD56E /* HealthKitManager.swift in Sources */,
+				B087C4B208E1CAC83E71022E /* HistoryView.swift in Sources */,
+				67B6D8623F8BB408B758F989 /* SettingsView.swift in Sources */,
+				8C3768D751CE575862A0F558 /* SleepDataStore.swift in Sources */,
+				5CF202B4C2256756BDEC6A39 /* SleepModels.swift in Sources */,
+				50F41B0C9A70E3C3CC342BF9 /* SleepReportView.swift in Sources */,
+				DFB5CC0A0DDEC9CCE41F5FAE /* SnoreLessApp.swift in Sources */,
+				B572ADA29B2D3D66013AE23B /* SnoreMessage.swift in Sources */,
+				1857F65D7DAB6E1938C2C96B /* WatchConnector.swift in Sources */,
+				02817082715D86A8E81D87B3 /* WeeklyReportView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EF4E6ADFC4E28B6669A849E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C4B4317C94DA8E6F5685DDA /* SnoreLess */;
+			targetProxy = 9044FF3AC51CCC39F9425F4F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		29ED1CD9BE9DD633D3634324 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SnoreLessWatch/SnoreLessWatch.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SnoreLessWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.nicenoodle.snoreless;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless.watchkitapp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
+		31356AAFF509186F593CFB80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		4B9FD4D684E5AAD39E9E138D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SnoreLess/SnoreLess.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "수면 품질 분석을 위해 건강 데이터에 접근합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		79901FC7EF6F18596FE3076D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SnoreLessWatch/SnoreLessWatch.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SnoreLessWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.nicenoodle.snoreless;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless.watchkitapp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		BA323844322F0178AAF7E7C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SnoreLess/SnoreLess.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "수면 품질 분석을 위해 건강 데이터에 접근합니다.";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C2C93925C3248F4B4FC188A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1802F53702B2D17795860A39 /* Build configuration list for PBXNativeTarget "SnoreLess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BA323844322F0178AAF7E7C8 /* Debug */,
+				4B9FD4D684E5AAD39E9E138D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CE21E2A6D647B700FBC17E95 /* Build configuration list for PBXProject "SnoreLess" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31356AAFF509186F593CFB80 /* Debug */,
+				C2C93925C3248F4B4FC188A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E5364C4C71DD9F32899102D4 /* Build configuration list for PBXNativeTarget "SnoreLessWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79901FC7EF6F18596FE3076D /* Debug */,
+				29ED1CD9BE9DD633D3634324 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6BDD0B12892C9E80C4036906 /* Project object */;
+}

@@ -1,0 +1,71 @@
+name: SnoreLess
+options:
+  bundleIdPrefix: com.nicenoodle
+  deploymentTarget:
+    iOS: "17.0"
+    watchOS: "10.0"
+  xcodeVersion: "16.0"
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: ""
+
+targets:
+  SnoreLess:
+    type: application
+    platform: iOS
+    sources:
+      - path: SnoreLess
+        type: group
+      - path: Shared
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless
+        GENERATE_INFOPLIST_FILE: true
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
+        INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: true
+        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait"
+        INFOPLIST_KEY_CFBundleDisplayName: "코골이 방지"
+        INFOPLIST_KEY_NSHealthShareUsageDescription: "수면 품질 분석을 위해 건강 데이터에 접근합니다."
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "코골이 감지를 위해 마이크에 접근합니다."
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Automatic
+    entitlements:
+      path: SnoreLess/SnoreLess.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access:
+          - health-records
+
+  SnoreLessWatch:
+    type: application
+    platform: watchOS
+    sources:
+      - path: SnoreLessWatch
+        type: group
+      - path: Shared
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.watchkitapp
+        GENERATE_INFOPLIST_FILE: true
+        INFOPLIST_FILE: SnoreLessWatch/Info.plist
+        INFOPLIST_KEY_WKCompanionAppBundleIdentifier: com.nicenoodle.snoreless
+        INFOPLIST_KEY_CFBundleDisplayName: "코골이 방지"
+        INFOPLIST_KEY_NSMicrophoneUsageDescription: "코골이 감지를 위해 마이크에 접근합니다."
+        INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp: false
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Automatic
+    entitlements:
+      path: SnoreLessWatch/SnoreLessWatch.entitlements
+      properties:
+        com.apple.developer.healthkit: true
+    dependencies:
+      - target: SnoreLess
+        embed: false
+        link: false
