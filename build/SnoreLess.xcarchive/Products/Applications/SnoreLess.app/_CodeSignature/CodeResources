@@ -4,17 +4,33 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>AppIcon60x60@2x.png</key>
+		<data>
+		d21v9MzUxa6hH+FPEm1bHECJN8w=
+		</data>
+		<key>AppIcon76x76@2x~ipad.png</key>
+		<data>
+		l68BcJOavQiFcBv8WrQh9/IONcE=
+		</data>
+		<key>Assets.car</key>
+		<data>
+		yyr5RUeA0gdipre7eSEo0YUn28w=
+		</data>
 		<key>Info.plist</key>
 		<data>
-		IDJ1SGnoa0p3Ejt0wPNkcX8eN00=
+		IwJ3CL/m2GgX8KZQdxCs4khc2UM=
 		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+		<key>Watch/SnoreLessWatch.app/Assets.car</key>
+		<data>
+		0DAOF8/nwKtfCEgTKk6DQ31wzGs=
+		</data>
 		<key>Watch/SnoreLessWatch.app/Info.plist</key>
 		<data>
-		kqSswL116aooPam+FyRbW5bSNyg=
+		386OaSnI5cJugCiusTJOofdmeds=
 		</data>
 		<key>Watch/SnoreLessWatch.app/PkgInfo</key>
 		<data>
@@ -22,15 +38,15 @@
 		</data>
 		<key>Watch/SnoreLessWatch.app/SnoreLessWatch</key>
 		<data>
-		s5PC8MmvWzta+TWiBtQ4XlCS/fE=
+		2Vsku+nFeGLti8Kn0VkLZaS+OGc=
 		</data>
 		<key>Watch/SnoreLessWatch.app/_CodeSignature/CodeResources</key>
 		<data>
-		AgkuPak+eJXv4kCkWuEUodJltXs=
+		NQ8GQs+z5XJK3HmwxyshmcTQr7k=
 		</data>
 		<key>Watch/SnoreLessWatch.app/embedded.mobileprovision</key>
 		<data>
-		lZLFfuKRoH7mXJ5LGJOiJIKKDUc=
+		tDoHyjogHH3IVfYhVpj822fEyCE=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -39,11 +55,39 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>AppIcon60x60@2x.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WBbZfPPGj0HIGTLUweu4J+Cq4Q0y9iNIRsEIqq6pflU=
+			</data>
+		</dict>
+		<key>AppIcon76x76@2x~ipad.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			C1Tyj+yf4OnM3c4N9OLfuauXR89PZp9vCPSfeidagVU=
+			</data>
+		</dict>
+		<key>Assets.car</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			GvLOZ3O5PX1s33ZJATPJCS0lPnHpKE/UDSbPFHYjt3Y=
+			</data>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/Assets.car</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			40+57Hz3LIPDLJQD2Ewcdkbir9+Pa3+n0VU8XVP57hs=
+			</data>
+		</dict>
 		<key>Watch/SnoreLessWatch.app/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			H0Ex347BPL+/wkKzr7DgpM5l/XXo27zSYdSUwCvzsH8=
+			6H5i3QvjVEaixFZVuEhiWhqmkRDsGuy9/+oc8N3OkXc=
 			</data>
 		</dict>
 		<key>Watch/SnoreLessWatch.app/PkgInfo</key>
@@ -57,21 +101,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GX2WUCQkyVLt77kjvDkb4Hnf9PBQ+alAGLa7fiGqYXk=
+			4s1l/9pRyZXX9paGRYMY5jQOUVB8LA+NGyGnye6dWYI=
 			</data>
 		</dict>
 		<key>Watch/SnoreLessWatch.app/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			S/jB1I1/kjhnG6t0Bs5uWxSxTe6fAbWxRh+OVRVKdXI=
+			MlZM926v0SmFR/ZE4SRQKa3E+5fuPEmyyA4EK6FlHsQ=
 			</data>
 		</dict>
 		<key>Watch/SnoreLessWatch.app/embedded.mobileprovision</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vsyG8ymtGUnUSBTRutnSpuoJdjr8MeH8LIOqo+rzabE=
+			9IiU2OBtax+UQCrXhizc4V+Nk1pGIgyx0uX/Dohwc/Q=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>

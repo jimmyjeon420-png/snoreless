@@ -25,12 +25,14 @@
 		B572ADA29B2D3D66013AE23B /* SnoreMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */; };
 		B955D087D92511D771B92700 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B330738E22A84C31CF1CB /* HapticManager.swift */; };
 		C02C35DFBAF677A2B9A29DF2 /* SnoreMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */; };
+		C766DC30DC41796BEE86CCEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0320CD15F4BB4FC69099BFD4 /* Assets.xcassets */; };
 		D91385E29F6699D078E6E813 /* SleepModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CED4DFA7738FD9691EF30 /* SleepModels.swift */; };
 		DC2B395AFD0A93F8EB8AD56E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4971CAB6DD0518EF3F0078F3 /* HealthKitManager.swift */; };
 		DFB5CC0A0DDEC9CCE41F5FAE /* SnoreLessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */; };
 		EEB1BA7422F0CA511706CCC8 /* SnoreLessWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F4424F793B0BDCAD97E84E6C /* PhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076EB809D766A90A5DC1F502 /* PhoneConnector.swift */; };
 		F9EF683069E00B8C572B3913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77E4A2371E5D7BB67507FEC /* ContentView.swift */; };
+		FAEB9C837822C081966B2375 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D40CF4A9ADCC0FA7BD1E54 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,8 +60,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0320CD15F4BB4FC69099BFD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		076EB809D766A90A5DC1F502 /* PhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnector.swift; sourceTree = "<group>"; };
 		0C0B330738E22A84C31CF1CB /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		15D40CF4A9ADCC0FA7BD1E54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BB43F6B0B285FDABAEB76A5 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		362D94D47A34BF0423EC1B5D /* SleepReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepReportView.swift; sourceTree = "<group>"; };
 		36F9E2680C1BC6DB9D3A6C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -113,6 +117,7 @@
 		35E9A279E0F3B1AE353CC9D7 /* SnoreLess */ = {
 			isa = PBXGroup;
 			children = (
+				15D40CF4A9ADCC0FA7BD1E54 /* Assets.xcassets */,
 				C77E4A2371E5D7BB67507FEC /* ContentView.swift */,
 				93E2A055AA0472F1CB612124 /* SnoreLess.entitlements */,
 				97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */,
@@ -135,6 +140,7 @@
 		46FBC93F7784A1B9E60D54C9 /* SnoreLessWatch */ = {
 			isa = PBXGroup;
 			children = (
+				0320CD15F4BB4FC69099BFD4 /* Assets.xcassets */,
 				36F9E2680C1BC6DB9D3A6C89 /* Info.plist */,
 				4790BEA8A07F73549D2E0D75 /* SleepTrackingView.swift */,
 				5EE3F846A143BEDD88FE1873 /* SnoreLessWatch.entitlements */,
@@ -191,6 +197,7 @@
 			buildConfigurationList = 1802F53702B2D17795860A39 /* Build configuration list for PBXNativeTarget "SnoreLess" */;
 			buildPhases = (
 				4331A6CD75EA796F814345AD /* Sources */,
+				5D5BECB53778F3F2AFD50905 /* Resources */,
 				448CB987129FDE85055F32EC /* Embed Watch Content */,
 			);
 			buildRules = (
@@ -210,6 +217,7 @@
 			buildConfigurationList = E5364C4C71DD9F32899102D4 /* Build configuration list for PBXNativeTarget "SnoreLessWatch" */;
 			buildPhases = (
 				32A533BAAB8042B83022A3EF /* Sources */,
+				DF4E7184FD16598CA3C8C80E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -260,6 +268,25 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5D5BECB53778F3F2AFD50905 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAEB9C837822C081966B2375 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF4E7184FD16598CA3C8C80E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C766DC30DC41796BEE86CCEB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		32A533BAAB8042B83022A3EF /* Sources */ = {
@@ -320,6 +347,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SnoreLessWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "수면 품질 분석을 위해 건강 데이터에 접근합니다.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "수면 중 코골이 데이터를 건강 앱에 기록합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.nicenoodle.snoreless;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
@@ -406,6 +435,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "수면 품질 분석을 위해 건강 데이터에 접근합니다.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "수면 중 코골이 데이터를 건강 앱에 기록합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -432,6 +462,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SnoreLessWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "수면 품질 분석을 위해 건강 데이터에 접근합니다.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "수면 중 코골이 데이터를 건강 앱에 기록합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.nicenoodle.snoreless;
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = NO;
@@ -452,6 +484,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "코골이 방지";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "수면 품질 분석을 위해 건강 데이터에 접근합니다.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "수면 중 코골이 데이터를 건강 앱에 기록합니다.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "코골이 감지를 위해 마이크에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

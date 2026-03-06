@@ -23,7 +23,7 @@ class AudioMonitor: ObservableObject {
     private var calibrationSamples: [Double] = []
     private var backgroundNoiseLevel: Double = -60.0  // 기본 배경 소음 (dB)
     private var calibrationTimer: Timer?
-    private let calibrationDuration: TimeInterval = 300  // 5분 = 300초
+    private let calibrationDuration: TimeInterval = 60   // 1분 캘리브레이션
     private let calibrationInterval: TimeInterval = 0.5   // 0.5초마다 샘플
     private var calibrationStartDate: Date?
 
