@@ -13,16 +13,33 @@ struct DashboardView: View {
     )
     private var completedSessions: [SleepSession]
 
+    @Query(sort: \DailyCheckIn.date, order: .reverse)
+    private var checkIns: [DailyCheckIn]
+
     private let analyzer = AIAnalyzer()
+
+    /// Sleep score for the most recent session (computed once per layout pass)
+    private var latestSleepScore: SleepScore? {
+        guard let latest = completedSessions.first else { return nil }
+        return SleepScoreCalculator.calculate(
+            session: latest,
+            recentSessions: Array(completedSessions.prefix(14))
+        )
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
+                    // 수면 점수 히어로
+                    sleepScoreHero
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+
                     // 모닝 브리핑 히어로
                     morningBriefingCard
                         .padding(.horizontal)
-                        .padding(.top, 8)
+                        .padding(.top, 16)
 
                     // AI 한마디
                     aiCommentCard
@@ -33,6 +50,16 @@ struct DashboardView: View {
                     actionButtons
                         .padding(.horizontal)
                         .padding(.top, 16)
+
+                    // 점수 구성 미니 브레이크다운
+                    scoreBreakdownMini
+                        .padding(.horizontal)
+                        .padding(.top, 16)
+
+                    // 패턴 인사이트
+                    patternInsightsCard
+                        .padding(.horizontal)
+                        .padding(.top, 12)
 
                     // 주간 추이 미니 차트
                     weeklyMiniChart
@@ -71,6 +98,186 @@ struct DashboardView: View {
                         )
                 }
             }
+        }
+    }
+
+    // MARK: - Sleep Score Hero
+
+    @ViewBuilder
+    private var sleepScoreHero: some View {
+        if let score = latestSleepScore, let session = completedSessions.first {
+            NavigationLink {
+                SleepScoreView(score: score, session: session)
+            } label: {
+                HStack(spacing: 16) {
+                    // Score circle (mini)
+                    ZStack {
+                        Circle()
+                            .stroke(Color(.systemGray5), lineWidth: 6)
+                            .frame(width: 72, height: 72)
+
+                        Circle()
+                            .trim(from: 0, to: CGFloat(score.total) / 100.0)
+                            .stroke(
+                                LinearGradient(
+                                    colors: gradeColors(for: score.grade),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                style: StrokeStyle(lineWidth: 6, lineCap: .round)
+                            )
+                            .frame(width: 72, height: 72)
+                            .rotationEffect(.degrees(-90))
+
+                        VStack(spacing: 0) {
+                            Text("\(score.total)")
+                                .font(.system(size: 24, weight: .bold, design: .rounded))
+                                .foregroundStyle(.white)
+                            Text(score.grade.rawValue)
+                                .font(.caption2)
+                                .fontWeight(.bold)
+                                .foregroundStyle(gradeColors(for: score.grade).first ?? .cyan)
+                        }
+                    }
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(localized: "수면 점수"))
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundStyle(.gray)
+
+                        Text(score.comment)
+                            .font(.subheadline)
+                            .foregroundStyle(.white.opacity(0.9))
+                            .lineSpacing(3)
+                            .lineLimit(2)
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundStyle(.gray)
+                }
+                .padding(20)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color(.systemGray6).opacity(0.6))
+                )
+            }
+        }
+    }
+
+    // MARK: - Score Breakdown Mini
+
+    @ViewBuilder
+    private var scoreBreakdownMini: some View {
+        if let score = latestSleepScore {
+            VStack(spacing: 12) {
+                HStack {
+                    Text(String(localized: "점수 구성"))
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.gray)
+                    Spacer()
+                }
+
+                HStack(spacing: 12) {
+                    miniScoreItem(label: String(localized: "코골이"), score: score.snoreScore, max: 30, color: .cyan)
+                    miniScoreItem(label: String(localized: "반응"), score: score.responseScore, max: 30, color: .green)
+                    miniScoreItem(label: String(localized: "시간"), score: score.durationScore, max: 25, color: .purple)
+                    miniScoreItem(label: String(localized: "규칙"), score: score.consistencyScore, max: 15, color: .orange)
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.systemGray6).opacity(0.4))
+            )
+        }
+    }
+
+    private func miniScoreItem(label: String, score: Int, max: Int, color: Color) -> some View {
+        VStack(spacing: 6) {
+            ZStack {
+                Circle()
+                    .stroke(Color(.systemGray5), lineWidth: 3)
+                    .frame(width: 40, height: 40)
+
+                Circle()
+                    .trim(from: 0, to: CGFloat(score) / CGFloat(max))
+                    .stroke(color, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    .frame(width: 40, height: 40)
+                    .rotationEffect(.degrees(-90))
+
+                Text("\(score)")
+                    .font(.caption2)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+            }
+
+            Text(label)
+                .font(.caption2)
+                .foregroundStyle(.gray)
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    // MARK: - Pattern Insights Card
+
+    @ViewBuilder
+    private var patternInsightsCard: some View {
+        let insights = PatternAnalyzer.analyze(
+            sessions: Array(completedSessions.prefix(30)),
+            checkIns: Array(checkIns.prefix(30))
+        )
+
+        if !insights.isEmpty {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(spacing: 6) {
+                    Image(systemName: "sparkles")
+                        .foregroundStyle(.cyan)
+                        .font(.caption)
+                    Text(String(localized: "패턴 인사이트"))
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.gray)
+                }
+
+                ForEach(insights.prefix(3)) { insight in
+                    HStack(spacing: 10) {
+                        Image(systemName: insight.icon)
+                            .foregroundStyle(insight.correlation > 0.3 ? .red : .green)
+                            .font(.caption)
+                            .frame(width: 20)
+
+                        Text(insight.description)
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.85))
+
+                        Spacer()
+                    }
+                }
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color.cyan.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14)
+                            .stroke(Color.cyan.opacity(0.12), lineWidth: 1)
+                    )
+            )
+        }
+    }
+
+    private func gradeColors(for grade: SleepGrade) -> [Color] {
+        switch grade {
+        case .excellent: return [.green, .cyan]
+        case .great:     return [.cyan, .blue]
+        case .good:      return [.blue, .purple]
+        case .fair:      return [.orange, .yellow]
+        case .poor:      return [.red, .orange]
         }
     }
 

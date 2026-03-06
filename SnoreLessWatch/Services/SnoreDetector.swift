@@ -3,6 +3,7 @@ import Combine
 
 /// 코골이 판별 로직
 /// 배경 소음 대비 진폭, 지속 시간, 반복 패턴으로 코골이를 감지
+/// ML 분류기의 결과도 수신하여 듀얼 모드 감지 지원
 class SnoreDetector: ObservableObject {
 
     // MARK: - 감지 상태
@@ -13,9 +14,18 @@ class SnoreDetector: ObservableObject {
         case snoring    // 30초 내 3회 이상 반복 — 코골이 확정
     }
 
+    // MARK: - 감지 소스
+    enum DetectionSource: Equatable {
+        case none   // 감지 없음
+        case audio  // dB 기반 감지
+        case ml     // ML 분류기 감지
+        case both   // 양쪽 모두 감지 (높은 신뢰도)
+    }
+
     // MARK: - 공개 상태
     @Published var state: DetectionState = .idle
     @Published var snoreCount: Int = 0
+    @Published var detectionSource: DetectionSource = .none
 
     // MARK: - 콜백
     var onSnoreDetected: ((SnoreEventData) -> Void)?
@@ -162,6 +172,40 @@ class SnoreDetector: ObservableObject {
         recentConfirmations.removeAll()
     }
 
+    // MARK: - ML 결과 처리
+    /// SnoreClassifier에서 호출 — ML이 코골이를 감지했을 때 dB 감지와 병행
+    func processMLResult(isSnoring: Bool, confidence: Double) {
+        let now = Date()
+
+        // 쿨다운 중이면 무시
+        if isInCooldown {
+            if let lastSnore = lastSnoreTime,
+               now.timeIntervalSince(lastSnore) >= cooldownDuration {
+                isInCooldown = false
+                state = .idle
+                detectionSource = .none
+            } else {
+                return
+            }
+        }
+
+        if isSnoring && confidence > 0.5 {
+            // ML이 코골이를 감지 — dB 상태와 결합
+            let currentSource: DetectionSource = (state == .detecting || state == .snoring) ? .both : .ml
+            detectionSource = currentSource
+
+            // ML 감지를 소리 이벤트 확인으로 처리
+            confirmSoundEvent(at: now)
+        } else {
+            // ML이 코골이를 감지하지 않음 — dB 감지가 활성 상태면 audio 소스 유지
+            if state == .detecting || state == .snoring {
+                detectionSource = .audio
+            } else {
+                detectionSource = .none
+            }
+        }
+    }
+
     // MARK: - 현재 코골이 진행 중인지 확인
     /// HapticController에서 에스컬레이션 판단에 사용
     var isCurrentlySnoring: Bool {
@@ -172,6 +216,7 @@ class SnoreDetector: ObservableObject {
     func reset() {
         state = .idle
         snoreCount = 0
+        detectionSource = .none
         detectionStartTime = nil
         recentConfirmations.removeAll()
         lastSnoreTime = nil

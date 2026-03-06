@@ -5,16 +5,18 @@ import Accelerate
 
 /// 마이크 실시간 오디오 모니터링
 /// AVAudioEngine으로 마이크 입력을 받아 RMS -> dB 변환 후 SnoreDetector에 전달
+/// ML 분류기(SoundAnalysis)와 dB 기반 감지를 병행하는 듀얼 모드 지원
 class AudioMonitor: ObservableObject {
     // MARK: - 오디오 엔진
     private var audioEngine = AVAudioEngine()
     private let bufferSize: AVAudioFrameCount = 8192
 
-    // MARK: - 버퍼 스킵 (배터리 최적화: 3개 중 1개만 처리)
+    // MARK: - 버퍼 스킵 (배터리 최적화: dB 처리는 3개 중 1개만)
     private var bufferSkipCount = 0
 
-    // MARK: - 코골이 감지기 & 진동 컨트롤러
+    // MARK: - 코골이 감지기 & ML 분류기 & 진동 컨트롤러
     let snoreDetector: SnoreDetector
+    let snoreClassifier = SnoreClassifier()
     private let hapticController: HapticController
     private let phoneConnector: PhoneConnector
     private let snoreRecorder: SnoreRecorder
@@ -46,7 +48,7 @@ class AudioMonitor: ObservableObject {
         setupSnoreCallback()
     }
 
-    /// 코골이 감지 콜백 연결
+    /// 코골이 감지 콜백 연결 + ML 분류기 결과 구독
     private func setupSnoreCallback() {
         snoreDetector.onSnoreDetected = { [weak self] eventData in
             guard let self = self else { return }
@@ -60,6 +62,16 @@ class AudioMonitor: ObservableObject {
             // 아이폰에 코골이 로그 전송 (비긴급)
             self.phoneConnector.sendSnoreLog(event: eventData)
         }
+
+        // ML 분류기 결과를 SnoreDetector에 전달
+        snoreClassifier.$isSnoring
+            .combineLatest(snoreClassifier.$confidence)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] isSnoring, confidence in
+                guard let self = self, self.snoreClassifier.isAvailable else { return }
+                self.snoreDetector.processMLResult(isSnoring: isSnoring, confidence: confidence)
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - 햅틱 강도 업데이트
@@ -88,9 +100,17 @@ class AudioMonitor: ObservableObject {
         // 기존 탭이 있으면 제거
         inputNode.removeTap(onBus: 0)
 
-        // 오디오 탭 설치 — 3개 버퍼 중 1개만 처리 (배터리 절약)
+        // ML 분류기 시작 (SoundAnalysis — watchOS 10+)
+        snoreClassifier.startAnalysis(format: recordingFormat)
+
+        // 오디오 탭 설치 — ML 분류기에는 모든 버퍼 전달, dB 처리는 3개 중 1개만 (배터리 절약)
         inputNode.installTap(onBus: 0, bufferSize: bufferSize, format: recordingFormat) { [weak self] buffer, _ in
             guard let self = self else { return }
+
+            // ML 분류기에는 모든 버퍼를 전달 (정확도 우선)
+            self.snoreClassifier.analyze(buffer: buffer)
+
+            // dB 기반 감지는 3개 중 1개만 처리 (배터리 절약)
             self.bufferSkipCount += 1
             guard self.bufferSkipCount % 3 == 0 else { return }
             self.processAudioBuffer(buffer)
@@ -118,6 +138,9 @@ class AudioMonitor: ObservableObject {
         // 캘리브레이션 타이머 정리
         calibrationTimer?.invalidate()
         calibrationTimer = nil
+
+        // ML 분류기 정리
+        snoreClassifier.stopAnalysis()
 
         // 오디오 엔진 정리
         audioEngine.inputNode.removeTap(onBus: 0)

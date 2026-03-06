@@ -108,6 +108,9 @@ targets:
         INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp: false
         CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - framework: SoundAnalysis.framework
+        embed: false
     entitlements:
       path: SnoreLessWatch/SnoreLessWatch.entitlements
       properties:
