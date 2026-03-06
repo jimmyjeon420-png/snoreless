@@ -13,14 +13,14 @@ struct CheckInView: View {
 
     var body: some View {
         Form {
-            Section("생활 습관") {
-                Toggle("오후에 커피를 마셨나요?", isOn: $coffeeAfternoon)
-                Toggle("오늘 운동했나요?", isOn: $exercised)
-                Toggle("오늘 술을 마셨나요?", isOn: $alcohol)
+            Section(String(localized: "생활 습관")) {
+                Toggle(String(localized: "오후에 커피를 마셨나요?"), isOn: $coffeeAfternoon)
+                Toggle(String(localized: "오늘 운동했나요?"), isOn: $exercised)
+                Toggle(String(localized: "오늘 술을 마셨나요?"), isOn: $alcohol)
             }
 
-            Section("스트레스") {
-                Picker("오늘의 스트레스 레벨", selection: $stressLevel) {
+            Section(String(localized: "스트레스")) {
+                Picker(String(localized: "오늘의 스트레스 레벨"), selection: $stressLevel) {
                     ForEach(1...5, id: \.self) { level in
                         Text(stressLabel(for: level))
                             .tag(level)
@@ -33,13 +33,13 @@ struct CheckInView: View {
                 Button {
                     saveCheckIn()
                 } label: {
-                    Text("저장")
+                    Text(String(localized: "저장"))
                         .frame(maxWidth: .infinity)
                         .fontWeight(.semibold)
                 }
             }
         }
-        .navigationTitle("오늘의 체크인")
+        .navigationTitle(String(localized: "오늘의 체크인"))
         .navigationBarTitleDisplayMode(.inline)
     }
 

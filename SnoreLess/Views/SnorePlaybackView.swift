@@ -43,7 +43,7 @@ struct SnorePlaybackView: View {
                 .listStyle(.insetGrouped)
             }
         }
-        .navigationTitle("코골이 녹음")
+        .navigationTitle(String(localized: "코골이 녹음"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if !recordings.isEmpty {

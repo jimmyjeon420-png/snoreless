@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		02817082715D86A8E81D87B3 /* WeeklyReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD3EAD85A9FCA0507D342F /* WeeklyReportView.swift */; };
+		11D1EAE17B2EB4FB58B982DD /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1E93CE8991ECE1591F25D95E /* Localizable.xcstrings */; };
 		164BC084F406E0A7FB7D53CC /* MessageKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0AD794EC4A2E027B5F63 /* MessageKeyTests.swift */; };
 		1857F65D7DAB6E1938C2C96B /* WatchConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAC56DBFDD415634C098B87 /* WatchConnector.swift */; };
 		2157025471A8210B78FACBF7 /* SleepTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4790BEA8A07F73549D2E0D75 /* SleepTrackingView.swift */; };
@@ -50,6 +51,7 @@
 		F4424F793B0BDCAD97E84E6C /* PhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076EB809D766A90A5DC1F502 /* PhoneConnector.swift */; };
 		F9EF683069E00B8C572B3913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77E4A2371E5D7BB67507FEC /* ContentView.swift */; };
 		FAEB9C837822C081966B2375 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D40CF4A9ADCC0FA7BD1E54 /* Assets.xcassets */; };
+		FE40F7F43267504209805081 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1E93CE8991ECE1591F25D95E /* Localizable.xcstrings */; };
 		FFBC9DF4138AB772955F78BF /* SessionDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868005705829ABBBA8599A7B /* SessionDataTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +103,7 @@
 		15D40CF4A9ADCC0FA7BD1E54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		15E62139083995A515BED32F /* CommunicationProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationProtocolTests.swift; sourceTree = "<group>"; };
 		1BB43F6B0B285FDABAEB76A5 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		1E93CE8991ECE1591F25D95E /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		2BD072673778B9257D2BBE82 /* PartnerShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerShareView.swift; sourceTree = "<group>"; };
 		362D94D47A34BF0423EC1B5D /* SleepReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepReportView.swift; sourceTree = "<group>"; };
 		36F9E2680C1BC6DB9D3A6C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -293,6 +296,7 @@
 		7989D5EC6BD6C0B43DCCE13E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				1E93CE8991ECE1591F25D95E /* Localizable.xcstrings */,
 				A92CED4DFA7738FD9691EF30 /* SleepModels.swift */,
 				5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */,
 			);
@@ -437,6 +441,8 @@
 			knownRegions = (
 				Base,
 				en,
+				ja,
+				ko,
 			);
 			mainGroup = 662F0AE036EB314D6819C7C7;
 			minimizedProjectReferenceProxies = 1;
@@ -459,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAEB9C837822C081966B2375 /* Assets.xcassets in Resources */,
+				FE40F7F43267504209805081 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +474,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C766DC30DC41796BEE86CCEB /* Assets.xcassets in Resources */,
+				11D1EAE17B2EB4FB58B982DD /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,6 +653,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.9;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
@@ -838,6 +847,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.9;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
@@ -874,7 +884,7 @@
 				4B9FD4D684E5AAD39E9E138D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		99B6F69916DBC8A5B9FAAF48 /* Build configuration list for PBXNativeTarget "SnoreLessWatchTests" */ = {
 			isa = XCConfigurationList;
@@ -883,7 +893,7 @@
 				C21CFD29EB8493B409ED605B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		A8E2BD0A7447D970F3B504D3 /* Build configuration list for PBXNativeTarget "SnoreLessTests" */ = {
 			isa = XCConfigurationList;
@@ -892,7 +902,7 @@
 				6DCB8566EAF71E3830C7E107 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		CE21E2A6D647B700FBC17E95 /* Build configuration list for PBXProject "SnoreLess" */ = {
 			isa = XCConfigurationList;
@@ -901,7 +911,7 @@
 				C2C93925C3248F4B4FC188A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 		E5364C4C71DD9F32899102D4 /* Build configuration list for PBXNativeTarget "SnoreLessWatch" */ = {
 			isa = XCConfigurationList;
@@ -910,7 +920,7 @@
 				29ED1CD9BE9DD633D3634324 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

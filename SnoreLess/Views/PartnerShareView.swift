@@ -40,7 +40,7 @@ struct PartnerShareView: View {
                                 .tint(.black)
                         }
                         Image(systemName: "square.and.arrow.up")
-                        Text(partnerName.isEmpty ? "공유하기" : "\(partnerName)에게 공유하기")
+                        Text(partnerName.isEmpty ? String(localized: "공유하기") : String(localized: "\(partnerName)에게 공유하기"))
                     }
                     .font(.headline)
                     .foregroundStyle(.black)
@@ -55,7 +55,7 @@ struct PartnerShareView: View {
             .padding(.vertical)
         }
         .background(Color.black)
-        .navigationTitle("공유 카드")
+        .navigationTitle(String(localized: "공유 카드"))
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showShareSheet) {
             if let image = shareImage {
@@ -84,18 +84,18 @@ struct PartnerShareView: View {
                 let stoppedCount = session.snoreEvents.filter(\.stoppedAfterHaptic).count
 
                 if session.totalSnoreCount == 0 {
-                    Text("어젯밤은 코를 안 골았어요")
+                    Text(String(localized: "어젯밤은 코를 안 골았어요"))
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
                 } else {
-                    Text("어젯밤 코골이 \(session.totalSnoreCount)회")
+                    Text(String(localized: "어젯밤 코골이 \(session.totalSnoreCount)회"))
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundStyle(.white)
 
                     if stoppedCount > 0 {
-                        Text("진동으로 \(stoppedCount)회 멈췄어요")
+                        Text(String(localized: "진동으로 \(stoppedCount)회 멈췄어요"))
                             .font(.headline)
                             .foregroundStyle(.green)
                     }
@@ -105,7 +105,7 @@ struct PartnerShareView: View {
             // 주간 미니 그래프
             if !weeklySnoreCounts.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("최근 7일")
+                    Text(String(localized: "최근 7일"))
                         .font(.caption)
                         .foregroundStyle(.gray)
 
@@ -188,11 +188,11 @@ struct PartnerShareView: View {
         let thisWeekTotal = weeklySnoreCounts.reduce(0) { $0 + $1.count }
 
         if session.totalSnoreCount == 0 {
-            return "편안한 밤이었어요. 계속 이대로!"
+            return String(localized: "편안한 밤이었어요. 계속 이대로!")
         } else if thisWeekTotal <= 10 {
-            return "점점 나아지고 있어요. 개선 중!"
+            return String(localized: "점점 나아지고 있어요. 개선 중!")
         } else {
-            return "꾸준히 관리하면 좋아질 거예요"
+            return String(localized: "꾸준히 관리하면 좋아질 거예요")
         }
     }
 

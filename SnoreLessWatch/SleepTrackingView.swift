@@ -171,7 +171,7 @@ struct SleepTrackingView: View {
                         Image(systemName: "moon.zzz.fill")
                             .font(.system(size: 28, weight: .medium))
                             .foregroundStyle(.black)
-                        Text("잠들기")
+                        Text(String(localized: "잠들기"))
                             .font(.system(size: 15, weight: .bold))
                             .foregroundStyle(.black)
                     }
@@ -187,7 +187,7 @@ struct SleepTrackingView: View {
                 HStack(spacing: 4) {
                     Image(systemName: "alarm.fill")
                         .font(.system(size: 10))
-                    Text("스마트 알람 \(alarmManager.alarmTimeText)")
+                    Text(String(localized: "스마트 알람 \(alarmManager.alarmTimeText)"))
                         .font(.system(size: 12, weight: .medium))
                 }
                 .foregroundStyle(.white.opacity(0.5))
@@ -229,11 +229,11 @@ struct SleepTrackingView: View {
                     .scaleEffect(0.8)
             }
 
-            Text("소음 측정 중")
+            Text(String(localized: "소음 측정 중"))
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundStyle(.yellow)
 
-            Text("조용히 누워 계세요")
+            Text(String(localized: "조용히 누워 계세요"))
                 .font(.system(size: 12))
                 .foregroundStyle(.white.opacity(0.4))
 
@@ -267,7 +267,7 @@ struct SleepTrackingView: View {
                     Circle()
                         .fill(.orange)
                         .frame(width: 6, height: 6)
-                    Text("코골이 \(audioMonitor.snoreDetector.snoreCount)회")
+                    Text(String(localized: "코골이 \(audioMonitor.snoreDetector.snoreCount)회"))
                         .font(.system(size: 13, weight: .medium))
                         .foregroundStyle(.orange)
                 }
@@ -277,7 +277,7 @@ struct SleepTrackingView: View {
                     Circle()
                         .fill(.green)
                         .frame(width: 6, height: 6)
-                    Text("조용한 수면 중")
+                    Text(String(localized: "조용한 수면 중"))
                         .font(.system(size: 13, weight: .medium))
                         .foregroundStyle(.green.opacity(0.7))
                 }
@@ -327,11 +327,11 @@ struct SleepTrackingView: View {
                 detectedPulseOpacity = 1.0
             }
 
-            Text("코골이 감지")
+            Text(String(localized: "코골이 감지"))
                 .font(.system(size: 16, weight: .bold))
                 .foregroundStyle(.red)
 
-            Text("총 \(audioMonitor.snoreDetector.snoreCount)회")
+            Text(String(localized: "총 \(audioMonitor.snoreDetector.snoreCount)회"))
                 .font(.system(size: 13))
                 .foregroundStyle(.orange)
 
@@ -344,7 +344,7 @@ struct SleepTrackingView: View {
         VStack {
             if showStopConfirm {
                 Button(action: stopTracking) {
-                    Text("수면 종료")
+                    Text(String(localized: "수면 종료"))
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(.red)
                         .frame(maxWidth: .infinity)
@@ -369,7 +369,7 @@ struct SleepTrackingView: View {
                         }
                     }
                 }) {
-                    Text("화면을 터치하면 종료 버튼이 나타나요")
+                    Text(String(localized: "화면을 터치하면 종료 버튼이 나타나요"))
                         .font(.system(size: 10))
                         .foregroundStyle(.white.opacity(0.2))
                 }
@@ -491,9 +491,9 @@ struct SleepTrackingView: View {
         let count = audioMonitor.snoreDetector.snoreCount
         let summary: String
         if count == 0 {
-            summary = "어젯밤 코골이 없이 숙면했어요"
+            summary = String(localized: "어젯밤 코골이 없이 숙면했어요")
         } else {
-            summary = "어젯밤 \(count)회 감지, 진동 후 조용해졌어요"
+            summary = String(localized: "어젯밤 \(count)회 감지, 진동 후 조용해졌어요")
         }
         UserDefaults.standard.set(summary, forKey: "lastNightSummary")
     }

@@ -42,12 +42,12 @@ struct SleepReportView: View {
     // MARK: - 수면 시간
     private var sleepTimeSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("수면 시간")
+            Text(String(localized: "수면 시간"))
                 .font(.headline)
 
             HStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("시작")
+                    Text(String(localized: "시작"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Text(timeFormatter.string(from: session.startTime))
@@ -59,7 +59,7 @@ struct SleepReportView: View {
                     .foregroundStyle(.secondary)
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("종료")
+                    Text(String(localized: "종료"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Text(session.endTime != nil ? timeFormatter.string(from: session.endTime!) : "-")
@@ -70,7 +70,7 @@ struct SleepReportView: View {
                 Spacer()
 
                 VStack(alignment: .trailing, spacing: 4) {
-                    Text("총 시간")
+                    Text(String(localized: "총 시간"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Text(session.durationText)
@@ -87,7 +87,7 @@ struct SleepReportView: View {
     // MARK: - 코골이 요약
     private var snoreSummarySection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("코골이 요약")
+            Text(String(localized: "코골이 요약"))
                 .font(.headline)
 
             HStack(spacing: 24) {
@@ -96,7 +96,7 @@ struct SleepReportView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundStyle(.blue)
-                    Text("횟수")
+                    Text(String(localized: "횟수"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -107,7 +107,7 @@ struct SleepReportView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundStyle(.orange)
-                    Text("총 시간")
+                    Text(String(localized: "총 시간"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -119,7 +119,7 @@ struct SleepReportView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .foregroundStyle(.green)
-                    Text("진동 후 멈춤")
+                    Text(String(localized: "진동 후 멈춤"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -134,11 +134,11 @@ struct SleepReportView: View {
     // MARK: - 코골이 이벤트 타임라인
     private var snoreTimelineSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("코골이 타임라인")
+            Text(String(localized: "코골이 타임라인"))
                 .font(.headline)
 
             if session.snoreEvents.isEmpty {
-                Text("코골이 이벤트가 없습니다")
+                Text(String(localized: "코골이 이벤트가 없습니다"))
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 12)
@@ -155,7 +155,7 @@ struct SleepReportView: View {
                         intensityBadge(intensity: event.intensity)
 
                         // 햅틱 레벨
-                        Text("진동 \(event.hapticLevel)단계")
+                        Text(String(localized: "진동 \(event.hapticLevel)단계"))
                             .font(.caption)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 2)
@@ -191,14 +191,14 @@ struct SleepReportView: View {
     private var checkInSection: some View {
         if let checkIn = session.checkIn {
             VStack(alignment: .leading, spacing: 8) {
-                Text("체크인 정보")
+                Text(String(localized: "체크인 정보"))
                     .font(.headline)
 
                 VStack(spacing: 8) {
-                    checkInRow(icon: "cup.and.saucer.fill", label: "오후 커피", value: checkIn.coffeeAfternoon ? "마심" : "안 마심")
-                    checkInRow(icon: "figure.run", label: "운동", value: checkIn.exercised ? "했음" : "안 했음")
-                    checkInRow(icon: "wineglass.fill", label: "음주", value: checkIn.alcohol ? "마심" : "안 마심")
-                    checkInRow(icon: "brain.head.profile", label: "스트레스", value: "\(checkIn.stressLevel) / 5")
+                    checkInRow(icon: "cup.and.saucer.fill", label: String(localized: "오후 커피"), value: checkIn.coffeeAfternoon ? String(localized: "마심") : String(localized: "안 마심"))
+                    checkInRow(icon: "figure.run", label: String(localized: "운동"), value: checkIn.exercised ? String(localized: "했음") : String(localized: "안 했음"))
+                    checkInRow(icon: "wineglass.fill", label: String(localized: "음주"), value: checkIn.alcohol ? String(localized: "마심") : String(localized: "안 마심"))
+                    checkInRow(icon: "brain.head.profile", label: String(localized: "스트레스"), value: "\(checkIn.stressLevel) / 5")
                 }
             }
             .padding()
@@ -213,13 +213,13 @@ struct SleepReportView: View {
         let color: Color
 
         if intensity < 50 {
-            label = "약"
+            label = String(localized: "약")
             color = .green
         } else if intensity < 70 {
-            label = "중"
+            label = String(localized: "중")
             color = .orange
         } else {
-            label = "강"
+            label = String(localized: "강")
             color = .red
         }
 

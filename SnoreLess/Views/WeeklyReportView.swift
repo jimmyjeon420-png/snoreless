@@ -30,7 +30,7 @@ struct WeeklyReportView: View {
                 }
                 .padding()
             }
-            .navigationTitle("주간 리포트")
+            .navigationTitle(String(localized: "주간 리포트"))
         }
     }
 
@@ -49,11 +49,11 @@ struct WeeklyReportView: View {
     // MARK: - 주간 통계
     private var weeklyStatsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("최근 7일 통계")
+            Text(String(localized: "최근 7일 통계"))
                 .font(.headline)
 
             if recentSessions.isEmpty {
-                Text("이번 주 수면 기록이 없습니다")
+                Text(String(localized: "이번 주 수면 기록이 없습니다"))
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 12)
@@ -68,9 +68,9 @@ struct WeeklyReportView: View {
                     GridItem(.flexible()),
                     GridItem(.flexible())
                 ], spacing: 16) {
-                    statCard(value: "\(recentSessions.count)", label: "기록된 밤")
-                    statCard(value: "\(avgSnores)회", label: "평균 코골이")
-                    statCard(value: "\(avgDurationMinutes)분", label: "평균 코골이 시간")
+                    statCard(value: "\(recentSessions.count)", label: String(localized: "기록된 밤"))
+                    statCard(value: String(localized: "\(avgSnores)회"), label: String(localized: "평균 코골이"))
+                    statCard(value: String(localized: "\(avgDurationMinutes)분"), label: String(localized: "평균 코골이 시간"))
                 }
 
                 // 진동 효과
@@ -80,7 +80,7 @@ struct WeeklyReportView: View {
                 let successRate = totalEvents > 0 ? Int(Double(stoppedCount) / Double(totalEvents) * 100) : 0
 
                 HStack {
-                    Text("진동 후 멈춤 비율")
+                    Text(String(localized: "진동 후 멈춤 비율"))
                     Spacer()
                     Text("\(successRate)% (\(stoppedCount)/\(totalEvents))")
                         .fontWeight(.semibold)
@@ -99,7 +99,7 @@ struct WeeklyReportView: View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Image(systemName: "brain")
-                Text("AI 분석")
+                Text(String(localized: "AI 분석"))
                     .font(.headline)
             }
 
@@ -121,7 +121,7 @@ struct WeeklyReportView: View {
                     Image(systemName: "chart.line.uptrend.xyaxis")
                         .font(.largeTitle)
                         .foregroundStyle(.secondary)
-                    Text("2주 이상 데이터가 쌓이면 AI 분석을 제공합니다")
+                    Text(String(localized: "2주 이상 데이터가 쌓이면 AI 분석을 제공합니다"))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)

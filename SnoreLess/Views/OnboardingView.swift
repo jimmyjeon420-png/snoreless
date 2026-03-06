@@ -50,11 +50,11 @@ struct OnboardingView: View {
             }
 
             VStack(spacing: 12) {
-                Text("같이 자는 사람을 위해")
+                Text(String(localized: "같이 자는 사람을 위해"))
                     .font(.system(size: 28, weight: .bold))
                     .foregroundStyle(.white)
 
-                Text("옆 사람의 잠을 지켜주는\n조용한 코골이 관리")
+                Text(String(localized: "옆 사람의 잠을 지켜주는\n조용한 코골이 관리"))
                     .font(.body)
                     .foregroundStyle(.gray)
                     .multilineTextAlignment(.center)
@@ -68,7 +68,7 @@ struct OnboardingView: View {
                     currentPage = 1
                 }
             } label: {
-                Text("다음")
+                Text(String(localized: "다음"))
                     .font(.headline)
                     .foregroundStyle(.black)
                     .frame(maxWidth: .infinity)
@@ -103,7 +103,7 @@ struct OnboardingView: View {
             }
 
             VStack(spacing: 12) {
-                Text("몇 가지 권한이 필요해요")
+                Text(String(localized: "몇 가지 권한이 필요해요"))
                     .font(.system(size: 28, weight: .bold))
                     .foregroundStyle(.white)
 
@@ -111,22 +111,22 @@ struct OnboardingView: View {
                     permissionRow(
                         icon: "waveform.and.mic",
                         color: .cyan,
-                        title: "마이크 (워치)",
-                        desc: "코골이 소리를 감지합니다"
+                        title: String(localized: "마이크 (워치)"),
+                        desc: String(localized: "코골이 소리를 감지합니다")
                     )
 
                     permissionRow(
                         icon: "heart.fill",
                         color: .green,
-                        title: "건강 데이터",
-                        desc: "수면 패턴과 심박수를 분석합니다"
+                        title: String(localized: "건강 데이터"),
+                        desc: String(localized: "수면 패턴과 심박수를 분석합니다")
                     )
 
                     permissionRow(
                         icon: "bell.fill",
                         color: .orange,
-                        title: "알림",
-                        desc: "아침 리포트를 알려드립니다"
+                        title: String(localized: "알림"),
+                        desc: String(localized: "아침 리포트를 알려드립니다")
                     )
                 }
                 .padding(.horizontal, 24)
@@ -143,7 +143,7 @@ struct OnboardingView: View {
                         ProgressView()
                             .tint(.black)
                     }
-                    Text(isRequestingPermissions ? "설정 중..." : "권한 허용하기")
+                    Text(isRequestingPermissions ? String(localized: "설정 중...") : String(localized: "권한 허용하기"))
                         .font(.headline)
                         .foregroundStyle(.black)
                 }
@@ -180,17 +180,17 @@ struct OnboardingView: View {
             }
 
             VStack(spacing: 12) {
-                Text("준비 완료")
+                Text(String(localized: "준비 완료"))
                     .font(.system(size: 28, weight: .bold))
                     .foregroundStyle(.white)
 
-                Text("잠들기 전, 워치에서\n'수면 시작'을 눌러주세요")
+                Text(String(localized: "잠들기 전, 워치에서\n'수면 시작'을 눌러주세요"))
                     .font(.body)
                     .foregroundStyle(.gray)
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
 
-                Text("코골이를 감지하면 살짝 진동으로\n자세를 바꾸도록 도와드릴게요")
+                Text(String(localized: "코골이를 감지하면 살짝 진동으로\n자세를 바꾸도록 도와드릴게요"))
                     .font(.callout)
                     .foregroundStyle(.gray.opacity(0.7))
                     .multilineTextAlignment(.center)
@@ -205,7 +205,7 @@ struct OnboardingView: View {
                     hasCompletedOnboarding = true
                 }
             } label: {
-                Text("시작하기")
+                Text(String(localized: "시작하기"))
                     .font(.headline)
                     .foregroundStyle(.black)
                     .frame(maxWidth: .infinity)

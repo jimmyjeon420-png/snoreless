@@ -1,0 +1,1098 @@
+{
+  "sourceLanguage" : "ko",
+  "strings" : {
+
+    "홈" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "홈" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Home" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ホーム" } }
+      }
+    },
+    "기록" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "기록" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "History" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "記録" } }
+      }
+    },
+    "설정" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "설정" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "設定" } }
+      }
+    },
+
+    "같이 자는 사람을 위해" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "같이 자는 사람을 위해" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "For those who sleep beside you" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "隣で眠る人のために" } }
+      }
+    },
+    "옆 사람의 잠을 지켜주는\n조용한 코골이 관리" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "옆 사람의 잠을 지켜주는\n조용한 코골이 관리" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quietly managing snoring\nto protect your partner's sleep" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "パートナーの眠りを守る\n静かないびき管理" } }
+      }
+    },
+    "다음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "다음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "次へ" } }
+      }
+    },
+    "몇 가지 권한이 필요해요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "몇 가지 권한이 필요해요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We need a few permissions" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いくつかの権限が必要です" } }
+      }
+    },
+    "마이크 (워치)" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "마이크 (워치)" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Microphone (Watch)" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイク（ウォッチ）" } }
+      }
+    },
+    "코골이 소리를 감지합니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 소리를 감지합니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Detects snoring sounds" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびきの音を検知します" } }
+      }
+    },
+    "건강 데이터" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "건강 데이터" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Health Data" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ヘルスデータ" } }
+      }
+    },
+    "수면 패턴과 심박수를 분석합니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "수면 패턴과 심박수를 분석합니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Analyzes sleep patterns and heart rate" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "睡眠パターンと心拍数を分析します" } }
+      }
+    },
+    "알림" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "알림" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Notifications" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "通知" } }
+      }
+    },
+    "아침 리포트를 알려드립니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "아침 리포트를 알려드립니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delivers your morning sleep report" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "朝のレポートをお届けします" } }
+      }
+    },
+    "설정 중..." : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "설정 중..." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Setting up..." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "設定中..." } }
+      }
+    },
+    "권한 허용하기" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "권한 허용하기" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Allow Permissions" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "権限を許可する" } }
+      }
+    },
+    "준비 완료" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "준비 완료" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All Set" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "準備完了" } }
+      }
+    },
+    "잠들기 전, 워치에서\n'수면 시작'을 눌러주세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "잠들기 전, 워치에서\n'수면 시작'을 눌러주세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Before you sleep, tap\n'Start Sleep' on your Watch" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "おやすみ前に、ウォッチで\n「睡眠開始」をタップしてください" } }
+      }
+    },
+    "코골이를 감지하면 살짝 진동으로\n자세를 바꾸도록 도와드릴게요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이를 감지하면 살짝 진동으로\n자세를 바꾸도록 도와드릴게요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "When snoring is detected, a gentle vibration\nwill help you shift your position" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびきを検知したら、やさしい振動で\n姿勢を変えるお手伝いをします" } }
+      }
+    },
+    "시작하기" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "시작하기" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Get Started" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "はじめる" } }
+      }
+    },
+
+    "어젯밤 리포트" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어젯밤 리포트" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last Night's Report" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "昨夜のレポート" } }
+      }
+    },
+    "코를 안 골았어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코를 안 골았어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No snoring at all" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびきはありませんでした" } }
+      }
+    },
+    "회 골았어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "회 골았어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : " times snored" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "回いびきしました" } }
+      }
+    },
+    "진동 효과" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "진동 효과" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Vibration Effect" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "振動の効果" } }
+      }
+    },
+    "아직 수면 기록이 없어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "아직 수면 기록이 없어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No sleep records yet" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "まだ睡眠記録がありません" } }
+      }
+    },
+    "워치에서 '수면 시작'을 눌러주세요.\n첫 리포트가 여기에 나타납니다." : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치에서 '수면 시작'을 눌러주세요.\n첫 리포트가 여기에 나타납니다." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap 'Start Sleep' on your Watch.\nYour first report will appear here." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチで「睡眠開始」をタップしてください。\n最初のレポートがここに表示されます。" } }
+      }
+    },
+    "Apple Watch에서 수면을 시작해보세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Apple Watch에서 수면을 시작해보세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start sleep tracking on your Apple Watch" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Apple Watchで睡眠を始めましょう" } }
+      }
+    },
+    "워치에서 SnoreLess 앱을 열고 '잠들기'를 눌러주세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치에서 SnoreLess 앱을 열고 '잠들기'를 눌러주세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open SnoreLess on your Watch and tap 'Sleep'" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチでSnoreLessアプリを開き、「おやすみ」をタップしてください" } }
+      }
+    },
+    "공유하기" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "공유하기" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "共有する" } }
+      }
+    },
+    "녹음 듣기" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "녹음 듣기" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Listen" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "録音を聴く" } }
+      }
+    },
+    "최근 7일" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "최근 7일" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last 7 Days" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "直近7日間" } }
+      }
+    },
+    "데이터가 쌓이면 차트가 나타나요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "데이터가 쌓이면 차트가 나타나요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Charts will appear as data builds up" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "データが溜まるとチャートが表示されます" } }
+      }
+    },
+    "오늘의 체크인" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오늘의 체크인" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today's Check-in" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日のチェックイン" } }
+      }
+    },
+    "잠들기 전 컨디션을 기록하세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "잠들기 전 컨디션을 기록하세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Log your condition before bed" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "就寝前のコンディションを記録しましょう" } }
+      }
+    },
+    "주간 리포트" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "주간 리포트" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly Report" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "週間レポート" } }
+      }
+    },
+    "자세한 분석과 AI 인사이트" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "자세한 분석과 AI 인사이트" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Detailed analysis & AI insights" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "詳細な分析とAIインサイト" } }
+      }
+    },
+    "워치 연결됨" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치 연결됨" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Watch Connected" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチ接続済み" } }
+      }
+    },
+    "워치에서 '수면 시작'을 눌러주세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치에서 '수면 시작'을 눌러주세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap 'Start Sleep' on your Watch" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチで「睡眠開始」をタップしてください" } }
+      }
+    },
+    "첫 번째 수면 기록이 완성됐어요. 내일 아침이 기대되네요!" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "첫 번째 수면 기록이 완성됐어요. 내일 아침이 기대되네요!" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your first sleep record is complete. Looking forward to tomorrow morning!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "初めての睡眠記録ができました。明日の朝が楽しみですね！" } }
+      }
+    },
+    "꾸준히 기록하면 패턴을 찾을 수 있어요." : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "꾸준히 기록하면 패턴을 찾을 수 있어요." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Keep tracking and we'll find your patterns." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "続けて記録すると、パターンが見つかりますよ。" } }
+      }
+    },
+
+    "생활 습관" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "생활 습관" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily Habits" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "生活習慣" } }
+      }
+    },
+    "오후에 커피를 마셨나요?" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오후에 커피를 마셨나요?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Had coffee this afternoon?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "午後にコーヒーを飲みましたか？" } }
+      }
+    },
+    "오늘 운동했나요?" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오늘 운동했나요?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Did you exercise today?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日は運動しましたか？" } }
+      }
+    },
+    "오늘 술을 마셨나요?" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오늘 술을 마셨나요?" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Did you drink alcohol today?" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日はお酒を飲みましたか？" } }
+      }
+    },
+    "스트레스" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "스트레스" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stress" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ストレス" } }
+      }
+    },
+    "오늘의 스트레스 레벨" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오늘의 스트레스 레벨" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today's stress level" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今日のストレスレベル" } }
+      }
+    },
+    "저장" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "저장" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "保存" } }
+      }
+    },
+
+    "수면 기록" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "수면 기록" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sleep History" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "睡眠記録" } }
+      }
+    },
+    "아직 기록이 없어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "아직 기록이 없어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No records yet" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "まだ記録がありません" } }
+      }
+    },
+    "워치에서 수면을 기록하면\n여기에 나타납니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치에서 수면을 기록하면\n여기에 나타납니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sleep records from your Watch\nwill appear here" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチで睡眠を記録すると\nここに表示されます" } }
+      }
+    },
+    "조용한 밤" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "조용한 밤" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quiet night" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "静かな夜" } }
+      }
+    },
+    "골았어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "골았어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "snored" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびき" } }
+      }
+    },
+
+    "수면 시간" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "수면 시간" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sleep Duration" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "睡眠時間" } }
+      }
+    },
+    "시작" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "시작" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "開始" } }
+      }
+    },
+    "종료" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "종료" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "End" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "終了" } }
+      }
+    },
+    "총 시간" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "총 시간" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "合計" } }
+      }
+    },
+    "코골이 요약" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 요약" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snoring Summary" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびきの概要" } }
+      }
+    },
+    "횟수" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "횟수" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Count" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "回数" } }
+      }
+    },
+    "진동 후 멈춤" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "진동 후 멈춤" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Stopped" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "振動後に停止" } }
+      }
+    },
+    "코골이 타임라인" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 타임라인" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snoring Timeline" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびきタイムライン" } }
+      }
+    },
+    "코골이 이벤트가 없습니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 이벤트가 없습니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No snoring events" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびきイベントはありません" } }
+      }
+    },
+    "체크인 정보" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "체크인 정보" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Check-in Info" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "チェックイン情報" } }
+      }
+    },
+    "오후 커피" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "오후 커피" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Afternoon Coffee" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "午後のコーヒー" } }
+      }
+    },
+    "마심" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "마심" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Yes" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "飲んだ" } }
+      }
+    },
+    "안 마심" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "안 마심" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "飲まなかった" } }
+      }
+    },
+    "운동" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "운동" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Exercise" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "運動" } }
+      }
+    },
+    "했음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "했음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Yes" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "した" } }
+      }
+    },
+    "안 했음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "안 했음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "しなかった" } }
+      }
+    },
+    "음주" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "음주" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Alcohol" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "飲酒" } }
+      }
+    },
+    "약" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "약" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Low" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "弱" } }
+      }
+    },
+    "중" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "중" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Med" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "中" } }
+      }
+    },
+    "강" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "강" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "High" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "強" } }
+      }
+    },
+
+    "공유 카드" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "공유 카드" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Share Card" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "共有カード" } }
+      }
+    },
+    "어젯밤은 코를 안 골았어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어젯밤은 코를 안 골았어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No snoring last night" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "昨夜はいびきをかきませんでした" } }
+      }
+    },
+    "편안한 밤이었어요. 계속 이대로!" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "편안한 밤이었어요. 계속 이대로!" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "A peaceful night. Keep it up!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "穏やかな夜でした。この調子で！" } }
+      }
+    },
+    "점점 나아지고 있어요. 개선 중!" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "점점 나아지고 있어요. 개선 중!" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Getting better. Progress!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "だんだん良くなっています。改善中！" } }
+      }
+    },
+    "꾸준히 관리하면 좋아질 거예요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "꾸준히 관리하면 좋아질 거예요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Consistent care will make a difference" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "続けていけばきっと良くなりますよ" } }
+      }
+    },
+
+    "코골이 녹음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 녹음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snore Recordings" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびき録音" } }
+      }
+    },
+    "아직 녹음이 없어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "아직 녹음이 없어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No recordings yet" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "まだ録音がありません" } }
+      }
+    },
+    "워치에서 코골이가 녹음되면\n여기에서 들을 수 있어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치에서 코골이가 녹음되면\n여기에서 들을 수 있어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "When snoring is recorded on your Watch,\nyou can listen to it here" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチでいびきが録音されると、\nここで聴くことができます" } }
+      }
+    },
+    "전체 삭제" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "전체 삭제" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete All" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべて削除" } }
+      }
+    },
+    "삭제" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "삭제" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "削除" } }
+      }
+    },
+    "취소" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "취소" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "キャンセル" } }
+      }
+    },
+    "모든 녹음 파일을 삭제합니다. 이 작업은 되돌릴 수 없습니다." : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "모든 녹음 파일을 삭제합니다. 이 작업은 되돌릴 수 없습니다." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All recordings will be deleted. This cannot be undone." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべての録音ファイルを削除します。この操作は元に戻せません。" } }
+      }
+    },
+
+    "파트너" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "파트너" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Partner" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "パートナー" } }
+      }
+    },
+    "이름 입력" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이름 입력" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enter name" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "名前を入力" } }
+      }
+    },
+    "공유 카드에 이름이 표시됩니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "공유 카드에 이름이 표시됩니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Name will appear on share cards" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "共有カードに名前が表示されます" } }
+      }
+    },
+    "스마트 알람" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "스마트 알람" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Smart Alarm" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "スマートアラーム" } }
+      }
+    },
+    "알람 시각" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "알람 시각" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Alarm Time" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アラーム時刻" } }
+      }
+    },
+    "알람" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "알람" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Alarm" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アラーム" } }
+      }
+    },
+    "얕은 수면 구간에서 워치가 깨워줍니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "얕은 수면 구간에서 워치가 깨워줍니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your Watch will wake you during light sleep" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "浅い眠りの時にウォッチが起こしてくれます" } }
+      }
+    },
+    "취침 리마인더" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "취침 리마인더" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bedtime Reminder" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "就寝リマインダー" } }
+      }
+    },
+    "리마인더 시각" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "리마인더 시각" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reminder Time" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "リマインダー時刻" } }
+      }
+    },
+    "매일 알림을 보내드립니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "매일 알림을 보내드립니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "We'll send you a daily reminder" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "毎日お知らせをお送りします" } }
+      }
+    },
+    "아이폰 추가 진동" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "아이폰 추가 진동" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "iPhone Backup Vibration" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "iPhoneの追加振動" } }
+      }
+    },
+    "워치 진동으로 코골이가 멈추지 않으면 아이폰도 진동합니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치 진동으로 코골이가 멈추지 않으면 아이폰도 진동합니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "If Watch vibration doesn't stop snoring, your iPhone will also vibrate" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチの振動でいびきが止まらない場合、iPhoneも振動します" } }
+      }
+    },
+    "감지 감도" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "감지 감도" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Detection Sensitivity" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "検知感度" } }
+      }
+    },
+    "높을수록 작은 소리에도 반응합니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "높을수록 작은 소리에도 반응합니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Higher sensitivity reacts to quieter sounds" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "高いほど小さな音にも反応します" } }
+      }
+    },
+    "진동" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "진동" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Vibration" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "振動" } }
+      }
+    },
+    "낮음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "낮음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Low" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "低い" } }
+      }
+    },
+    "보통" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "보통" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Normal" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "普通" } }
+      }
+    },
+    "높음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "높음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "High" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "高い" } }
+      }
+    },
+    "매우 높음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "매우 높음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Very High" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "非常に高い" } }
+      }
+    },
+    "타이밍" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "타이밍" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Timing" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "タイミング" } }
+      }
+    },
+    "1차 후 대기" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "1차 후 대기" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Wait after 1st" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "1回目の後の待機" } }
+      }
+    },
+    "2차 후 대기" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "2차 후 대기" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Wait after 2nd" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "2回目の後の待機" } }
+      }
+    },
+    "쿨다운" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "쿨다운" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cooldown" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "クールダウン" } }
+      }
+    },
+    "코골이 녹음 저장" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 녹음 저장" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save Snore Recordings" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびき録音を保存" } }
+      }
+    },
+    "녹음 목록" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "녹음 목록" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recordings" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "録音一覧" } }
+      }
+    },
+    "녹음" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "녹음" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Recording" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "録音" } }
+      }
+    },
+    "워치에서 감지된 코골이를 녹음합니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치에서 감지된 코골이를 녹음합니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Records snoring detected on your Watch" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチで検知されたいびきを録音します" } }
+      }
+    },
+    "워치 연결 안 됨" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치 연결 안 됨" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Watch Not Connected" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチ未接続" } }
+      }
+    },
+    "상태" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "상태" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ステータス" } }
+      }
+    },
+    "녹음 파일 삭제" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "녹음 파일 삭제" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete Recordings" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "録音ファイルを削除" } }
+      }
+    },
+    "수면 기록 초기화" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "수면 기록 초기화" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset Sleep Data" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "睡眠記録を初期化" } }
+      }
+    },
+    "초기화" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "초기화" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "初期化" } }
+      }
+    },
+    "데이터 관리" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "데이터 관리" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Data Management" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "データ管理" } }
+      }
+    },
+    "모든 수면 기록과 코골이 이벤트가 삭제됩니다. 이 작업은 되돌릴 수 없습니다." : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "모든 수면 기록과 코골이 이벤트가 삭제됩니다. 이 작업은 되돌릴 수 없습니다." } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All sleep records and snoring events will be deleted. This cannot be undone." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "すべての睡眠記録といびきイベントが削除されます。この操作は元に戻せません。" } }
+      }
+    },
+    "버전" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "버전" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Version" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "バージョン" } }
+      }
+    },
+    "정보" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "정보" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "情報" } }
+      }
+    },
+
+    "최근 7일 통계" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "최근 7일 통계" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Last 7 Days Stats" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "直近7日間の統計" } }
+      }
+    },
+    "이번 주 수면 기록이 없습니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이번 주 수면 기록이 없습니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No sleep records this week" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "今週の睡眠記録はありません" } }
+      }
+    },
+    "기록된 밤" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "기록된 밤" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Nights" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "記録された夜" } }
+      }
+    },
+    "평균 코골이" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "평균 코골이" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Avg Snoring" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "平均いびき" } }
+      }
+    },
+    "평균 코골이 시간" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "평균 코골이 시간" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Avg Snore Time" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "平均いびき時間" } }
+      }
+    },
+    "진동 후 멈춤 비율" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "진동 후 멈춤 비율" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Vibration Stop Rate" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "振動後の停止率" } }
+      }
+    },
+    "AI 분석" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "AI 분석" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AI Analysis" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "AI分析" } }
+      }
+    },
+    "2주 이상 데이터가 쌓이면 AI 분석을 제공합니다" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "2주 이상 데이터가 쌓이면 AI 분석을 제공합니다" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "AI analysis will be available after 2+ weeks of data" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "2週間以上のデータが溜まるとAI分析が利用できます" } }
+      }
+    },
+
+    "잠들기" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "잠들기" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sleep" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "おやすみ" } }
+      }
+    },
+    "소음 측정 중" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "소음 측정 중" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Measuring noise" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "騒音を測定中" } }
+      }
+    },
+    "조용히 누워 계세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "조용히 누워 계세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please lie still quietly" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "静かに横になっていてください" } }
+      }
+    },
+    "조용한 수면 중" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "조용한 수면 중" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sleeping quietly" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "静かに睡眠中" } }
+      }
+    },
+    "코골이 감지" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 감지" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snoring Detected" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびき検知" } }
+      }
+    },
+    "수면 종료" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "수면 종료" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "End Sleep" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "睡眠を終了" } }
+      }
+    },
+    "화면을 터치하면 종료 버튼이 나타나요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "화면을 터치하면 종료 버튼이 나타나요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap screen to show the stop button" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "画面をタッチすると終了ボタンが表示されます" } }
+      }
+    },
+    "마이크 권한 필요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "마이크 권한 필요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Microphone Permission Required" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "マイクの権限が必要です" } }
+      }
+    },
+    "확인" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "확인" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "確認" } }
+      }
+    },
+    "설정에서 마이크 권한을 허용해주세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "설정에서 마이크 권한을 허용해주세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Please allow microphone access in Settings" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "設定でマイクの権限を許可してください" } }
+      }
+    },
+    "어젯밤 코골이 없이 숙면했어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어젯밤 코골이 없이 숙면했어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Slept soundly with no snoring last night" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "昨夜はいびきなしでぐっすり眠れました" } }
+      }
+    },
+
+    "알람 사용" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "알람 사용" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Use Alarm" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アラームを使用" } }
+      }
+    },
+    "시" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "시" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hour" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "時" } }
+      }
+    },
+    "분" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "분" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Min" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "分" } }
+      }
+    },
+    "알람 30분 전부터 얕은 수면을 감지하여 가장 좋은 타이밍에 깨워드려요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "알람 30분 전부터 얕은 수면을 감지하여 가장 좋은 타이밍에 깨워드려요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Detects light sleep 30 min before alarm to wake you at the best moment" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アラーム30分前から浅い眠りを検知して、最適なタイミングで起こします" } }
+      }
+    },
+    "진동 강도" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "진동 강도" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Vibration Intensity" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "振動の強さ" } }
+      }
+    },
+    "강도" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "강도" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Intensity" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "強さ" } }
+      }
+    },
+    "부드러운 진동. 예민한 분에게 추천" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "부드러운 진동. 예민한 분에게 추천" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gentle vibration. Recommended for light sleepers" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "やさしい振動。敏感な方におすすめ" } }
+      }
+    },
+    "기본 강도. 대부분에게 적합" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "기본 강도. 대부분에게 적합" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Default intensity. Works for most people" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "標準の強さ。ほとんどの方に適しています" } }
+      }
+    },
+    "강한 진동. 깊이 주무시는 분에게 추천" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "강한 진동. 깊이 주무시는 분에게 추천" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Strong vibration. Recommended for deep sleepers" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "強い振動。深く眠る方におすすめ" } }
+      }
+    },
+
+    "어젯밤 리포트가 준비됐어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어젯밤 리포트가 준비됐어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your sleep report is ready" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "昨夜のレポートが準備できました" } }
+      }
+    },
+    "어젯밤은 코를 안 골았어요. 편안한 밤이었네요!" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "어젯밤은 코를 안 골았어요. 편안한 밤이었네요!" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No snoring last night. What a peaceful sleep!" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "昨夜はいびきをかきませんでした。穏やかな夜でしたね！" } }
+      }
+    },
+    "코골이 %lld회 감지, 진동으로 %lld회 멈췄어요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "코골이 %lld회 감지, 진동으로 %lld회 멈췄어요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Detected snoring %lld times, stopped %lld times with vibration" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "いびきを%lld回検知、振動で%lld回止まりました" } }
+      }
+    },
+    "곧 잠들 시간이에요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "곧 잠들 시간이에요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "It's almost time to sleep" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "もうすぐおやすみの時間です" } }
+      }
+    },
+    "워치에서 수면 시작을 눌러주세요" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "워치에서 수면 시작을 눌러주세요" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap Start Sleep on your Watch" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ウォッチで睡眠開始をタップしてください" } }
+      }
+    },
+
+    "진행 중" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "진행 중" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "In Progress" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "進行中" } }
+      }
+    },
+    "0회" : {
+      "localizations" : {
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "0회" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "0 times" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "0回" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -22,9 +22,9 @@ struct HistoryView: View {
             Group {
                 if sessions.isEmpty {
                     ContentUnavailableView(
-                        "아직 기록이 없어요",
+                        String(localized: "아직 기록이 없어요"),
                         systemImage: "moon.zzz",
-                        description: Text("워치에서 수면을 기록하면\n여기에 나타납니다")
+                        description: Text(String(localized: "워치에서 수면을 기록하면\n여기에 나타납니다"))
                     )
                 } else {
                     List(sessions) { session in
@@ -38,7 +38,7 @@ struct HistoryView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("수면 기록")
+            .navigationTitle(String(localized: "수면 기록"))
         }
     }
 
@@ -70,7 +70,7 @@ struct HistoryView: View {
 
                     if session.totalSnoreCount > 0 {
                         let stopped = session.snoreEvents.filter(\.stoppedAfterHaptic).count
-                        Text("진동 \(stopped)/\(session.totalSnoreCount) 멈춤")
+                        Text(String(localized: "진동 \(stopped)/\(session.totalSnoreCount) 멈춤"))
                             .font(.caption)
                             .foregroundStyle(.green)
                     }
@@ -81,7 +81,7 @@ struct HistoryView: View {
 
             VStack(alignment: .trailing, spacing: 4) {
                 if session.totalSnoreCount == 0 {
-                    Text("조용한 밤")
+                    Text(String(localized: "조용한 밤"))
                         .font(.caption)
                         .fontWeight(.medium)
                         .foregroundStyle(.green)
@@ -90,7 +90,7 @@ struct HistoryView: View {
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundStyle(.cyan)
-                    Text("골았어요")
+                    Text(String(localized: "골았어요"))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }

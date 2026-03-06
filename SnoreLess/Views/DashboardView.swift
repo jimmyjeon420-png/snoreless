@@ -83,7 +83,7 @@ struct DashboardView: View {
             VStack(spacing: 20) {
                 // 상단 라벨
                 HStack {
-                    Text("어젯밤 리포트")
+                    Text(String(localized: "어젯밤 리포트"))
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundStyle(.gray)
@@ -96,10 +96,10 @@ struct DashboardView: View {
                 // 메인 숫자 - 코골이 횟수
                 VStack(spacing: 6) {
                     if lastSession.totalSnoreCount == 0 {
-                        Text("0회")
+                        Text(String(localized: "0회"))
                             .font(.system(size: 56, weight: .bold, design: .rounded))
                             .foregroundStyle(.green)
-                        Text("코를 안 골았어요")
+                        Text(String(localized: "코를 안 골았어요"))
                             .font(.title3)
                             .foregroundStyle(.white)
                     } else {
@@ -107,7 +107,7 @@ struct DashboardView: View {
                             Text("\(lastSession.totalSnoreCount)")
                                 .font(.system(size: 56, weight: .bold, design: .rounded))
                                 .foregroundStyle(.cyan)
-                            Text("회 골았어요")
+                            Text(String(localized: "회 골았어요"))
                                 .font(.title3)
                                 .foregroundStyle(.white)
                         }
@@ -123,7 +123,7 @@ struct DashboardView: View {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundStyle(.green)
                                     .font(.caption)
-                                Text("진동 후 \(stoppedCount)회 멈춤")
+                                Text(String(localized: "진동 후 \(stoppedCount)회 멈춤"))
                                     .font(.subheadline)
                                     .foregroundStyle(.white)
                             }
@@ -135,7 +135,7 @@ struct DashboardView: View {
                                 Image(systemName: "clock.fill")
                                     .foregroundStyle(.orange)
                                     .font(.caption)
-                                Text("총 \(lastSession.snoreDurationText)")
+                                Text(String(localized: "총 \(lastSession.snoreDurationText)"))
                                     .font(.subheadline)
                                     .foregroundStyle(.white)
                             }
@@ -147,7 +147,7 @@ struct DashboardView: View {
                         let successRate = Double(stoppedCount) / Double(lastSession.totalSnoreCount)
                         VStack(spacing: 6) {
                             HStack {
-                                Text("진동 효과")
+                                Text(String(localized: "진동 효과"))
                                     .font(.caption)
                                     .foregroundStyle(.gray)
                                 Spacer()
@@ -269,7 +269,7 @@ struct DashboardView: View {
                     HStack(spacing: 6) {
                         Image(systemName: "heart.fill")
                             .font(.caption)
-                        Text("공유하기")
+                        Text(String(localized: "공유하기"))
                             .font(.subheadline)
                             .fontWeight(.medium)
                     }
@@ -290,7 +290,7 @@ struct DashboardView: View {
                     HStack(spacing: 6) {
                         Image(systemName: "waveform")
                             .font(.caption)
-                        Text("녹음 듣기")
+                        Text(String(localized: "녹음 듣기"))
                             .font(.subheadline)
                             .fontWeight(.medium)
                     }
@@ -310,13 +310,13 @@ struct DashboardView: View {
     // MARK: - 주간 미니 차트
     private var weeklyMiniChart: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("최근 7일")
+            Text(String(localized: "최근 7일"))
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .foregroundStyle(.gray)
 
             if weeklyData.isEmpty || weeklyData.allSatisfy({ $0.count == 0 }) {
-                Text("데이터가 쌓이면 차트가 나타나요")
+                Text(String(localized: "데이터가 쌓이면 차트가 나타나요"))
                     .font(.caption)
                     .foregroundStyle(.gray.opacity(0.6))
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -369,11 +369,11 @@ struct DashboardView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("오늘의 체크인")
+                    Text(String(localized: "오늘의 체크인"))
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundStyle(.white)
-                    Text("잠들기 전 컨디션을 기록하세요")
+                    Text(String(localized: "잠들기 전 컨디션을 기록하세요"))
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
@@ -408,11 +408,11 @@ struct DashboardView: View {
                 }
 
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("주간 리포트")
+                    Text(String(localized: "주간 리포트"))
                         .font(.subheadline)
                         .fontWeight(.medium)
                         .foregroundStyle(.white)
-                    Text("자세한 분석과 AI 인사이트")
+                    Text(String(localized: "자세한 분석과 AI 인사이트"))
                         .font(.caption)
                         .foregroundStyle(.gray)
                 }
@@ -441,8 +441,8 @@ struct DashboardView: View {
                 .foregroundStyle(watchConnector.isWatchReachable ? .green : .gray)
 
             Text(watchConnector.isWatchReachable
-                 ? "워치 연결됨"
-                 : "워치에서 '수면 시작'을 눌러주세요")
+                 ? String(localized: "워치 연결됨")
+                 : String(localized: "워치에서 '수면 시작'을 눌러주세요"))
                 .font(.caption)
                 .foregroundStyle(.gray.opacity(0.6))
         }
@@ -460,7 +460,7 @@ struct DashboardView: View {
     private func generateAIComment() -> String {
         guard completedSessions.count >= 2 else {
             if completedSessions.count == 1 {
-                return "첫 번째 수면 기록이 완성됐어요. 내일 아침이 기대되네요!"
+                return String(localized: "첫 번째 수면 기록이 완성됐어요. 내일 아침이 기대되네요!")
             }
             return ""
         }
@@ -483,28 +483,28 @@ struct DashboardView: View {
             if lastWeekAvg > 0 {
                 let changePercent = Int(((lastWeekAvg - thisWeekAvg) / lastWeekAvg) * 100)
                 if changePercent > 0 {
-                    return "지난주보다 코골이가 \(changePercent)% 줄었어요. 좋은 변화예요!"
+                    return String(localized: "지난주보다 코골이가 \(changePercent)% 줄었어요. 좋은 변화예요!")
                 } else if changePercent < -10 {
-                    return "지난주보다 코골이가 조금 늘었어요. 오늘 체크인을 기록해보세요."
+                    return String(localized: "지난주보다 코골이가 조금 늘었어요. 오늘 체크인을 기록해보세요.")
                 }
             }
         }
 
         // 어젯밤 vs 그 전날 비교
         if latest.totalSnoreCount < previous.totalSnoreCount {
-            return "어젯밤은 전날보다 코골이가 줄었어요. 잘하고 있어요!"
+            return String(localized: "어젯밤은 전날보다 코골이가 줄었어요. 잘하고 있어요!")
         } else if latest.totalSnoreCount == 0 {
-            return "어젯밤은 코를 안 골았어요. 편안한 밤이었네요."
+            return String(localized: "어젯밤은 코를 안 골았어요. 편안한 밤이었네요.")
         } else {
             let stoppedRate = latest.totalSnoreCount > 0
                 ? Double(latest.snoreEvents.filter(\.stoppedAfterHaptic).count) / Double(latest.totalSnoreCount) * 100
                 : 0
             if stoppedRate >= 60 {
-                return "진동 효과가 잘 작동하고 있어요. \(Int(stoppedRate))%나 멈췄어요!"
+                return String(localized: "진동 효과가 잘 작동하고 있어요. \(Int(stoppedRate))%나 멈췄어요!")
             }
         }
 
-        return "꾸준히 기록하면 패턴을 찾을 수 있어요."
+        return String(localized: "꾸준히 기록하면 패턴을 찾을 수 있어요.")
     }
 
     // MARK: - 주간 데이터

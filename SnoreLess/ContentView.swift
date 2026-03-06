@@ -16,17 +16,17 @@ struct ContentView: View {
         TabView {
             DashboardView()
                 .tabItem {
-                    Label("홈", systemImage: "house.fill")
+                    Label(String(localized: "홈"), systemImage: "house.fill")
                 }
 
             HistoryView()
                 .tabItem {
-                    Label("기록", systemImage: "clock.fill")
+                    Label(String(localized: "기록"), systemImage: "clock.fill")
                 }
 
             SettingsView()
                 .tabItem {
-                    Label("설정", systemImage: "gearshape.fill")
+                    Label(String(localized: "설정"), systemImage: "gearshape.fill")
                 }
         }
         .tint(.cyan)
