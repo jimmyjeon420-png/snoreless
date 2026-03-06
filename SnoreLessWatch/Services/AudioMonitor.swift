@@ -63,6 +63,14 @@ class AudioMonitor: ObservableObject {
             self.phoneConnector.sendSnoreLog(event: eventData)
         }
 
+        // ML 분류기 available 상태를 SnoreDetector에 전달
+        snoreClassifier.$isAvailable
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] available in
+                self?.snoreDetector.isMLAvailable = available
+            }
+            .store(in: &cancellables)
+
         // ML 분류기 결과를 SnoreDetector에 전달
         snoreClassifier.$isSnoring
             .combineLatest(snoreClassifier.$confidence)

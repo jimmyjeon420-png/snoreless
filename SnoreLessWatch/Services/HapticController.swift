@@ -126,37 +126,33 @@ class HapticController {
 
     // MARK: - 햅틱 재생
 
-    /// 1차: 약한 진동 (click)
+    /// 1차: 연속 진동 (click) — 확실히 느끼도록 반복
     private func playFirstHaptic() {
+        let count: Int
+        let interval: Double
         switch hapticIntensity {
-        case .light:
-            hapticEngine.playHaptic(.click)
-        case .medium:
-            hapticEngine.playHaptic(.click)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [hapticEngine] in
-                hapticEngine.playHaptic(.click)
-            }
-        case .strong:
-            hapticEngine.playHaptic(.click)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [hapticEngine] in
-                hapticEngine.playHaptic(.click)
-            }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [hapticEngine] in
+        case .light:  count = 5;  interval = 0.4
+        case .medium: count = 8;  interval = 0.3
+        case .strong: count = 12; interval = 0.25
+        }
+        for i in 0..<count {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * interval) { [hapticEngine] in
                 hapticEngine.playHaptic(.click)
             }
         }
     }
 
-    /// 2차: 강한 진동 (notification) — 강도별 반복 횟수 조절
+    /// 2차: 강한 연속 진동 (notification) — 못 무시하게
     private func playSecondHaptic() {
-        let repeatCount: Int
+        let count: Int
+        let interval: Double
         switch hapticIntensity {
-        case .light: repeatCount = 1
-        case .medium: repeatCount = 3
-        case .strong: repeatCount = 5
+        case .light:  count = 5;  interval = 0.4
+        case .medium: count = 10; interval = 0.3
+        case .strong: count = 15; interval = 0.2
         }
-        for i in 0..<repeatCount {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) { [hapticEngine] in
+        for i in 0..<count {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * interval) { [hapticEngine] in
                 hapticEngine.playHaptic(.notification)
             }
         }

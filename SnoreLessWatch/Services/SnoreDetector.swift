@@ -33,6 +33,14 @@ class SnoreDetector: ObservableObject {
     // MARK: - 배경 소음 기준
     var backgroundNoiseLevel: Double = -60.0
 
+    // MARK: - ML 분류기 상태
+    /// ML 분류기가 활성화되어 있으면 true — dB 단독 감지를 차단
+    var isMLAvailable = false
+    /// ML이 최근에 "snoring"이라고 판정했는지 (1.5초 윈도우)
+    private var mlConfirmedSnoring = false
+    private var mlLastConfirmTime: Date?
+    private let mlConfirmWindow: TimeInterval = 3.0  // ML 확인 유효 시간
+
     // MARK: - 감지 설정 (init으로 주입 가능 — 테스트용)
     private var thresholdAboveBackground: Double
     private var minDuration: TimeInterval
@@ -103,7 +111,19 @@ class SnoreDetector: ObservableObject {
             if !isLoud {
                 // 소리가 멈춤 — 최소 지속 시간 충족 여부 확인
                 if duration >= minDuration {
-                    confirmSoundEvent(at: now)
+                    // ML이 활성화되어 있으면: ML이 "snoring"이라고 한 경우에만 확정
+                    if isMLAvailable {
+                        if isMLConfirmedRecently(at: now) {
+                            confirmSoundEvent(at: now)
+                        } else {
+                            // ML이 코골이로 판정하지 않음 → 무시 (말소리, 뒤척임 등)
+                            state = .idle
+                            detectionStartTime = nil
+                        }
+                    } else {
+                        // ML 미사용 시: 기존 dB 기반 감지 유지 (fallback)
+                        confirmSoundEvent(at: now)
+                    }
                 } else {
                     // 너무 짧은 소리 — 무시
                     state = .idle
@@ -172,8 +192,14 @@ class SnoreDetector: ObservableObject {
         recentConfirmations.removeAll()
     }
 
+    // MARK: - ML 확인 윈도우 체크
+    private func isMLConfirmedRecently(at time: Date) -> Bool {
+        guard mlConfirmedSnoring, let lastTime = mlLastConfirmTime else { return false }
+        return time.timeIntervalSince(lastTime) <= mlConfirmWindow
+    }
+
     // MARK: - ML 결과 처리
-    /// SnoreClassifier에서 호출 — ML이 코골이를 감지했을 때 dB 감지와 병행
+    /// SnoreClassifier에서 호출 — ML이 코골이를 감지했을 때 플래그 세팅 + 보조 확정
     func processMLResult(isSnoring: Bool, confidence: Double) {
         let now = Date()
 
@@ -190,14 +216,24 @@ class SnoreDetector: ObservableObject {
         }
 
         if isSnoring && confidence > 0.5 {
-            // ML이 코골이를 감지 — dB 상태와 결합
-            let currentSource: DetectionSource = (state == .detecting || state == .snoring) ? .both : .ml
+            // ML이 코골이로 판정 — 플래그 세팅
+            mlConfirmedSnoring = true
+            mlLastConfirmTime = now
+
+            let currentSource: DetectionSource = (state == .detecting) ? .both : .ml
             detectionSource = currentSource
 
-            // ML 감지를 소리 이벤트 확인으로 처리
-            confirmSoundEvent(at: now)
+            // dB도 이미 detecting 상태이면 바로 확정
+            if state == .detecting {
+                if let startTime = detectionStartTime,
+                   now.timeIntervalSince(startTime) >= minDuration {
+                    confirmSoundEvent(at: now)
+                }
+            }
         } else {
-            // ML이 코골이를 감지하지 않음 — dB 감지가 활성 상태면 audio 소스 유지
+            // ML이 코골이 아님 → 플래그 해제
+            mlConfirmedSnoring = false
+
             if state == .detecting || state == .snoring {
                 detectionSource = .audio
             } else {
@@ -222,5 +258,7 @@ class SnoreDetector: ObservableObject {
         lastSnoreTime = nil
         isInCooldown = false
         eventLog.removeAll()
+        mlConfirmedSnoring = false
+        mlLastConfirmTime = nil
     }
 }
