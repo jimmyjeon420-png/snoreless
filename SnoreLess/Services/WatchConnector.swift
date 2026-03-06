@@ -221,7 +221,7 @@ extension WatchConnector: WCSessionDelegate {
         saveRecordingFile(file.fileURL, metadata: metadata)
     }
 
-    /// dict에서 SleepSessionData 디코딩 후 저장
+    /// dict에서 SleepSessionData 디코딩 후 저장 (방어적 검증 포함)
     private func decodeAndSaveSession(from userInfo: [String: Any]) {
         var dict = userInfo
         dict.removeValue(forKey: SnoreMessageKey.sessionEnded)
@@ -230,6 +230,25 @@ extension WatchConnector: WCSessionDelegate {
               let sessionData = try? JSONDecoder().decode(SleepSessionData.self, from: data) else {
             print("[WatchConnector] 세션 데이터 디코딩 실패")
             return
+        }
+
+        // 방어적 검증: startTime이 미래인지 확인
+        let now = Date()
+        if sessionData.startTime > now {
+            print("[WatchConnector] ⚠️ 경고: startTime(\(sessionData.startTime))이 현재 시간보다 미래입니다. 데이터가 의심스럽지만 저장합니다.")
+        }
+
+        // 방어적 검증: endTime이 startTime 이전인지 확인
+        if let endTime = sessionData.endTime, endTime < sessionData.startTime {
+            print("[WatchConnector] ⚠️ 경고: endTime(\(endTime))이 startTime(\(sessionData.startTime)) 이전입니다.")
+        }
+
+        // 방어적 검증: 코골이 이벤트 타임스탬프가 세션 범위 내인지
+        let sessionEnd = sessionData.endTime ?? now
+        for (index, event) in sessionData.snoreEvents.enumerated() {
+            if event.timestamp < sessionData.startTime || event.timestamp > sessionEnd {
+                print("[WatchConnector] ⚠️ 경고: 이벤트[\(index)] 타임스탬프(\(event.timestamp))가 세션 범위 밖입니다 [\(sessionData.startTime) ~ \(sessionEnd)]")
+            }
         }
 
         DispatchQueue.main.async {

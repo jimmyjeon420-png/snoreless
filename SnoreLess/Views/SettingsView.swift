@@ -1,6 +1,8 @@
 import SwiftUI
+import SwiftData
 
 struct SettingsView: View {
+    @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var watchConnector: WatchConnector
 
     // 진동 설정
@@ -28,6 +30,9 @@ struct SettingsView: View {
 
     @State private var smartAlarmDate: Date = .now
     @State private var bedtimeDate: Date = .now
+    @State private var showDeleteRecordingsAlert = false
+    @State private var showResetSessionsAlert = false
+    @State private var recordingStorageSize: String = "0 KB"
 
     var body: some View {
         NavigationStack {
@@ -221,6 +226,51 @@ struct SettingsView: View {
                     Text("상태")
                 }
 
+                // 데이터 관리
+                Section {
+                    HStack {
+                        Image(systemName: "waveform.circle")
+                            .foregroundStyle(.red)
+                            .frame(width: 24)
+                        Button(String(localized: "녹음 파일 삭제")) {
+                            showDeleteRecordingsAlert = true
+                        }
+                        .foregroundStyle(.red)
+                        Spacer()
+                        Text(recordingStorageSize)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    HStack {
+                        Image(systemName: "trash.circle")
+                            .foregroundStyle(.red)
+                            .frame(width: 24)
+                        Button(String(localized: "수면 기록 초기화")) {
+                            showResetSessionsAlert = true
+                        }
+                        .foregroundStyle(.red)
+                    }
+                } header: {
+                    Text(String(localized: "데이터 관리"))
+                }
+                .alert(String(localized: "녹음 파일 삭제"), isPresented: $showDeleteRecordingsAlert) {
+                    Button(String(localized: "삭제"), role: .destructive) {
+                        deleteAllRecordings()
+                    }
+                    Button(String(localized: "취소"), role: .cancel) {}
+                } message: {
+                    Text(String(localized: "모든 녹음 파일을 삭제합니다. 이 작업은 되돌릴 수 없습니다."))
+                }
+                .alert(String(localized: "수면 기록 초기화"), isPresented: $showResetSessionsAlert) {
+                    Button(String(localized: "초기화"), role: .destructive) {
+                        deleteAllSessions()
+                    }
+                    Button(String(localized: "취소"), role: .cancel) {}
+                } message: {
+                    Text(String(localized: "모든 수면 기록과 코골이 이벤트가 삭제됩니다. 이 작업은 되돌릴 수 없습니다."))
+                }
+
                 // 정보
                 Section {
                     HStack {
@@ -236,6 +286,7 @@ struct SettingsView: View {
             .navigationTitle("설정")
             .onAppear {
                 initializeDatePickers()
+                calculateRecordingStorageSize()
             }
             .onChange(of: iPhoneEscalation) { _, _ in syncSettingsToWatch() }
             .onChange(of: sensitivity) { _, _ in syncSettingsToWatch() }
@@ -314,6 +365,70 @@ struct SettingsView: View {
             hour: bedtimeReminderHour,
             minute: bedtimeReminderMinute
         )
+    }
+
+    // MARK: - 녹음 파일 전체 삭제
+    private func deleteAllRecordings() {
+        let recordingsDir = SnorePlaybackView.recordingsDirectory
+        guard FileManager.default.fileExists(atPath: recordingsDir.path) else { return }
+
+        do {
+            let files = try FileManager.default.contentsOfDirectory(
+                at: recordingsDir,
+                includingPropertiesForKeys: nil,
+                options: .skipsHiddenFiles
+            )
+            for file in files {
+                try FileManager.default.removeItem(at: file)
+            }
+            print("[Settings] 녹음 파일 전체 삭제 완료: \(files.count)개")
+        } catch {
+            print("[Settings] 녹음 파일 삭제 실패: \(error)")
+        }
+        calculateRecordingStorageSize()
+    }
+
+    // MARK: - 수면 기록 전체 삭제
+    private func deleteAllSessions() {
+        do {
+            try modelContext.delete(model: SnoreEvent.self)
+            try modelContext.delete(model: SleepSession.self)
+            try modelContext.save()
+            print("[Settings] 수면 기록 전체 초기화 완료")
+        } catch {
+            print("[Settings] 수면 기록 초기화 실패: \(error)")
+        }
+    }
+
+    // MARK: - 녹음 저장 용량 계산
+    private func calculateRecordingStorageSize() {
+        let recordingsDir = SnorePlaybackView.recordingsDirectory
+        guard FileManager.default.fileExists(atPath: recordingsDir.path) else {
+            recordingStorageSize = "0 KB"
+            return
+        }
+
+        var totalSize: Int64 = 0
+        do {
+            let files = try FileManager.default.contentsOfDirectory(
+                at: recordingsDir,
+                includingPropertiesForKeys: [.fileSizeKey],
+                options: .skipsHiddenFiles
+            )
+            for file in files {
+                let values = try file.resourceValues(forKeys: [.fileSizeKey])
+                totalSize += Int64(values.fileSize ?? 0)
+            }
+        } catch {
+            print("[Settings] 용량 계산 실패: \(error)")
+        }
+
+        let kb = Double(totalSize) / 1024.0
+        if kb < 1024 {
+            recordingStorageSize = String(format: "%.0f KB", kb)
+        } else {
+            recordingStorageSize = String(format: "%.1f MB", kb / 1024.0)
+        }
     }
 }
 

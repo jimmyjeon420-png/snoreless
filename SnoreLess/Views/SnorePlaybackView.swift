@@ -23,13 +23,15 @@ struct SnorePlaybackView: View {
         return f
     }()
 
+    @State private var showDeleteAllConfirmation = false
+
     var body: some View {
         Group {
             if recordings.isEmpty {
                 ContentUnavailableView(
-                    "녹음이 없습니다",
-                    systemImage: "waveform.slash",
-                    description: Text("워치에서 코골이가 녹음되면\n여기에서 들을 수 있어요")
+                    String(localized: "아직 녹음이 없어요"),
+                    systemImage: "moon.zzz",
+                    description: Text(String(localized: "워치에서 코골이가 녹음되면\n여기에서 들을 수 있어요"))
                 )
             } else {
                 List {
@@ -43,7 +45,30 @@ struct SnorePlaybackView: View {
         }
         .navigationTitle("코골이 녹음")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear { loadRecordings() }
+        .toolbar {
+            if !recordings.isEmpty {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(role: .destructive) {
+                        showDeleteAllConfirmation = true
+                    } label: {
+                        Text(String(localized: "전체 삭제"))
+                            .font(.subheadline)
+                    }
+                }
+            }
+        }
+        .alert(String(localized: "전체 삭제"), isPresented: $showDeleteAllConfirmation) {
+            Button(String(localized: "삭제"), role: .destructive) {
+                deleteAllRecordings()
+            }
+            Button(String(localized: "취소"), role: .cancel) {}
+        } message: {
+            Text(String(localized: "모든 녹음 파일을 삭제합니다. 이 작업은 되돌릴 수 없습니다."))
+        }
+        .onAppear {
+            cleanupOldRecordings()
+            loadRecordings()
+        }
         .onDisappear { stopPlayback() }
     }
 
@@ -211,6 +236,45 @@ struct SnorePlaybackView: View {
             try? FileManager.default.removeItem(at: recording.url)
         }
         recordings.remove(atOffsets: offsets)
+    }
+
+    // MARK: - 전체 삭제
+    private func deleteAllRecordings() {
+        stopPlayback()
+        for recording in recordings {
+            try? FileManager.default.removeItem(at: recording.url)
+        }
+        recordings.removeAll()
+    }
+
+    // MARK: - 30일 이상 녹음 자동 정리
+    private func cleanupOldRecordings() {
+        let recordingsDir = Self.recordingsDirectory
+        guard FileManager.default.fileExists(atPath: recordingsDir.path) else { return }
+
+        let cutoffDate = Calendar.current.date(byAdding: .day, value: -30, to: Date()) ?? Date()
+        var deletedCount = 0
+
+        do {
+            let files = try FileManager.default.contentsOfDirectory(
+                at: recordingsDir,
+                includingPropertiesForKeys: [.creationDateKey],
+                options: .skipsHiddenFiles
+            )
+            for file in files {
+                let values = try? file.resourceValues(forKeys: [.creationDateKey])
+                if let creationDate = values?.creationDate, creationDate < cutoffDate {
+                    try? FileManager.default.removeItem(at: file)
+                    deletedCount += 1
+                }
+            }
+        } catch {
+            print("[Playback] 자동 정리 실패: \(error)")
+        }
+
+        if deletedCount > 0 {
+            print("[Playback] 30일 이상 녹음 \(deletedCount)개 자동 삭제")
+        }
     }
 
     // MARK: - 녹음 디렉토리

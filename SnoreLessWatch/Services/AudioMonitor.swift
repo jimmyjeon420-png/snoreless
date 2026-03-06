@@ -1,13 +1,17 @@
 import AVFoundation
 import WatchKit
 import Combine
+import Accelerate
 
 /// 마이크 실시간 오디오 모니터링
 /// AVAudioEngine으로 마이크 입력을 받아 RMS -> dB 변환 후 SnoreDetector에 전달
 class AudioMonitor: ObservableObject {
     // MARK: - 오디오 엔진
     private var audioEngine = AVAudioEngine()
-    private let bufferSize: AVAudioFrameCount = 4096
+    private let bufferSize: AVAudioFrameCount = 8192
+
+    // MARK: - 버퍼 스킵 (배터리 최적화: 3개 중 1개만 처리)
+    private var bufferSkipCount = 0
 
     // MARK: - 코골이 감지기 & 진동 컨트롤러
     let snoreDetector: SnoreDetector
@@ -84,9 +88,12 @@ class AudioMonitor: ObservableObject {
         // 기존 탭이 있으면 제거
         inputNode.removeTap(onBus: 0)
 
-        // 오디오 탭 설치 — 버퍼 수신 시마다 RMS 계산
+        // 오디오 탭 설치 — 3개 버퍼 중 1개만 처리 (배터리 절약)
         inputNode.installTap(onBus: 0, bufferSize: bufferSize, format: recordingFormat) { [weak self] buffer, _ in
-            self?.processAudioBuffer(buffer)
+            guard let self = self else { return }
+            self.bufferSkipCount += 1
+            guard self.bufferSkipCount % 3 == 0 else { return }
+            self.processAudioBuffer(buffer)
         }
 
         // 엔진 시작
@@ -146,6 +153,7 @@ class AudioMonitor: ObservableObject {
         calibrationSamples.removeAll()
         backgroundNoiseLevel = -60.0
         sessionStartDate = nil
+        bufferSkipCount = 0
     }
 
     // MARK: - 오디오 버퍼 처리
@@ -155,13 +163,9 @@ class AudioMonitor: ObservableObject {
         let frames = buffer.frameLength
         let data = channelData[0]
 
-        // RMS (Root Mean Square) 계산
-        var sum: Float = 0
-        for i in 0..<Int(frames) {
-            let sample = data[i]
-            sum += sample * sample
-        }
-        let rms = sqrt(sum / Float(frames))
+        // RMS (Root Mean Square) 계산 — vDSP 벡터 연산으로 배터리 최적화
+        var rms: Float = 0
+        vDSP_rmsqv(data, 1, &rms, vDSP_Length(frames))
 
         // dB 변환 (무음 방지를 위해 최솟값 설정)
         let db: Double

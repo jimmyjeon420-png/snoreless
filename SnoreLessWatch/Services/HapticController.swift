@@ -1,6 +1,18 @@
 import WatchKit
 import Foundation
 
+/// 햅틱 엔진 프로토콜 — 테스트 시 MockHapticEngine 주입 가능
+protocol HapticEngine {
+    func playHaptic(_ type: WKHapticType)
+}
+
+/// 실제 디바이스 햅틱 엔진 구현
+struct DeviceHapticEngine: HapticEngine {
+    func playHaptic(_ type: WKHapticType) {
+        WKInterfaceDevice.current().play(type)
+    }
+}
+
 /// 3단계 에스컬레이션 햅틱 컨트롤러
 /// 코골이 확정 시 단계별로 강도를 높여 사용자를 깨움
 class HapticController {
@@ -17,12 +29,20 @@ class HapticController {
     private let secondWaitDuration: TimeInterval = 10.0  // 2차 후 대기
     private let finalCooldown: TimeInterval = 30.0       // 최종 쿨다운
 
+    // MARK: - 햅틱 엔진 (테스트 시 주입 가능)
+    private let hapticEngine: HapticEngine
+
     // MARK: - 내부 상태
     private var currentLevel: EscalationLevel = .first
     private var escalationTimer: Timer?
     private var isEscalating = false
     private var settings = AppSettings()
     private var hapticIntensity: HapticIntensity = .medium
+
+    // MARK: - 초기화
+    init(hapticEngine: HapticEngine = DeviceHapticEngine()) {
+        self.hapticEngine = hapticEngine
+    }
 
     // MARK: - 에스컬레이션 트리거
     /// 코골이 감지 시 호출 — 3단계 에스컬레이션 시작
@@ -108,29 +128,27 @@ class HapticController {
 
     /// 1차: 약한 진동 (click)
     private func playFirstHaptic() {
-        let device = WKInterfaceDevice.current()
         switch hapticIntensity {
         case .light:
-            device.play(.click)
+            hapticEngine.playHaptic(.click)
         case .medium:
-            device.play(.click)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                device.play(.click)
+            hapticEngine.playHaptic(.click)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [hapticEngine] in
+                hapticEngine.playHaptic(.click)
             }
         case .strong:
-            device.play(.click)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                device.play(.click)
+            hapticEngine.playHaptic(.click)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [hapticEngine] in
+                hapticEngine.playHaptic(.click)
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-                device.play(.click)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [hapticEngine] in
+                hapticEngine.playHaptic(.click)
             }
         }
     }
 
     /// 2차: 강한 진동 (notification) — 강도별 반복 횟수 조절
     private func playSecondHaptic() {
-        let device = WKInterfaceDevice.current()
         let repeatCount: Int
         switch hapticIntensity {
         case .light: repeatCount = 1
@@ -138,8 +156,8 @@ class HapticController {
         case .strong: repeatCount = 5
         }
         for i in 0..<repeatCount {
-            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) {
-                device.play(.notification)
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.3) { [hapticEngine] in
+                hapticEngine.playHaptic(.notification)
             }
         }
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 struct SleepTrackingView: View {
     // MARK: - 상태 관리
@@ -13,6 +14,11 @@ struct SleepTrackingView: View {
     @State private var hapticIntensity: HapticIntensity = HapticIntensity(
         rawValue: UserDefaults.standard.integer(forKey: "hapticIntensity")
     ) ?? .medium
+    @State private var showMicPermissionAlert = false
+
+    // MARK: - 세션 복구용 UserDefaults 키
+    private let kSessionStartDate = "sleepTracking.sessionStartDate"
+    private let kWasMonitoring = "sleepTracking.wasMonitoring"
 
     // MARK: - 어젯밤 요약 (UserDefaults 간이 저장)
     @State private var lastNightSummary: String? = nil
@@ -91,6 +97,15 @@ struct SleepTrackingView: View {
         }
         .onAppear {
             loadLastNightSummary()
+            restoreSessionIfNeeded()
+        }
+        .alert(
+            String(localized: "마이크 권한 필요"),
+            isPresented: $showMicPermissionAlert
+        ) {
+            Button(String(localized: "확인"), role: .cancel) { }
+        } message: {
+            Text(String(localized: "설정에서 마이크 권한을 허용해주세요"))
         }
     }
 
@@ -385,9 +400,41 @@ struct SleepTrackingView: View {
 
     // MARK: - 수면 시작
     private func startTracking() {
-        sessionStartDate = Date()
+        // 마이크 권한 확인
+        let permission = AVAudioApplication.shared.recordPermission
+        switch permission {
+        case .denied:
+            showMicPermissionAlert = true
+            return
+        case .undetermined:
+            AVAudioApplication.requestRecordPermission { granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        self.beginTrackingSession()
+                    } else {
+                        self.showMicPermissionAlert = true
+                    }
+                }
+            }
+            return
+        case .granted:
+            break
+        @unknown default:
+            break
+        }
+
+        beginTrackingSession()
+    }
+
+    private func beginTrackingSession() {
+        let now = Date()
+        sessionStartDate = now
         elapsedSeconds = 0
         showStopConfirm = false
+
+        // 세션 복구용 저장
+        UserDefaults.standard.set(now.timeIntervalSince1970, forKey: kSessionStartDate)
+        UserDefaults.standard.set(true, forKey: kWasMonitoring)
 
         audioMonitor.updateHapticIntensity(hapticIntensity)
         audioMonitor.startMonitoring()
@@ -403,6 +450,10 @@ struct SleepTrackingView: View {
         timer?.invalidate()
         timer = nil
 
+        // 세션 복구 데이터 제거
+        UserDefaults.standard.removeObject(forKey: kSessionStartDate)
+        UserDefaults.standard.set(false, forKey: kWasMonitoring)
+
         // 어젯밤 요약 저장
         saveLastNightSummary()
 
@@ -412,6 +463,27 @@ struct SleepTrackingView: View {
         elapsedSeconds = 0
         sessionStartDate = nil
         showStopConfirm = false
+    }
+
+    // MARK: - 세션 자동 복구
+    private func restoreSessionIfNeeded() {
+        let defaults = UserDefaults.standard
+        guard defaults.bool(forKey: kWasMonitoring) else { return }
+
+        let savedTimestamp = defaults.double(forKey: kSessionStartDate)
+        guard savedTimestamp > 0 else { return }
+
+        let savedDate = Date(timeIntervalSince1970: savedTimestamp)
+        sessionStartDate = savedDate
+        elapsedSeconds = Int(Date().timeIntervalSince(savedDate))
+
+        audioMonitor.updateHapticIntensity(hapticIntensity)
+        audioMonitor.startMonitoring()
+        alarmManager.startMonitoring()
+
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            elapsedSeconds += 1
+        }
     }
 
     // MARK: - 어젯밤 요약 저장/로드

@@ -23,13 +23,28 @@ class SnoreDetector: ObservableObject {
     // MARK: - 배경 소음 기준
     var backgroundNoiseLevel: Double = -60.0
 
-    // MARK: - 감지 설정
-    private let thresholdAboveBackground: Double = 4.0   // 배경소음 + 4dB면 감지
-    private let minDuration: TimeInterval = 0.2          // 0.2초 이상이면 유효
-    private let maxDuration: TimeInterval = 8.0          // 최대 지속 시간
-    private let repetitionWindow: TimeInterval = 60.0    // 60초 윈도우
-    private let repetitionThreshold: Int = 2             // 2회면 확정
+    // MARK: - 감지 설정 (init으로 주입 가능 — 테스트용)
+    private var thresholdAboveBackground: Double
+    private var minDuration: TimeInterval
+    private var maxDuration: TimeInterval
+    private var repetitionWindow: TimeInterval
+    private var repetitionThreshold: Int
     private let cooldownDuration: TimeInterval = 30.0    // 코골이 확정 후 쿨다운
+
+    // MARK: - 초기화
+    init(
+        thresholdAboveBackground: Double = 4.0,
+        minDuration: TimeInterval = 0.2,
+        maxDuration: TimeInterval = 8.0,
+        repetitionWindow: TimeInterval = 60.0,
+        repetitionThreshold: Int = 2
+    ) {
+        self.thresholdAboveBackground = thresholdAboveBackground
+        self.minDuration = minDuration
+        self.maxDuration = maxDuration
+        self.repetitionWindow = repetitionWindow
+        self.repetitionThreshold = repetitionThreshold
+    }
 
     // MARK: - 내부 추적
     private var detectionStartTime: Date?       // 큰 소리 시작 시점

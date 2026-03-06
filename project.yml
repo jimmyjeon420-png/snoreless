@@ -50,6 +50,36 @@ targets:
       - target: SnoreLessWatch
         embed: true
 
+  SnoreLessTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests/SnoreLessTests
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.tests
+        GENERATE_INFOPLIST_FILE: true
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - target: SnoreLess
+
+  SnoreLessWatchTests:
+    type: bundle.unit-test
+    platform: watchOS
+    sources:
+      - path: Tests/SnoreLessWatchTests
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.watchtests
+        GENERATE_INFOPLIST_FILE: true
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - target: SnoreLessWatch
+
   SnoreLessWatch:
     type: application
     platform: watchOS

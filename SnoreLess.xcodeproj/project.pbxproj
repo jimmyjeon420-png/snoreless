@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		02817082715D86A8E81D87B3 /* WeeklyReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CD3EAD85A9FCA0507D342F /* WeeklyReportView.swift */; };
+		164BC084F406E0A7FB7D53CC /* MessageKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838B0AD794EC4A2E027B5F63 /* MessageKeyTests.swift */; };
 		1857F65D7DAB6E1938C2C96B /* WatchConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFAC56DBFDD415634C098B87 /* WatchConnector.swift */; };
 		2157025471A8210B78FACBF7 /* SleepTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4790BEA8A07F73549D2E0D75 /* SleepTrackingView.swift */; };
 		21758805AA43C052C49CD882 /* AIAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A12593E4723E9C059373A6 /* AIAnalyzer.swift */; };
+		29EAE3CEFB666E534FFC1A2B /* WatchConnectorDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693DA108CC81AFE810A1E74B /* WatchConnectorDecodingTests.swift */; };
+		2C6E5DA388CCCA207D987BF1 /* AudioProcessingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5098D71379E2329AC444B166 /* AudioProcessingTests.swift */; };
 		310CA4EA507E369F56F9A7DF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0736596B8B1F878BCEF5AE45 /* NotificationManager.swift */; };
 		31F769BAC92F5E2B8C015687 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB43F6B0B285FDABAEB76A5 /* DashboardView.swift */; };
 		50F41B0C9A70E3C3CC342BF9 /* SleepReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362D94D47A34BF0423EC1B5D /* SleepReportView.swift */; };
@@ -21,28 +24,50 @@
 		6CB3ABB20D5283111B73E229 /* SnoreRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4042F72399150ACA3EF94DEC /* SnoreRecorder.swift */; };
 		7436A732462DC03016383591 /* SnoreLessWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F2D0D29DBBED0962D96C1E /* SnoreLessWatchApp.swift */; };
 		8C3768D751CE575862A0F558 /* SleepDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5CEFED4C7D5D25C4B90C78C /* SleepDataStore.swift */; };
+		90CDCDE2091DD402400E2EFB /* SnoreLessTestsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BEF8FD5EC8ED05C47387E /* SnoreLessTestsPlaceholder.swift */; };
 		9A6971977B87240586265861 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754D678FB0173E12A2286942 /* CheckInView.swift */; };
 		A6C1F51E887214B3DF8C3059 /* SnoreDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896F6E998C28F689D7BE8451 /* SnoreDetector.swift */; };
 		A6E3242A49A718CDEC9361A5 /* SnorePlaybackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F0DE62B51EDC99E877326B /* SnorePlaybackView.swift */; };
+		AA25BCB97A0783B097B56ABC /* SnoreDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C86CADA5B18E17A4B3927106 /* SnoreDetectorTests.swift */; };
 		AC3BCA5549A8CC400B462200 /* AudioMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76B160F93FC5187BD3EE311 /* AudioMonitor.swift */; };
 		AF4DAE3CD02422A565181355 /* SmartAlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBC5477D370CD98C9BA869B /* SmartAlarmManager.swift */; };
 		B087C4B208E1CAC83E71022E /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890222730FA0395E0CB7D77 /* HistoryView.swift */; };
+		B545C5511E846220CC76801E /* HapticControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7DE844DC5425575A9D6A4 /* HapticControllerTests.swift */; };
 		B572ADA29B2D3D66013AE23B /* SnoreMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */; };
 		B955D087D92511D771B92700 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0B330738E22A84C31CF1CB /* HapticManager.swift */; };
 		C02C35DFBAF677A2B9A29DF2 /* SnoreMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */; };
+		C3F74D5236FC9B09472F79E3 /* SleepModelsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF87DCE6F1C5380223F730E /* SleepModelsTests.swift */; };
+		C6DC76E09F3BE9EA1A7ED4F8 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB7BACEDB1FB9B57F5D91E61 /* NotificationTests.swift */; };
 		C766DC30DC41796BEE86CCEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0320CD15F4BB4FC69099BFD4 /* Assets.xcassets */; };
+		D2FB952BBF2A48986F47DBE9 /* SnoreLessWatchTestsPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725706ABE56AE6AE33B734FD /* SnoreLessWatchTestsPlaceholder.swift */; };
 		D91385E29F6699D078E6E813 /* SleepModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CED4DFA7738FD9691EF30 /* SleepModels.swift */; };
 		DC2B395AFD0A93F8EB8AD56E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4971CAB6DD0518EF3F0078F3 /* HealthKitManager.swift */; };
 		DFB5CC0A0DDEC9CCE41F5FAE /* SnoreLessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */; };
 		DFF2F583AD36E6E2416D95C7 /* WatchSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB274E752DF4FC7659010DA3 /* WatchSettingsView.swift */; };
+		EC6735C11ADBE9BA3EA7CC98 /* CommunicationProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E62139083995A515BED32F /* CommunicationProtocolTests.swift */; };
 		EEB1BA7422F0CA511706CCC8 /* SnoreLessWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F2A4AC02AF74A77BABEF7894 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052BD82269C9B6D0C8E1B409 /* OnboardingView.swift */; };
 		F4424F793B0BDCAD97E84E6C /* PhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076EB809D766A90A5DC1F502 /* PhoneConnector.swift */; };
 		F9EF683069E00B8C572B3913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77E4A2371E5D7BB67507FEC /* ContentView.swift */; };
 		FAEB9C837822C081966B2375 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D40CF4A9ADCC0FA7BD1E54 /* Assets.xcassets */; };
+		FFBC9DF4138AB772955F78BF /* SessionDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868005705829ABBBA8599A7B /* SessionDataTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		02384308B0BDDCACC7C22422 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6BDD0B12892C9E80C4036906 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5CF4FC3A5C2C9CA3146F869C;
+			remoteInfo = SnoreLessWatch;
+		};
+		8F1C86989C351644FD3D9FB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6BDD0B12892C9E80C4036906 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C4B4317C94DA8E6F5685DDA;
+			remoteInfo = SnoreLess;
+		};
 		EB423EE5A19AECB1F20EC41E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6BDD0B12892C9E80C4036906 /* Project object */;
@@ -67,12 +92,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		00F7DE844DC5425575A9D6A4 /* HapticControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticControllerTests.swift; sourceTree = "<group>"; };
 		0320CD15F4BB4FC69099BFD4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		052BD82269C9B6D0C8E1B409 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		0736596B8B1F878BCEF5AE45 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		076EB809D766A90A5DC1F502 /* PhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnector.swift; sourceTree = "<group>"; };
 		0C0B330738E22A84C31CF1CB /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		15D40CF4A9ADCC0FA7BD1E54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		15E62139083995A515BED32F /* CommunicationProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationProtocolTests.swift; sourceTree = "<group>"; };
 		1BB43F6B0B285FDABAEB76A5 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		2BD072673778B9257D2BBE82 /* PartnerShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerShareView.swift; sourceTree = "<group>"; };
 		362D94D47A34BF0423EC1B5D /* SleepReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepReportView.swift; sourceTree = "<group>"; };
@@ -81,14 +108,22 @@
 		421E34067F7754C62ABF1852 /* HapticController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticController.swift; sourceTree = "<group>"; };
 		4790BEA8A07F73549D2E0D75 /* SleepTrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepTrackingView.swift; sourceTree = "<group>"; };
 		4971CAB6DD0518EF3F0078F3 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		5098D71379E2329AC444B166 /* AudioProcessingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioProcessingTests.swift; sourceTree = "<group>"; };
 		5890222730FA0395E0CB7D77 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreMessage.swift; sourceTree = "<group>"; };
 		5EE3F846A143BEDD88FE1873 /* SnoreLessWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SnoreLessWatch.entitlements; sourceTree = "<group>"; };
+		5EF87DCE6F1C5380223F730E /* SleepModelsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepModelsTests.swift; sourceTree = "<group>"; };
+		693DA108CC81AFE810A1E74B /* WatchConnectorDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectorDecodingTests.swift; sourceTree = "<group>"; };
 		71F2D0D29DBBED0962D96C1E /* SnoreLessWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreLessWatchApp.swift; sourceTree = "<group>"; };
+		725706ABE56AE6AE33B734FD /* SnoreLessWatchTestsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreLessWatchTestsPlaceholder.swift; sourceTree = "<group>"; };
 		754D678FB0173E12A2286942 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
+		7F3BEF8FD5EC8ED05C47387E /* SnoreLessTestsPlaceholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreLessTestsPlaceholder.swift; sourceTree = "<group>"; };
+		838B0AD794EC4A2E027B5F63 /* MessageKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKeyTests.swift; sourceTree = "<group>"; };
 		83F0DE62B51EDC99E877326B /* SnorePlaybackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnorePlaybackView.swift; sourceTree = "<group>"; };
+		868005705829ABBBA8599A7B /* SessionDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDataTests.swift; sourceTree = "<group>"; };
 		896F6E998C28F689D7BE8451 /* SnoreDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreDetector.swift; sourceTree = "<group>"; };
 		93E2A055AA0472F1CB612124 /* SnoreLess.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SnoreLess.entitlements; sourceTree = "<group>"; };
+		96898AE5E16340A04B12F115 /* SnoreLessWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnoreLessWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreLessApp.swift; sourceTree = "<group>"; };
 		98A12593E4723E9C059373A6 /* AIAnalyzer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAnalyzer.swift; sourceTree = "<group>"; };
 		A92CED4DFA7738FD9691EF30 /* SleepModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepModels.swift; sourceTree = "<group>"; };
@@ -96,9 +131,12 @@
 		B5CEFED4C7D5D25C4B90C78C /* SleepDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepDataStore.swift; sourceTree = "<group>"; };
 		C3CD3EAD85A9FCA0507D342F /* WeeklyReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyReportView.swift; sourceTree = "<group>"; };
 		C77E4A2371E5D7BB67507FEC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		C86CADA5B18E17A4B3927106 /* SnoreDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoreDetectorTests.swift; sourceTree = "<group>"; };
 		CEBC5477D370CD98C9BA869B /* SmartAlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartAlarmManager.swift; sourceTree = "<group>"; };
 		D1DF81E77BE5626C7C4C8CC2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		D76B160F93FC5187BD3EE311 /* AudioMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioMonitor.swift; sourceTree = "<group>"; };
+		DB6358C83D55AAA0C8068C59 /* SnoreLessTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SnoreLessTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB7BACEDB1FB9B57F5D91E61 /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnoreLessWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFAC56DBFDD415634C098B87 /* WatchConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnector.swift; sourceTree = "<group>"; };
 		E1C4CB08BB5C405CE12202D8 /* SnoreLess.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SnoreLess.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,6 +154,26 @@
 				4042F72399150ACA3EF94DEC /* SnoreRecorder.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2232A86154E5429E2533A025 /* SnoreLessTests */ = {
+			isa = PBXGroup;
+			children = (
+				7F3BEF8FD5EC8ED05C47387E /* SnoreLessTestsPlaceholder.swift */,
+				E443C87E8F4EDD75A324EB6B /* Integration */,
+				9C3697CEF01DDF7A9E8F2DBA /* Models */,
+				462CB53FBC24457FC53B39F0 /* Services */,
+			);
+			name = SnoreLessTests;
+			path = Tests/SnoreLessTests;
+			sourceTree = "<group>";
+		};
+		2A31E5F43F823FA9C29FB21B /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				00F7DE844DC5425575A9D6A4 /* HapticControllerTests.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		2FD3684C71E91FAFFF247A24 /* Services */ = {
@@ -149,9 +207,20 @@
 			isa = PBXGroup;
 			children = (
 				E1C4CB08BB5C405CE12202D8 /* SnoreLess.app */,
+				DB6358C83D55AAA0C8068C59 /* SnoreLessTests.xctest */,
 				DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */,
+				96898AE5E16340A04B12F115 /* SnoreLessWatchTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		462CB53FBC24457FC53B39F0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DB7BACEDB1FB9B57F5D91E61 /* NotificationTests.swift */,
+				693DA108CC81AFE810A1E74B /* WatchConnectorDecodingTests.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		46FBC93F7784A1B9E60D54C9 /* SnoreLessWatch */ = {
@@ -175,12 +244,23 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		5B4AAB366FBE1DF42777048C /* Detection */ = {
+			isa = PBXGroup;
+			children = (
+				5098D71379E2329AC444B166 /* AudioProcessingTests.swift */,
+				C86CADA5B18E17A4B3927106 /* SnoreDetectorTests.swift */,
+			);
+			path = Detection;
+			sourceTree = "<group>";
+		};
 		662F0AE036EB314D6819C7C7 = {
 			isa = PBXGroup;
 			children = (
 				7989D5EC6BD6C0B43DCCE13E /* Shared */,
 				35E9A279E0F3B1AE353CC9D7 /* SnoreLess */,
+				2232A86154E5429E2533A025 /* SnoreLessTests */,
 				46FBC93F7784A1B9E60D54C9 /* SnoreLessWatch */,
+				EBD7454DA0C2D49A0CE3FE3C /* SnoreLessWatchTests */,
 				461C4A9493E5161EAC40F2BF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -201,6 +281,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		7269E2565F241513A2947DC6 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				838B0AD794EC4A2E027B5F63 /* MessageKeyTests.swift */,
+				868005705829ABBBA8599A7B /* SessionDataTests.swift */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
 		7989D5EC6BD6C0B43DCCE13E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +297,34 @@
 				5C4E93E42FEF9BBAA550BC94 /* SnoreMessage.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		9C3697CEF01DDF7A9E8F2DBA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5EF87DCE6F1C5380223F730E /* SleepModelsTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E443C87E8F4EDD75A324EB6B /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+				15E62139083995A515BED32F /* CommunicationProtocolTests.swift */,
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		EBD7454DA0C2D49A0CE3FE3C /* SnoreLessWatchTests */ = {
+			isa = PBXGroup;
+			children = (
+				725706ABE56AE6AE33B734FD /* SnoreLessWatchTestsPlaceholder.swift */,
+				7269E2565F241513A2947DC6 /* Communication */,
+				5B4AAB366FBE1DF42777048C /* Detection */,
+				2A31E5F43F823FA9C29FB21B /* Response */,
+			);
+			name = SnoreLessWatchTests;
+			path = Tests/SnoreLessWatchTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,6 +368,42 @@
 			productReference = DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8D51CF185355BAACD4256DBF /* SnoreLessTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8E2BD0A7447D970F3B504D3 /* Build configuration list for PBXNativeTarget "SnoreLessTests" */;
+			buildPhases = (
+				35F3D39931AEEFE7F3C064F9 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				73485C86378AFB9E8132BACC /* PBXTargetDependency */,
+			);
+			name = SnoreLessTests;
+			packageProductDependencies = (
+			);
+			productName = SnoreLessTests;
+			productReference = DB6358C83D55AAA0C8068C59 /* SnoreLessTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E5D5A9CA4E7198BBB0F6B0D0 /* SnoreLessWatchTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99B6F69916DBC8A5B9FAAF48 /* Build configuration list for PBXNativeTarget "SnoreLessWatchTests" */;
+			buildPhases = (
+				2E470F174052A9B99CEF7AA7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F97219111E94C541CA0159EC /* PBXTargetDependency */,
+			);
+			name = SnoreLessWatchTests;
+			packageProductDependencies = (
+			);
+			productName = SnoreLessWatchTests;
+			productReference = 96898AE5E16340A04B12F115 /* SnoreLessWatchTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -265,6 +418,14 @@
 						ProvisioningStyle = Automatic;
 					};
 					5CF4FC3A5C2C9CA3146F869C = {
+						DevelopmentTeam = 52GH89WGBV;
+						ProvisioningStyle = Automatic;
+					};
+					8D51CF185355BAACD4256DBF = {
+						DevelopmentTeam = 52GH89WGBV;
+						ProvisioningStyle = Automatic;
+					};
+					E5D5A9CA4E7198BBB0F6B0D0 = {
 						DevelopmentTeam = 52GH89WGBV;
 						ProvisioningStyle = Automatic;
 					};
@@ -285,7 +446,9 @@
 			projectRoot = "";
 			targets = (
 				2C4B4317C94DA8E6F5685DDA /* SnoreLess */,
+				8D51CF185355BAACD4256DBF /* SnoreLessTests */,
 				5CF4FC3A5C2C9CA3146F869C /* SnoreLessWatch */,
+				E5D5A9CA4E7198BBB0F6B0D0 /* SnoreLessWatchTests */,
 			);
 		};
 /* End PBXProject section */
@@ -310,6 +473,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2E470F174052A9B99CEF7AA7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C6E5DA388CCCA207D987BF1 /* AudioProcessingTests.swift in Sources */,
+				B545C5511E846220CC76801E /* HapticControllerTests.swift in Sources */,
+				164BC084F406E0A7FB7D53CC /* MessageKeyTests.swift in Sources */,
+				FFBC9DF4138AB772955F78BF /* SessionDataTests.swift in Sources */,
+				AA25BCB97A0783B097B56ABC /* SnoreDetectorTests.swift in Sources */,
+				D2FB952BBF2A48986F47DBE9 /* SnoreLessWatchTestsPlaceholder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		32A533BAAB8042B83022A3EF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -325,6 +501,18 @@
 				C02C35DFBAF677A2B9A29DF2 /* SnoreMessage.swift in Sources */,
 				6CB3ABB20D5283111B73E229 /* SnoreRecorder.swift in Sources */,
 				DFF2F583AD36E6E2416D95C7 /* WatchSettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35F3D39931AEEFE7F3C064F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC6735C11ADBE9BA3EA7CC98 /* CommunicationProtocolTests.swift in Sources */,
+				C6DC76E09F3BE9EA1A7ED4F8 /* NotificationTests.swift in Sources */,
+				C3F74D5236FC9B09472F79E3 /* SleepModelsTests.swift in Sources */,
+				90CDCDE2091DD402400E2EFB /* SnoreLessTestsPlaceholder.swift in Sources */,
+				29EAE3CEFB666E534FFC1A2B /* WatchConnectorDecodingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +549,16 @@
 			isa = PBXTargetDependency;
 			target = 5CF4FC3A5C2C9CA3146F869C /* SnoreLessWatch */;
 			targetProxy = EB423EE5A19AECB1F20EC41E /* PBXContainerItemProxy */;
+		};
+		73485C86378AFB9E8132BACC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2C4B4317C94DA8E6F5685DDA /* SnoreLess */;
+			targetProxy = 8F1C86989C351644FD3D9FB0 /* PBXContainerItemProxy */;
+		};
+		F97219111E94C541CA0159EC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5CF4FC3A5C2C9CA3146F869C /* SnoreLessWatch */;
+			targetProxy = 02384308B0BDDCACC7C22422 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -480,6 +678,44 @@
 			};
 			name = Release;
 		};
+		6DCB8566EAF71E3830C7E107 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnoreLess.app/SnoreLess";
+			};
+			name = Release;
+		};
+		739A9E339E56FAF64C4F1427 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnoreLess.app/SnoreLess";
+			};
+			name = Debug;
+		};
 		79901FC7EF6F18596FE3076D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -528,6 +764,26 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		C21CFD29EB8493B409ED605B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless.watchtests;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnoreLessWatch.app/SnoreLessWatch";
+			};
+			name = Release;
 		};
 		C2C93925C3248F4B4FC188A5 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -588,6 +844,26 @@
 			};
 			name = Release;
 		};
+		C72B588A790F0194241450B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.nicenoodle.snoreless.watchtests;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnoreLessWatch.app/SnoreLessWatch";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -596,6 +872,24 @@
 			buildConfigurations = (
 				BA323844322F0178AAF7E7C8 /* Debug */,
 				4B9FD4D684E5AAD39E9E138D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		99B6F69916DBC8A5B9FAAF48 /* Build configuration list for PBXNativeTarget "SnoreLessWatchTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C72B588A790F0194241450B2 /* Debug */,
+				C21CFD29EB8493B409ED605B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A8E2BD0A7447D970F3B504D3 /* Build configuration list for PBXNativeTarget "SnoreLessTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				739A9E339E56FAF64C4F1427 /* Debug */,
+				6DCB8566EAF71E3830C7E107 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

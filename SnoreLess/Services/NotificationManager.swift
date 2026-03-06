@@ -35,18 +35,27 @@ class NotificationManager: ObservableObject {
         }
     }
 
+    // MARK: - 아침 리포트 메시지 포맷팅
+    /// 테스트 가능한 정적 메서드 — 알림 제목/본문 생성
+    static func morningReportMessage(snoreCount: Int, stoppedCount: Int) -> (title: String, body: String) {
+        let title = String(localized: "어젯밤 리포트가 준비됐어요")
+        let body: String
+        if snoreCount == 0 {
+            body = String(localized: "어젯밤은 코를 안 골았어요. 편안한 밤이었네요!")
+        } else {
+            body = String(localized: "코골이 \(snoreCount)회 감지, 진동으로 \(stoppedCount)회 멈췄어요")
+        }
+        return (title, body)
+    }
+
     // MARK: - 아침 리포트 알림
     /// 수면 종료 후 아침 리포트 알림 예약
     func scheduleMorningReport(snoreCount: Int, stoppedCount: Int) {
+        let message = Self.morningReportMessage(snoreCount: snoreCount, stoppedCount: stoppedCount)
+
         let content = UNMutableNotificationContent()
-        content.title = "어젯밤 리포트가 준비됐어요"
-
-        if snoreCount == 0 {
-            content.body = "어젯밤은 코를 안 골았어요. 편안한 밤이었네요!"
-        } else {
-            content.body = "코골이 \(snoreCount)회 감지, 진동으로 \(stoppedCount)회 멈췄어요"
-        }
-
+        content.title = message.title
+        content.body = message.body
         content.sound = .default
         content.categoryIdentifier = "MORNING_REPORT"
 
@@ -76,8 +85,8 @@ class NotificationManager: ObservableObject {
         )
 
         let content = UNMutableNotificationContent()
-        content.title = "곧 잠들 시간이에요"
-        content.body = "워치에서 수면 시작을 눌러주세요"
+        content.title = String(localized: "곧 잠들 시간이에요")
+        content.body = String(localized: "워치에서 수면 시작을 눌러주세요")
         content.sound = .default
         content.categoryIdentifier = "BEDTIME_REMINDER"
 

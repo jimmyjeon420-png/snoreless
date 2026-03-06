@@ -185,22 +185,39 @@ struct DashboardView: View {
                     .fill(Color(.systemGray6).opacity(0.6))
             )
         } else {
-            // 첫 사용자
+            // 첫 사용자 — 워치 연결 상태에 따라 안내 분기
             VStack(spacing: 16) {
-                Image(systemName: "moon.zzz.fill")
-                    .font(.system(size: 48))
-                    .foregroundStyle(.cyan.opacity(0.6))
+                if watchConnector.isWatchReachable {
+                    Image(systemName: "moon.zzz.fill")
+                        .font(.system(size: 48))
+                        .foregroundStyle(.cyan.opacity(0.6))
 
-                Text("아직 수면 기록이 없어요")
-                    .font(.title3)
-                    .fontWeight(.medium)
-                    .foregroundStyle(.white)
+                    Text(String(localized: "아직 수면 기록이 없어요"))
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.white)
 
-                Text("워치에서 '수면 시작'을 눌러주세요.\n첫 리포트가 여기에 나타납니다.")
-                    .font(.subheadline)
-                    .foregroundStyle(.gray)
-                    .multilineTextAlignment(.center)
-                    .lineSpacing(4)
+                    Text(String(localized: "워치에서 '수면 시작'을 눌러주세요.\n첫 리포트가 여기에 나타납니다."))
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(4)
+                } else {
+                    Image(systemName: "applewatch")
+                        .font(.system(size: 48))
+                        .foregroundStyle(.cyan.opacity(0.6))
+
+                    Text(String(localized: "Apple Watch에서 수면을 시작해보세요"))
+                        .font(.title3)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.white)
+
+                    Text(String(localized: "워치에서 SnoreLess 앱을 열고 '잠들기'를 눌러주세요"))
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(4)
+                }
             }
             .padding(32)
             .frame(maxWidth: .infinity)
