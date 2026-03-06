@@ -28,19 +28,34 @@
 		D91385E29F6699D078E6E813 /* SleepModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92CED4DFA7738FD9691EF30 /* SleepModels.swift */; };
 		DC2B395AFD0A93F8EB8AD56E /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4971CAB6DD0518EF3F0078F3 /* HealthKitManager.swift */; };
 		DFB5CC0A0DDEC9CCE41F5FAE /* SnoreLessApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97F160C75A27F3080AB9C0AE /* SnoreLessApp.swift */; };
+		EEB1BA7422F0CA511706CCC8 /* SnoreLessWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DF459A40AB7A2F23A326E9A1 /* SnoreLessWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F4424F793B0BDCAD97E84E6C /* PhoneConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076EB809D766A90A5DC1F502 /* PhoneConnector.swift */; };
 		F9EF683069E00B8C572B3913 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77E4A2371E5D7BB67507FEC /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		9044FF3AC51CCC39F9425F4F /* PBXContainerItemProxy */ = {
+		EB423EE5A19AECB1F20EC41E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6BDD0B12892C9E80C4036906 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 2C4B4317C94DA8E6F5685DDA;
-			remoteInfo = SnoreLess;
+			remoteGlobalIDString = 5CF4FC3A5C2C9CA3146F869C;
+			remoteInfo = SnoreLessWatch;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		448CB987129FDE85055F32EC /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				EEB1BA7422F0CA511706CCC8 /* SnoreLessWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		076EB809D766A90A5DC1F502 /* PhoneConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneConnector.swift; sourceTree = "<group>"; };
@@ -176,10 +191,12 @@
 			buildConfigurationList = 1802F53702B2D17795860A39 /* Build configuration list for PBXNativeTarget "SnoreLess" */;
 			buildPhases = (
 				4331A6CD75EA796F814345AD /* Sources */,
+				448CB987129FDE85055F32EC /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3DFBB7485B268ABEA6F2EC5C /* PBXTargetDependency */,
 			);
 			name = SnoreLess;
 			packageProductDependencies = (
@@ -197,7 +214,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				EF4E6ADFC4E28B6669A849E7 /* PBXTargetDependency */,
 			);
 			name = SnoreLessWatch;
 			packageProductDependencies = (
@@ -216,11 +232,11 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					2C4B4317C94DA8E6F5685DDA = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 52GH89WGBV;
 						ProvisioningStyle = Automatic;
 					};
 					5CF4FC3A5C2C9CA3146F869C = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 52GH89WGBV;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -286,10 +302,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EF4E6ADFC4E28B6669A849E7 /* PBXTargetDependency */ = {
+		3DFBB7485B268ABEA6F2EC5C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2C4B4317C94DA8E6F5685DDA /* SnoreLess */;
-			targetProxy = 9044FF3AC51CCC39F9425F4F /* PBXContainerItemProxy */;
+			target = 5CF4FC3A5C2C9CA3146F869C /* SnoreLessWatch */;
+			targetProxy = EB423EE5A19AECB1F20EC41E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -348,8 +364,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 52GH89WGBV;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -367,6 +384,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -484,8 +502,9 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 52GH89WGBV;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -497,6 +516,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
