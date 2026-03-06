@@ -18,40 +18,153 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		OIs6bPaaVKpMcUzUn08EIAUScuo=
+		BAN+oKIrlQIqzbarHtV06X0ReRU=
 		</data>
 		<key>PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+		<key>PlugIns/SnoreLessWidget.appex/Info.plist</key>
+		<data>
+		Qj+gMOlTbssrCaCHvZ8/BozO5G4=
+		</data>
+		<key>PlugIns/SnoreLessWidget.appex/SnoreLessWidget</key>
+		<data>
+		8gQtiPIvTc1X4H/UnOQmBN5KEDY=
+		</data>
+		<key>PlugIns/SnoreLessWidget.appex/_CodeSignature/CodeResources</key>
+		<data>
+		99IeyP5ilVDI26sXVUGdeuZnDeI=
+		</data>
+		<key>PlugIns/SnoreLessWidget.appex/embedded.mobileprovision</key>
+		<data>
+		Itmw6mpdAAeQoN8nLfynwEQ4cXY=
+		</data>
+		<key>PlugIns/SnoreLessWidget.appex/en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8klum9yRZwzSSufiuQSfR5QhdjU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6puAwG9EOD1SH0nSeYv9tBv9yhw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HupBfTpvehRGwwmKDxn8v18Givc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 		<key>Watch/SnoreLessWatch.app/Assets.car</key>
 		<data>
 		0DAOF8/nwKtfCEgTKk6DQ31wzGs=
 		</data>
 		<key>Watch/SnoreLessWatch.app/Info.plist</key>
 		<data>
-		2dX6J7DvqkEN6DxrF5ZLesRNuUI=
+		jb7rx4c+2lfftFUOQA3oEEL8+ks=
 		</data>
 		<key>Watch/SnoreLessWatch.app/PkgInfo</key>
 		<data>
 		n57qDP4tZfLD1rCS43W0B4LQjzE=
 		</data>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/Info.plist</key>
+		<data>
+		ALPaVnvHCZPwtbDjQlLHKpC1/6U=
+		</data>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/SnoreLessWatchWidgets</key>
+		<data>
+		IOo8DDtQcUjXuFU/xPpBMonluSo=
+		</data>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/_CodeSignature/CodeResources</key>
+		<data>
+		7XYAclh5MOYUdG+nCvtPdWhzrco=
+		</data>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/embedded.mobileprovision</key>
+		<data>
+		ueMSB0ztzER8wjh87PThd3mjykU=
+		</data>
 		<key>Watch/SnoreLessWatch.app/SnoreLessWatch</key>
 		<data>
-		IfPpLU/YcKQOBOUwZeoHN1P2DO8=
+		kdrNImA6x9itUx5EWAC7trdMdrA=
 		</data>
 		<key>Watch/SnoreLessWatch.app/_CodeSignature/CodeResources</key>
 		<data>
-		KyciiL+eJDNVHF+l9NmBAxTplCM=
+		+Iv0AUY7U9YNQ07OQR/9fO8zSnU=
 		</data>
 		<key>Watch/SnoreLessWatch.app/embedded.mobileprovision</key>
 		<data>
 		tDoHyjogHH3IVfYhVpj822fEyCE=
 		</data>
+		<key>Watch/SnoreLessWatch.app/en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8klum9yRZwzSSufiuQSfR5QhdjU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6puAwG9EOD1SH0nSeYv9tBv9yhw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HupBfTpvehRGwwmKDxn8v18Givc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 		<key>embedded.mobileprovision</key>
 		<data>
-		O0LcCkYnfqyBJ9Y1ycj15ONW0f0=
+		RVDSNP+31kvSsYIEswS4d+6TKLA=
 		</data>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8klum9yRZwzSSufiuQSfR5QhdjU=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6puAwG9EOD1SH0nSeYv9tBv9yhw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HupBfTpvehRGwwmKDxn8v18Givc=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 	</dict>
 	<key>files2</key>
 	<dict>
@@ -76,6 +189,61 @@
 			GvLOZ3O5PX1s33ZJATPJCS0lPnHpKE/UDSbPFHYjt3Y=
 			</data>
 		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			C2GhsUd3z2sEv9h0Zi/TOfzz+dVQ90H1UEncegveJXw=
+			</data>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/SnoreLessWidget</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tisSHj87r1zC+4O4CjCGGHK6iNYc6XoDGYcq8H3WKvo=
+			</data>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mj8GUyi09/rB+2DQxI8Z5Ikm310vR268QBRi4lXXeAk=
+			</data>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/embedded.mobileprovision</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uIxluzwNfdhbpxtLTlIDpdehenet5aKvMrIkS9ldDqs=
+			</data>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hIpjniXFAIrZgb1UABXBv2oW0hFeas+u/brl6wGbsJw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yY7eXChJ9j13dP6+h60hULpLWdARLy0Hzr8sNm4zMd0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>PlugIns/SnoreLessWidget.appex/ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9E83umgukkMxBo2ZIO5qUnVlOnSTO990kdAFebDo/N0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 		<key>Watch/SnoreLessWatch.app/Assets.car</key>
 		<dict>
 			<key>hash2</key>
@@ -87,7 +255,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			k42rMov+RUNyPdrlADZakh01KmNmlEi+r9BgE16WAWA=
+			KOklvU+UnlJeWi8xFQ7GUSjHuggJNWfoZicKMU25ax0=
 			</data>
 		</dict>
 		<key>Watch/SnoreLessWatch.app/PkgInfo</key>
@@ -97,18 +265,46 @@
 			glAhkclISwTWhTdPmHmgBmBpxJuKyuegSwHTjQfo7KA=
 			</data>
 		</dict>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BHrpdJ8hlAHzYq19RKZPRpMckzCpq+l1BT9t3/Um4JY=
+			</data>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/SnoreLessWatchWidgets</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			jYL4EDGrawK4PeOE65/QlrWoNaYVAS2XBsSkCY1UnH8=
+			</data>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wX0UDlQlyVg5R2BdorSJsEvEVmiojJVcnacYV0DYDvc=
+			</data>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/PlugIns/SnoreLessWatchWidgets.appex/embedded.mobileprovision</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zxXgA3jL0XKDAQk18ItifO02AhxwGFxGK2rRYtNG1GQ=
+			</data>
+		</dict>
 		<key>Watch/SnoreLessWatch.app/SnoreLessWatch</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XQaE18e0x0vSL9zr2ISrQSpjnoNQNJs09oAgAKiqHTo=
+			b0MDjbv/5yah5uBkiEdnBf/hCPJ46NCzglwbuSxYPmI=
 			</data>
 		</dict>
 		<key>Watch/SnoreLessWatch.app/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VbZF/cI8CSkSRLBWN+PoZ7y5jY4/PMvztebRGxSR/gM=
+			1bgtwVPRbzktiXEDx3xtxmC319JqEXik9e1bsbyt9Lg=
 			</data>
 		</dict>
 		<key>Watch/SnoreLessWatch.app/embedded.mobileprovision</key>
@@ -118,12 +314,66 @@
 			9IiU2OBtax+UQCrXhizc4V+Nk1pGIgyx0uX/Dohwc/Q=
 			</data>
 		</dict>
+		<key>Watch/SnoreLessWatch.app/en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hIpjniXFAIrZgb1UABXBv2oW0hFeas+u/brl6wGbsJw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yY7eXChJ9j13dP6+h60hULpLWdARLy0Hzr8sNm4zMd0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>Watch/SnoreLessWatch.app/ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9E83umgukkMxBo2ZIO5qUnVlOnSTO990kdAFebDo/N0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
 		<key>embedded.mobileprovision</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2EbIsFDzwJyPxrgSgGRfzKi8iWH8VmlGTLlreHY2i94=
+			8ZU2WUPPoCoxEfA6ZW5mMMZ1BvtocPpNwq9PODA70bA=
 			</data>
+		</dict>
+		<key>en.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hIpjniXFAIrZgb1UABXBv2oW0hFeas+u/brl6wGbsJw=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ja.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			yY7eXChJ9j13dP6+h60hULpLWdARLy0Hzr8sNm4zMd0=
+			</data>
+			<key>optional</key>
+			<true/>
+		</dict>
+		<key>ko.lproj/Localizable.strings</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9E83umgukkMxBo2ZIO5qUnVlOnSTO990kdAFebDo/N0=
+			</data>
+			<key>optional</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>rules</key>
