@@ -91,4 +91,4 @@ No account or login is required. The app works entirely offline with on-device d
 - No user accounts, no sign-up, no login.
 - No ads, no analytics SDKs, no third-party tracking.
 - No in-app purchases in this version.
-- Privacy policy URL: https://nicenoodle.github.io/snoreless/privacy-policy.html
+- Privacy policy URL: https://jimmyjeon420-png.github.io/snoreless/privacy-policy.html
