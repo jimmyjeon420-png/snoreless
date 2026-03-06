@@ -1,5 +1,6 @@
 import SwiftUI
 import AVFoundation
+import WidgetKit
 
 struct SleepTrackingView: View {
     // MARK: - 상태 관리
@@ -15,6 +16,9 @@ struct SleepTrackingView: View {
         rawValue: UserDefaults.standard.integer(forKey: "hapticIntensity")
     ) ?? .medium
     @State private var showMicPermissionAlert = false
+
+    // MARK: - Always-On Display
+    @Environment(\.isLuminanceReduced) var isLuminanceReduced
 
     // MARK: - 세션 복구용 UserDefaults 키
     private let kSessionStartDate = "sleepTracking.sessionStartDate"
@@ -258,42 +262,60 @@ struct SleepTrackingView: View {
             // 시계 크게
             Text(currentTimeString)
                 .font(.system(size: 48, weight: .thin, design: .rounded))
-                .foregroundStyle(.white)
+                .foregroundStyle(isLuminanceReduced ? .white.opacity(0.5) : .white)
                 .monospacedDigit()
 
-            // 코골이 횟수
-            if audioMonitor.snoreDetector.snoreCount > 0 {
+            // AOD: 상태 도트만 표시 / 일반: 코골이 횟수 상세 표시
+            if isLuminanceReduced {
+                // Always-On Display: 최소 정보 (상태 도트 + 간략 텍스트)
                 HStack(spacing: 4) {
                     Circle()
-                        .fill(.orange)
+                        .fill(audioMonitor.snoreDetector.snoreCount > 0 ? .orange.opacity(0.6) : .green.opacity(0.4))
                         .frame(width: 6, height: 6)
-                    Text(String(localized: "코골이 \(audioMonitor.snoreDetector.snoreCount)회"))
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundStyle(.orange)
+                    Text(audioMonitor.snoreDetector.snoreCount > 0
+                         ? "\(audioMonitor.snoreDetector.snoreCount)"
+                         : String(localized: "OK"))
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(.white.opacity(0.3))
                 }
                 .padding(.top, 4)
             } else {
-                HStack(spacing: 4) {
-                    Circle()
-                        .fill(.green)
-                        .frame(width: 6, height: 6)
-                    Text(String(localized: "조용한 수면 중"))
-                        .font(.system(size: 13, weight: .medium))
-                        .foregroundStyle(.green.opacity(0.7))
+                // 코골이 횟수
+                if audioMonitor.snoreDetector.snoreCount > 0 {
+                    HStack(spacing: 4) {
+                        Circle()
+                            .fill(.orange)
+                            .frame(width: 6, height: 6)
+                        Text(String(localized: "코골이 \(audioMonitor.snoreDetector.snoreCount)회"))
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(.orange)
+                    }
+                    .padding(.top, 4)
+                } else {
+                    HStack(spacing: 4) {
+                        Circle()
+                            .fill(.green)
+                            .frame(width: 6, height: 6)
+                        Text(String(localized: "조용한 수면 중"))
+                            .font(.system(size: 13, weight: .medium))
+                            .foregroundStyle(.green.opacity(0.7))
+                    }
+                    .padding(.top, 4)
                 }
-                .padding(.top, 4)
-            }
 
-            // 경과 시간 (작게)
-            Text(formattedElapsedTime)
-                .font(.system(size: 12, design: .monospaced))
-                .foregroundStyle(.white.opacity(0.3))
-                .padding(.top, 2)
+                // 경과 시간 (작게) - AOD에서는 숨김
+                Text(formattedElapsedTime)
+                    .font(.system(size: 12, design: .monospaced))
+                    .foregroundStyle(.white.opacity(0.3))
+                    .padding(.top, 2)
+            }
 
             Spacer()
 
-            // 터치하면 수면 종료 나타남
-            stopOverlay
+            // 터치하면 수면 종료 나타남 (AOD에서는 숨김)
+            if !isLuminanceReduced {
+                stopOverlay
+            }
         }
     }
 
@@ -302,38 +324,50 @@ struct SleepTrackingView: View {
         VStack(spacing: 8) {
             Spacer()
 
-            ZStack {
-                // 펄스 링
+            if isLuminanceReduced {
+                // AOD: 애니메이션 없이 최소 표시
                 Circle()
-                    .fill(Color.red.opacity(0.15 * detectedPulseOpacity))
-                    .frame(width: 100, height: 100)
-                    .animation(
-                        .easeInOut(duration: 0.6).repeatForever(autoreverses: true),
-                        value: detectedPulseOpacity
+                    .fill(Color.red.opacity(0.15))
+                    .frame(width: 40, height: 40)
+                    .overlay(
+                        Text("\(audioMonitor.snoreDetector.snoreCount)")
+                            .font(.system(size: 16, weight: .bold, design: .rounded))
+                            .foregroundStyle(.red.opacity(0.6))
                     )
+            } else {
+                ZStack {
+                    // 펄스 링
+                    Circle()
+                        .fill(Color.red.opacity(0.15 * detectedPulseOpacity))
+                        .frame(width: 100, height: 100)
+                        .animation(
+                            .easeInOut(duration: 0.6).repeatForever(autoreverses: true),
+                            value: detectedPulseOpacity
+                        )
 
-                Circle()
-                    .fill(Color.red.opacity(0.3))
-                    .frame(width: 60, height: 60)
+                    Circle()
+                        .fill(Color.red.opacity(0.3))
+                        .frame(width: 60, height: 60)
 
-                Image(systemName: "waveform.path")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundStyle(.white)
+                    Image(systemName: "waveform.path")
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundStyle(.white)
+                }
+                .onAppear {
+                    detectedPulseOpacity = 0.3
+                }
+                .onDisappear {
+                    detectedPulseOpacity = 1.0
+                }
+
+                Text(String(localized: "코골이 감지"))
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundStyle(.red)
+
+                Text(String(localized: "총 \(audioMonitor.snoreDetector.snoreCount)회"))
+                    .font(.system(size: 13))
+                    .foregroundStyle(.orange)
             }
-            .onAppear {
-                detectedPulseOpacity = 0.3
-            }
-            .onDisappear {
-                detectedPulseOpacity = 1.0
-            }
-
-            Text(String(localized: "코골이 감지"))
-                .font(.system(size: 16, weight: .bold))
-                .foregroundStyle(.red)
-
-            Text(String(localized: "총 \(audioMonitor.snoreDetector.snoreCount)회"))
-                .font(.system(size: 13))
-                .foregroundStyle(.orange)
 
             Spacer()
         }
@@ -457,6 +491,9 @@ struct SleepTrackingView: View {
         // 어젯밤 요약 저장
         saveLastNightSummary()
 
+        // 컴플리케이션 데이터 저장 및 갱신
+        saveComplicationData()
+
         audioMonitor.stopMonitoring()
         alarmManager.stopMonitoring()
         trackingState = .idle
@@ -484,6 +521,26 @@ struct SleepTrackingView: View {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             elapsedSeconds += 1
         }
+    }
+
+    // MARK: - 컴플리케이션 데이터 저장
+    private func saveComplicationData() {
+        let snoreCount = audioMonitor.snoreDetector.snoreCount
+        let sleepScore = calculateSleepScore(snoreCount: snoreCount)
+
+        let defaults = UserDefaults.standard
+        defaults.set(snoreCount, forKey: "lastNightSnoreCount")
+        defaults.set(sleepScore, forKey: "lastNightSleepScore")
+
+        // 컴플리케이션 타임라인 갱신
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    /// 코골이 횟수 기반 간이 수면 점수 (0~100)
+    private func calculateSleepScore(snoreCount: Int) -> Int {
+        // 기본 점수 95, 코골이 1회당 -5점, 최소 20점
+        let score = max(20, 95 - (snoreCount * 5))
+        return score
     }
 
     // MARK: - 어젯밤 요약 저장/로드

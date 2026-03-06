@@ -1,6 +1,7 @@
 import Foundation
 import WatchConnectivity
 import SwiftData
+import WidgetKit
 
 /// 아이폰 측 WatchConnectivity 매니저
 /// 워치에서 오는 코골이 데이터 수신, 설정 동기화, 녹음 파일 수신 담당
@@ -124,9 +125,76 @@ class WatchConnector: NSObject, ObservableObject {
                 snoreCount: sessionData.snoreEvents.count,
                 stoppedCount: stoppedCount
             )
+
+            // 위젯 데이터 업데이트
+            updateWidgetData(session: session, modelContext: modelContext)
         } catch {
             print("[WatchConnector] 세션 저장 실패: \(error)")
         }
+    }
+
+    // MARK: - 위젯 데이터 업데이트
+    private func updateWidgetData(session: SleepSession, modelContext: ModelContext) {
+        guard let defaults = UserDefaults(suiteName: "group.com.nicenoodle.snoreless") else {
+            print("[WatchConnector] App Group UserDefaults 접근 실패")
+            return
+        }
+
+        // 최근 세션 가져오기 (점수 계산 + 주간 데이터용)
+        let descriptor = FetchDescriptor<SleepSession>(
+            sortBy: [SortDescriptor(\.startTime, order: .reverse)]
+        )
+        let recentSessions = (try? modelContext.fetch(descriptor)) ?? []
+
+        // 수면 점수 계산
+        let score = SleepScoreCalculator.calculate(session: session, recentSessions: Array(recentSessions.prefix(14)))
+
+        // 기본 데이터 저장
+        defaults.set(session.totalSnoreCount, forKey: "lastNightSnoreCount")
+        defaults.set(score.total, forKey: "lastNightSleepScore")
+        defaults.set(score.grade.rawValue, forKey: "lastNightGrade")
+        defaults.set(Date().timeIntervalSince1970, forKey: "lastSessionDate")
+
+        // 주간 코골이 추이 (최근 7일)
+        let calendar = Calendar.current
+        var weeklySnores: [Int] = []
+        for dayOffset in stride(from: 6, through: 0, by: -1) {
+            guard let targetDate = calendar.date(byAdding: .day, value: -dayOffset, to: .now) else {
+                weeklySnores.append(0)
+                continue
+            }
+            let dayStart = calendar.startOfDay(for: targetDate)
+            guard let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart) else {
+                weeklySnores.append(0)
+                continue
+            }
+            let dayCount = recentSessions
+                .filter { $0.startTime >= dayStart && $0.startTime < dayEnd }
+                .reduce(0) { $0 + $1.totalSnoreCount }
+            weeklySnores.append(dayCount)
+        }
+        defaults.set(weeklySnores, forKey: "weeklySnores")
+
+        // 연속 기록 일수 계산
+        var streak = 0
+        let today = calendar.startOfDay(for: .now)
+        for dayOffset in 0...365 {
+            guard let checkDate = calendar.date(byAdding: .day, value: -dayOffset, to: today) else { break }
+            let checkEnd = calendar.date(byAdding: .day, value: 1, to: checkDate) ?? checkDate
+            let hasSession = recentSessions.contains { s in
+                s.startTime >= checkDate && s.startTime < checkEnd
+            }
+            if hasSession {
+                streak += 1
+            } else {
+                break
+            }
+        }
+        defaults.set(streak, forKey: "streakDays")
+
+        // 위젯 타임라인 리로드
+        WidgetCenter.shared.reloadAllTimelines()
+        print("[WatchConnector] 위젯 데이터 업데이트 완료: 점수=\(score.total), 등급=\(score.grade.rawValue), 연속=\(streak)일")
     }
 
     // MARK: - 녹음 파일 저장

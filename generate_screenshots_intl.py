@@ -499,9 +499,12 @@ def screenshot_04_smart_alarm(lang):
 def screenshot_05_privacy(lang):
     t = TEXT[lang]
     img, draw = new_canvas()
+    fb = lambda s: lfont_bold(lang, s)
+    fs = lambda s: lfont_semi(lang, s)
+    fr = lambda s: lfont_regular(lang, s)
 
-    draw_text_center(draw, 300, t["privacy_line1"], font_bold(72), WHITE)
-    draw_text_center(draw, 400, t["privacy_line2"], font_bold(72), CYAN)
+    draw_text_center(draw, 300, t["privacy_line1"], fb(72), WHITE)
+    draw_text_center(draw, 400, t["privacy_line2"], fb(72), CYAN)
 
     cx, cy = W // 2, 900
     draw_circle(draw, cx, cy, 120, (0, 60, 80))
@@ -514,11 +517,11 @@ def screenshot_05_privacy(lang):
         y = y_start + i * 200
         draw_circle(draw, 200, y + 30, 28, (0, 60, 40))
         draw.text((187, y + 10), "✓", font=font_bold(36), fill=GREEN)
-        draw.text((260, y + 5), title, font=font_semi(40), fill=WHITE)
-        draw.text((260, y + 55), desc, font=font_regular(30), fill=GRAY)
+        draw.text((260, y + 5), title, font=fs(40), fill=WHITE)
+        draw.text((260, y + 55), desc, font=fr(30), fill=GRAY)
 
-    draw_text_center(draw, 2200, t["priv_desc1"], font_regular(36), GRAY)
-    draw_text_center(draw, 2260, t["priv_desc2"], font_regular(36), GRAY)
+    draw_text_center(draw, 2200, t["priv_desc1"], fr(36), GRAY)
+    draw_text_center(draw, 2260, t["priv_desc2"], fr(36), GRAY)
 
     draw_text_center(draw, 2580, "SnoreLess", font_bold(48), CYAN)
     save(img, lang, "store_05_privacy.png")
@@ -527,9 +530,12 @@ def screenshot_05_privacy(lang):
 def screenshot_06_partner(lang):
     t = TEXT[lang]
     img, draw = new_canvas()
+    fb = lambda s: lfont_bold(lang, s)
+    fs = lambda s: lfont_semi(lang, s)
+    fr = lambda s: lfont_regular(lang, s)
 
-    draw_text_center(draw, 300, t["partner_line1"], font_bold(72), WHITE)
-    draw_text_center(draw, 400, t["partner_line2"], font_bold(60), CYAN)
+    draw_text_center(draw, 300, t["partner_line1"], fb(72), WHITE)
+    draw_text_center(draw, 400, t["partner_line2"], fb(60), CYAN)
 
     card_x, card_y = 150, 620
     card_w, card_h = W - 300, 1200
@@ -537,21 +543,21 @@ def screenshot_06_partner(lang):
     draw_rounded_rect(draw, [card_x, card_y, card_x + card_w, card_y + card_h], (22, 28, 38), 40)
 
     inner_x = card_x + 60
-    draw.text((inner_x, card_y + 60), t["weekly_report"], font=font_semi(36), fill=CYAN)
-    draw.text((inner_x, card_y + 115), t["week_label"], font=font_regular(30), fill=GRAY)
+    draw.text((inner_x, card_y + 60), t["weekly_report"], font=fs(36), fill=CYAN)
+    draw.text((inner_x, card_y + 115), t["week_label"], font=fr(30), fill=GRAY)
 
     draw.text((inner_x, card_y + 200), "67%", font=font_bold(120), fill=GREEN)
-    draw.text((inner_x, card_y + 340), t["stop_ratio"], font=font_regular(34), fill=LIGHT_GRAY)
+    draw.text((inner_x, card_y + 340), t["stop_ratio"], font=fr(34), fill=LIGHT_GRAY)
 
     draw.line([(inner_x, card_y + 420), (inner_x + card_w - 120, card_y + 420)], fill=(40, 40, 50), width=2)
 
-    draw.text((inner_x, card_y + 450), t["this_week"], font=font_regular(30), fill=GRAY)
-    draw.text((inner_x, card_y + 500), f"3.2{t['avg_per_night']}", font=font_semi(40), fill=WHITE)
+    draw.text((inner_x, card_y + 450), t["this_week"], font=fr(30), fill=GRAY)
+    draw.text((inner_x, card_y + 500), f"3.2{t['avg_per_night']}", font=fs(40), fill=WHITE)
 
-    draw.text((inner_x + 450, card_y + 450), t["last_week"], font=font_regular(30), fill=GRAY)
-    draw.text((inner_x + 450, card_y + 500), f"5.7{t['avg_per_night']}", font=font_semi(40), fill=GRAY)
+    draw.text((inner_x + 450, card_y + 450), t["last_week"], font=fr(30), fill=GRAY)
+    draw.text((inner_x + 450, card_y + 500), f"5.7{t['avg_per_night']}", font=fs(40), fill=GRAY)
 
-    draw.text((inner_x, card_y + 590), t["improvement"], font=font_bold(48), fill=GREEN)
+    draw.text((inner_x, card_y + 590), t["improvement"], font=fb(48), fill=GREEN)
 
     chart_y2 = card_y + 720
     days2 = t["days"]
@@ -567,19 +573,19 @@ def screenshot_06_partner(lang):
         draw_rounded_rect(draw, [bx, chart_y2 + 200 - h1, bx + bw, chart_y2 + 200], (50, 50, 60), 6)
         h2 = int((this_week_data[i] / max_v) * 160)
         draw_rounded_rect(draw, [bx + bw + 6, chart_y2 + 200 - h2, bx + bw * 2 + 6, chart_y2 + 200], CYAN_DIM, 6)
-        draw.text((bx + 10, chart_y2 + 215), days2[i], font=font_regular(24), fill=GRAY)
+        draw.text((bx + 10, chart_y2 + 215), days2[i], font=fr(24), fill=GRAY)
 
     draw_circle(draw, inner_x + 20, chart_y2 + 270, 8, (50, 50, 60))
-    draw.text((inner_x + 40, chart_y2 + 258), t["legend_last"], font=font_regular(24), fill=GRAY)
+    draw.text((inner_x + 40, chart_y2 + 258), t["legend_last"], font=fr(24), fill=GRAY)
     draw_circle(draw, inner_x + 170, chart_y2 + 270, 8, CYAN_DIM)
-    draw.text((inner_x + 190, chart_y2 + 258), t["legend_this"], font=font_regular(24), fill=GRAY)
+    draw.text((inner_x + 190, chart_y2 + 258), t["legend_this"], font=fr(24), fill=GRAY)
 
     btn_y = 2050
     draw_rounded_rect(draw, [200, btn_y, W - 200, btn_y + 100], CYAN, 50)
-    draw_text_center(draw, btn_y + 22, t["share_btn"], font_bold(40), BG_DARK)
+    draw_text_center(draw, btn_y + 22, t["share_btn"], fb(40), BG_DARK)
 
-    draw_text_center(draw, 2350, t["partner_bottom1"], font_regular(38), LIGHT_GRAY)
-    draw_text_center(draw, 2410, t["partner_bottom2"], font_regular(38), LIGHT_GRAY)
+    draw_text_center(draw, 2350, t["partner_bottom1"], fr(38), LIGHT_GRAY)
+    draw_text_center(draw, 2410, t["partner_bottom2"], fr(38), LIGHT_GRAY)
 
     draw_text_center(draw, 2580, "SnoreLess", font_bold(48), CYAN)
     save(img, lang, "store_06_partner.png")

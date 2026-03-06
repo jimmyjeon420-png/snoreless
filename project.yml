@@ -52,8 +52,12 @@ targets:
         com.apple.developer.healthkit: true
         com.apple.developer.healthkit.access:
           - health-records
+        com.apple.security.application-groups:
+          - group.com.nicenoodle.snoreless
     dependencies:
       - target: SnoreLessWatch
+        embed: true
+      - target: SnoreLessWidget
         embed: true
 
   SnoreLessTests:
@@ -92,6 +96,8 @@ targets:
     sources:
       - path: SnoreLessWatch
         type: group
+        excludes:
+          - "Complications/**"
       - path: Shared
         type: group
     settings:
@@ -111,7 +117,47 @@ targets:
     dependencies:
       - framework: SoundAnalysis.framework
         embed: false
+      - sdk: WidgetKit.framework
+      - target: SnoreLessWatchWidgets
+        embed: true
     entitlements:
       path: SnoreLessWatch/SnoreLessWatch.entitlements
       properties:
         com.apple.developer.healthkit: true
+
+  SnoreLessWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SnoreLessWidget
+        type: group
+      - path: Shared
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.widget
+        GENERATE_INFOPLIST_FILE: false
+        INFOPLIST_FILE: SnoreLessWidget/Info.plist
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Automatic
+    entitlements:
+      path: SnoreLessWidget/SnoreLessWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.nicenoodle.snoreless
+    dependencies: []
+
+  SnoreLessWatchWidgets:
+    type: app-extension
+    platform: watchOS
+    sources:
+      - path: SnoreLessWatch/Complications
+        type: group
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.watchkitapp.widgets
+        GENERATE_INFOPLIST_FILE: false
+        INFOPLIST_FILE: SnoreLessWatch/Complications/Info.plist
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Automatic
+    dependencies: []
