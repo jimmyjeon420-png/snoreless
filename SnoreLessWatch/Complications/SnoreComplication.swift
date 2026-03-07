@@ -24,9 +24,9 @@ struct SnoreComplicationProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SnoreComplicationEntry>) -> Void) {
         let defaults = UserDefaults.standard
-        let count = defaults.integer(forKey: StorageKeys.lastNightSnoreCount)
-        let score = defaults.integer(forKey: StorageKeys.lastNightSleepScore)
-        let lastDate = defaults.object(forKey: StorageKeys.lastSessionDate) as? Date
+        let count = defaults.integer(forKey: "lastNightSnoreCount")
+        let score = defaults.integer(forKey: "lastNightSleepScore")
+        let lastDate = defaults.object(forKey: "lastSessionDate") as? Date
 
         let entry = SnoreComplicationEntry(
             date: Date(),

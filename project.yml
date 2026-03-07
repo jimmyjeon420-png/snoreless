@@ -44,7 +44,6 @@ targets:
         INFOPLIST_KEY_NSMicrophoneUsageDescription: "코골이 감지를 위해 마이크에 접근합니다."
         INFOPLIST_KEY_NSHealthUpdateUsageDescription: "수면 중 코골이 데이터를 건강 앱에 기록합니다."
         INFOPLIST_KEY_NSHealthShareUsageDescription: "수면 품질 분석을 위해 건강 데이터에 접근합니다."
-        CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Automatic
     entitlements:
       path: SnoreLess/SnoreLess.entitlements
@@ -70,7 +69,6 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.tests
         GENERATE_INFOPLIST_FILE: true
-        CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Automatic
     dependencies:
       - target: SnoreLess
@@ -85,7 +83,6 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.watchtests
         GENERATE_INFOPLIST_FILE: true
-        CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Automatic
     dependencies:
       - target: SnoreLessWatch
@@ -112,7 +109,6 @@ targets:
         INFOPLIST_KEY_NSHealthShareUsageDescription: "수면 품질 분석을 위해 건강 데이터에 접근합니다."
         INFOPLIST_KEY_NSHealthUpdateUsageDescription: "수면 중 코골이 데이터를 건강 앱에 기록합니다."
         INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp: false
-        CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Automatic
     dependencies:
       - framework: SoundAnalysis.framework
@@ -138,7 +134,6 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.widget
         GENERATE_INFOPLIST_FILE: false
         INFOPLIST_FILE: SnoreLessWidget/Info.plist
-        CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Automatic
     entitlements:
       path: SnoreLessWidget/SnoreLessWidget.entitlements
@@ -153,13 +148,10 @@ targets:
     sources:
       - path: SnoreLessWatch/Complications
         type: group
-      - path: Shared/StorageKeys.swift
-        type: file
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.watchkitapp.widgets
         GENERATE_INFOPLIST_FILE: false
         INFOPLIST_FILE: SnoreLessWatch/Complications/Info.plist
-        CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Automatic
     dependencies: []
