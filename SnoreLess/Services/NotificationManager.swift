@@ -3,6 +3,7 @@ import UserNotifications
 
 /// 로컬 알림 관리자
 /// 아침 리포트 알림, 취침 리마인더 담당
+@MainActor
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
 
@@ -14,9 +15,9 @@ class NotificationManager: ObservableObject {
 
     // MARK: - 권한 확인
     private func checkAuthorizationStatus() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
-            DispatchQueue.main.async {
-                self.isAuthorized = settings.authorizationStatus == .authorized
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            Task { @MainActor in
+                self?.isAuthorized = settings.authorizationStatus == .authorized
             }
         }
     }
@@ -26,9 +27,7 @@ class NotificationManager: ObservableObject {
         do {
             let granted = try await UNUserNotificationCenter.current()
                 .requestAuthorization(options: [.alert, .sound, .badge])
-            await MainActor.run {
-                self.isAuthorized = granted
-            }
+            self.isAuthorized = granted
             print("[Notification] 권한 요청 결과: \(granted)")
         } catch {
             print("[Notification] 권한 요청 실패: \(error)")

@@ -5,6 +5,7 @@ import WidgetKit
 
 /// 아이폰 측 WatchConnectivity 매니저
 /// 워치에서 오는 코골이 데이터 수신, 설정 동기화, 녹음 파일 수신 담당
+@MainActor
 class WatchConnector: NSObject, ObservableObject {
     // MARK: - 상태
     @Published var isWatchReachable = false
@@ -38,6 +39,7 @@ class WatchConnector: NSObject, ObservableObject {
                 return
             }
             dict[SnoreMessageKey.settings] = true
+            dict[SnoreMessageKey.messageVersion] = SnoreMessageKey.currentVersion
             try WCSession.default.updateApplicationContext(dict)
             print("[WatchConnector] 설정 동기화 완료")
         } catch {
@@ -52,7 +54,8 @@ class WatchConnector: NSObject, ObservableObject {
         let message: [String: Any] = [
             SnoreMessageKey.smartAlarmEnabled: enabled,
             SnoreMessageKey.smartAlarmHour: hour,
-            SnoreMessageKey.smartAlarmMinute: minute
+            SnoreMessageKey.smartAlarmMinute: minute,
+            SnoreMessageKey.messageVersion: SnoreMessageKey.currentVersion
         ]
 
         if WCSession.default.isReachable {
@@ -75,7 +78,8 @@ class WatchConnector: NSObject, ObservableObject {
         guard WCSession.default.activationState == .activated else { return }
 
         let message: [String: Any] = [
-            SnoreMessageKey.recordingEnabled: enabled
+            SnoreMessageKey.recordingEnabled: enabled,
+            SnoreMessageKey.messageVersion: SnoreMessageKey.currentVersion
         ]
 
         if WCSession.default.isReachable {
@@ -144,7 +148,13 @@ class WatchConnector: NSObject, ObservableObject {
         let descriptor = FetchDescriptor<SleepSession>(
             sortBy: [SortDescriptor(\.startTime, order: .reverse)]
         )
-        let recentSessions = (try? modelContext.fetch(descriptor)) ?? []
+        let recentSessions: [SleepSession]
+        do {
+            recentSessions = try modelContext.fetch(descriptor)
+        } catch {
+            print("[WatchConnector] SwiftData fetch failed for widget data: \(error)")
+            recentSessions = []
+        }
 
         // 수면 점수 계산
         let score = SleepScoreCalculator.calculate(session: session, recentSessions: Array(recentSessions.prefix(14)))
@@ -224,9 +234,10 @@ class WatchConnector: NSObject, ObservableObject {
 }
 
 // MARK: - WCSessionDelegate
+// WCSessionDelegate methods are called on background threads, so they must be nonisolated.
 extension WatchConnector: WCSessionDelegate {
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        DispatchQueue.main.async {
+    nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        Task { @MainActor in
             self.isWatchReachable = session.isReachable
         }
         if let error = error {
@@ -236,26 +247,28 @@ extension WatchConnector: WCSessionDelegate {
         }
     }
 
-    func sessionDidBecomeInactive(_ session: WCSession) {
+    nonisolated func sessionDidBecomeInactive(_ session: WCSession) {
         print("[WatchConnector] 세션 비활성화")
     }
 
-    func sessionDidDeactivate(_ session: WCSession) {
+    nonisolated func sessionDidDeactivate(_ session: WCSession) {
         // 재활성화
         WCSession.default.activate()
     }
 
-    func sessionReachabilityDidChange(_ session: WCSession) {
-        DispatchQueue.main.async {
+    nonisolated func sessionReachabilityDidChange(_ session: WCSession) {
+        Task { @MainActor in
             self.isWatchReachable = session.isReachable
         }
     }
 
     // 실시간 메시지 수신 (워치에서 즉시 전송)
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+    nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        guard SnoreMessageKey.isCompatible(message) else { return }
+
         // 에스컬레이션 요청 처리
         if message[SnoreMessageKey.escalationRequest] != nil {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 HapticManager.shared.triggerEscalation()
             }
             print("[WatchConnector] 에스컬레이션 요청 수신, 진동 실행")
@@ -263,10 +276,15 @@ extension WatchConnector: WCSessionDelegate {
     }
 
     // reply 핸들러 있는 메시지 수신
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
+    nonisolated func session(_ session: WCSession, didReceiveMessage message: [String: Any], replyHandler: @escaping ([String: Any]) -> Void) {
+        guard SnoreMessageKey.isCompatible(message) else {
+            replyHandler(["status": "version_mismatch"])
+            return
+        }
+
         // 에스컬레이션 요청
         if message[SnoreMessageKey.escalationRequest] != nil {
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 HapticManager.shared.triggerEscalation()
             }
             replyHandler(["status": "ok"])
@@ -274,7 +292,9 @@ extension WatchConnector: WCSessionDelegate {
     }
 
     // UserInfo 전송 수신 (백그라운드, 수면 세션 로그)
-    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+    nonisolated func session(_ session: WCSession, didReceiveUserInfo userInfo: [String: Any] = [:]) {
+        guard SnoreMessageKey.isCompatible(userInfo) else { return }
+
         if userInfo[SnoreMessageKey.sessionEnded] != nil {
             decodeAndSaveSession(from: userInfo)
         } else if userInfo[SnoreMessageKey.snoreLog] != nil {
@@ -283,20 +303,26 @@ extension WatchConnector: WCSessionDelegate {
     }
 
     // 파일 전송 수신 (코골이 녹음)
-    func session(_ session: WCSession, didReceive file: WCSessionFile) {
+    nonisolated func session(_ session: WCSession, didReceive file: WCSessionFile) {
         let metadata = file.metadata ?? [:]
         print("[WatchConnector] 파일 수신: \(file.fileURL.lastPathComponent)")
-        saveRecordingFile(file.fileURL, metadata: metadata)
+        Task { @MainActor in
+            self.saveRecordingFile(file.fileURL, metadata: metadata)
+        }
     }
 
     /// dict에서 SleepSessionData 디코딩 후 저장 (방어적 검증 포함)
-    private func decodeAndSaveSession(from userInfo: [String: Any]) {
+    nonisolated private func decodeAndSaveSession(from userInfo: [String: Any]) {
         var dict = userInfo
         dict.removeValue(forKey: SnoreMessageKey.sessionEnded)
 
-        guard let data = try? JSONSerialization.data(withJSONObject: dict),
-              let sessionData = try? JSONDecoder().decode(SleepSessionData.self, from: data) else {
-            print("[WatchConnector] 세션 데이터 디코딩 실패")
+        let data: Data
+        let sessionData: SleepSessionData
+        do {
+            data = try JSONSerialization.data(withJSONObject: dict)
+            sessionData = try JSONDecoder().decode(SleepSessionData.self, from: data)
+        } catch {
+            print("[WatchConnector] 세션 데이터 디코딩 실패: \(error)")
             return
         }
 
@@ -319,7 +345,7 @@ extension WatchConnector: WCSessionDelegate {
             }
         }
 
-        DispatchQueue.main.async {
+        Task { @MainActor in
             self.lastReceivedSession = sessionData
             self.saveSessionData(sessionData)
         }
@@ -327,20 +353,24 @@ extension WatchConnector: WCSessionDelegate {
     }
 
     /// dict에서 SnoreEventData 디코딩 (개별 이벤트 로깅)
-    private func decodeAndLogSnoreEvent(from userInfo: [String: Any]) {
+    nonisolated private func decodeAndLogSnoreEvent(from userInfo: [String: Any]) {
         var dict = userInfo
         dict.removeValue(forKey: SnoreMessageKey.snoreLog)
 
-        guard let data = try? JSONSerialization.data(withJSONObject: dict),
-              let event = try? JSONDecoder().decode(SnoreEventData.self, from: data) else {
-            print("[WatchConnector] 코골이 이벤트 디코딩 실패")
+        let data: Data
+        let event: SnoreEventData
+        do {
+            data = try JSONSerialization.data(withJSONObject: dict)
+            event = try JSONDecoder().decode(SnoreEventData.self, from: data)
+        } catch {
+            print("[WatchConnector] 코골이 이벤트 디코딩 실패: \(error)")
             return
         }
         print("[WatchConnector] 코골이 이벤트 수신: \(event.timestamp)")
     }
 
     // ApplicationContext 수신
-    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
+    nonisolated func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String: Any]) {
         print("[WatchConnector] ApplicationContext 수신: \(applicationContext.keys)")
     }
 }

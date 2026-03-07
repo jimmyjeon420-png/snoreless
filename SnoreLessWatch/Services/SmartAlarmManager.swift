@@ -33,9 +33,9 @@ class SmartAlarmManager: ObservableObject {
     private let quietNoiseThreshold: Double = 5.0  // 배경소음 대비 dB
 
     // MARK: - UserDefaults 키
-    private let kAlarmEnabled = "smartAlarm.enabled"
-    private let kAlarmHour = "smartAlarm.hour"
-    private let kAlarmMinute = "smartAlarm.minute"
+    private let kAlarmEnabled = StorageKeys.smartAlarmEnabled
+    private let kAlarmHour = StorageKeys.smartAlarmHour
+    private let kAlarmMinute = StorageKeys.smartAlarmMinute
 
     // MARK: - 초기화
     init() {
@@ -120,8 +120,8 @@ class SmartAlarmManager: ObservableObject {
             minutesUntilAlarm += 24 * 60  // 다음 날
         }
 
-        // 알람 시각 정확히 도달 또는 초과
-        if minutesUntilAlarm == 0 || (minutesUntilAlarm > 23 * 60) {
+        // 알람 시각 도달 (0분 남음 또는 1분 이내)
+        if minutesUntilAlarm == 0 || minutesUntilAlarm >= 24 * 60 - 1 {
             triggerAlarm()
             return
         }

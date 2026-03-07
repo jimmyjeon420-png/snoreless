@@ -54,6 +54,7 @@ struct SnorePlaybackView: View {
                         Text(String(localized: "전체 삭제"))
                             .font(.subheadline)
                     }
+                    .accessibilityLabel("녹음 삭제")
                 }
             }
         }
@@ -97,6 +98,7 @@ struct SnorePlaybackView: View {
                 }
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(currentlyPlaying == recording.url ? "정지" : "재생")
 
             // 정보
             VStack(alignment: .leading, spacing: 4) {
@@ -119,10 +121,11 @@ struct SnorePlaybackView: View {
 
                                 RoundedRectangle(cornerRadius: 2)
                                     .fill(Color.cyan)
-                                    .frame(width: geo.size.width * playbackProgress, height: 3)
+                                    .frame(width: geo.size.width * min(max(playbackProgress, 0), 1), height: 3)
                             }
                         }
                         .frame(height: 3)
+                        .accessibilityLabel("재생 진행률 \(Int(playbackProgress * 100))%")
                     }
                 }
             }
@@ -135,6 +138,7 @@ struct SnorePlaybackView: View {
                 .foregroundStyle(.secondary)
         }
         .padding(.vertical, 4)
+        .accessibilityLabel("코골이 녹음, \(dateFormatter.string(from: recording.date))")
     }
 
     // MARK: - 녹음 파일 로드
@@ -156,11 +160,12 @@ struct SnorePlaybackView: View {
             recordings = files
                 .filter { $0.pathExtension == "m4a" || $0.pathExtension == "wav" || $0.pathExtension == "caf" }
                 .compactMap { url -> SnoreRecording? in
+                    // resourceValues failure is harmless — falls back to defaults for metadata
                     let values = try? url.resourceValues(forKeys: [.fileSizeKey, .creationDateKey])
                     let date = values?.creationDate ?? Date()
                     let size = values?.fileSize ?? 0
 
-                    // 재생 시간 계산
+                    // 재생 시간 계산 — AVAudioPlayer init failure is harmless here; duration defaults to 0
                     let duration: TimeInterval
                     if let player = try? AVAudioPlayer(contentsOf: url) {
                         duration = player.duration
@@ -207,7 +212,9 @@ struct SnorePlaybackView: View {
             playbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
                 guard let player = audioPlayer else { return }
                 if player.isPlaying {
-                    playbackProgress = player.currentTime / player.duration
+                    playbackProgress = player.duration > 0
+                        ? player.currentTime / player.duration
+                        : 0
                 } else {
                     stopPlayback()
                 }
@@ -233,7 +240,11 @@ struct SnorePlaybackView: View {
             if currentlyPlaying == recording.url {
                 stopPlayback()
             }
-            try? FileManager.default.removeItem(at: recording.url)
+            do {
+                try FileManager.default.removeItem(at: recording.url)
+            } catch {
+                print("[SnorePlaybackView] failed to delete recording \(recording.url.lastPathComponent): \(error)")
+            }
         }
         recordings.remove(atOffsets: offsets)
     }
@@ -242,7 +253,11 @@ struct SnorePlaybackView: View {
     private func deleteAllRecordings() {
         stopPlayback()
         for recording in recordings {
-            try? FileManager.default.removeItem(at: recording.url)
+            do {
+                try FileManager.default.removeItem(at: recording.url)
+            } catch {
+                print("[SnorePlaybackView] failed to delete recording \(recording.url.lastPathComponent): \(error)")
+            }
         }
         recordings.removeAll()
     }
@@ -262,10 +277,15 @@ struct SnorePlaybackView: View {
                 options: .skipsHiddenFiles
             )
             for file in files {
+                // resourceValues failure is harmless — file simply won't be cleaned up this pass
                 let values = try? file.resourceValues(forKeys: [.creationDateKey])
                 if let creationDate = values?.creationDate, creationDate < cutoffDate {
-                    try? FileManager.default.removeItem(at: file)
-                    deletedCount += 1
+                    do {
+                        try FileManager.default.removeItem(at: file)
+                        deletedCount += 1
+                    } catch {
+                        print("[SnorePlaybackView] failed to delete old recording \(file.lastPathComponent): \(error)")
+                    }
                 }
             }
         } catch {
@@ -279,11 +299,16 @@ struct SnorePlaybackView: View {
 
     // MARK: - 녹음 디렉토리
     static var recordingsDirectory: URL {
-        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+            ?? FileManager.default.temporaryDirectory
         let dir = docs.appendingPathComponent("SnoreRecordings", isDirectory: true)
 
         if !FileManager.default.fileExists(atPath: dir.path) {
-            try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+            do {
+                try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+            } catch {
+                print("[SnorePlaybackView] failed to create recordings directory: \(error)")
+            }
         }
 
         return dir

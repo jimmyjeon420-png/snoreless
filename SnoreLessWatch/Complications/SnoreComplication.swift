@@ -7,31 +7,34 @@ struct SnoreComplicationEntry: TimelineEntry {
     let date: Date
     let snoreCount: Int
     let sleepScore: Int
+    let lastSessionDate: Date?
 }
 
 // MARK: - Timeline Provider
 
 struct SnoreComplicationProvider: TimelineProvider {
     func placeholder(in context: Context) -> SnoreComplicationEntry {
-        SnoreComplicationEntry(date: Date(), snoreCount: 0, sleepScore: 85)
+        SnoreComplicationEntry(date: Date(), snoreCount: 0, sleepScore: 85, lastSessionDate: nil)
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SnoreComplicationEntry) -> Void) {
-        let entry = SnoreComplicationEntry(date: Date(), snoreCount: 3, sleepScore: 78)
+        let entry = SnoreComplicationEntry(date: Date(), snoreCount: 3, sleepScore: 78, lastSessionDate: Date())
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SnoreComplicationEntry>) -> Void) {
         let defaults = UserDefaults.standard
-        let count = defaults.integer(forKey: "lastNightSnoreCount")
-        let score = defaults.integer(forKey: "lastNightSleepScore")
+        let count = defaults.integer(forKey: StorageKeys.lastNightSnoreCount)
+        let score = defaults.integer(forKey: StorageKeys.lastNightSleepScore)
+        let lastDate = defaults.object(forKey: StorageKeys.lastSessionDate) as? Date
 
         let entry = SnoreComplicationEntry(
             date: Date(),
             snoreCount: count,
-            sleepScore: score > 0 ? score : 85
+            sleepScore: score > 0 ? score : 85,
+            lastSessionDate: lastDate
         )
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())!
+        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? Date().addingTimeInterval(3600)
         let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
         completion(timeline)
     }
@@ -44,12 +47,29 @@ struct CircularSmallView: View {
 
     var body: some View {
         Gauge(value: Double(entry.sleepScore), in: 0...100) {
-            Text("\(entry.sleepScore)")
-                .font(.system(size: 20, weight: .bold, design: .rounded))
-                .foregroundStyle(scoreColor)
+            VStack(spacing: 0) {
+                Text("\(entry.sleepScore)")
+                    .font(.system(size: 18, weight: .bold, design: .rounded))
+                    .foregroundStyle(scoreColor)
+                if let label = sessionDateLabel {
+                    Text(label)
+                        .font(.system(size: 7, weight: .medium))
+                        .foregroundStyle(.secondary)
+                }
+            }
         }
         .gaugeStyle(.accessoryCircular)
         .tint(scoreGradient)
+    }
+
+    private var sessionDateLabel: String? {
+        guard let lastDate = entry.lastSessionDate else { return nil }
+        let calendar = Calendar.current
+        if calendar.isDateInToday(lastDate) { return "오늘" }
+        if calendar.isDateInYesterday(lastDate) { return "어제" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d"
+        return formatter.string(from: lastDate)
     }
 
     private var scoreColor: Color {
@@ -70,9 +90,16 @@ struct GraphicCornerView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 1) {
-            Text("\(entry.sleepScore)점")
-                .font(.system(size: 16, weight: .bold, design: .rounded))
-                .foregroundStyle(scoreColor)
+            HStack(spacing: 4) {
+                Text("\(entry.sleepScore)점")
+                    .font(.system(size: 16, weight: .bold, design: .rounded))
+                    .foregroundStyle(scoreColor)
+                if let label = sessionDateLabel {
+                    Text(label)
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.secondary)
+                }
+            }
             Text("코골이 \(entry.snoreCount)회")
                 .font(.system(size: 11, weight: .medium))
                 .foregroundStyle(.secondary)
@@ -84,6 +111,16 @@ struct GraphicCornerView: View {
             .gaugeStyle(.accessoryLinear)
             .tint(scoreGradient)
         }
+    }
+
+    private var sessionDateLabel: String? {
+        guard let lastDate = entry.lastSessionDate else { return nil }
+        let calendar = Calendar.current
+        if calendar.isDateInToday(lastDate) { return "오늘" }
+        if calendar.isDateInYesterday(lastDate) { return "어제" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d"
+        return formatter.string(from: lastDate)
     }
 
     private var scoreColor: Color {
@@ -111,6 +148,11 @@ struct GraphicRectangularView: View {
                 Text("수면 점수")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(.primary)
+                if let label = sessionDateLabel {
+                    Text(label)
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.secondary)
+                }
                 Spacer()
                 Text("\(entry.sleepScore)점")
                     .font(.system(size: 14, weight: .bold, design: .rounded))
@@ -132,6 +174,16 @@ struct GraphicRectangularView: View {
                     .foregroundStyle(.secondary)
             }
         }
+    }
+
+    private var sessionDateLabel: String? {
+        guard let lastDate = entry.lastSessionDate else { return nil }
+        let calendar = Calendar.current
+        if calendar.isDateInToday(lastDate) { return "오늘" }
+        if calendar.isDateInYesterday(lastDate) { return "어제" }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M/d"
+        return formatter.string(from: lastDate)
     }
 
     private var scoreColor: Color {
@@ -190,6 +242,6 @@ struct SnoreComplicationEntryView: View {
 #Preview(as: .accessoryCircular) {
     SnoreComplicationWidget()
 } timeline: {
-    SnoreComplicationEntry(date: Date(), snoreCount: 0, sleepScore: 92)
-    SnoreComplicationEntry(date: Date(), snoreCount: 5, sleepScore: 65)
+    SnoreComplicationEntry(date: Date(), snoreCount: 0, sleepScore: 92, lastSessionDate: Date())
+    SnoreComplicationEntry(date: Date(), snoreCount: 5, sleepScore: 65, lastSessionDate: Calendar.current.date(byAdding: .day, value: -1, to: Date()))
 }

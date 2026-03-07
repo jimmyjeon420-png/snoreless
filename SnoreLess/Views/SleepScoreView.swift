@@ -30,6 +30,13 @@ struct SleepScoreView: View {
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 32)
 
+                // Score explanation
+                Text("코골이 횟수, 수면 시간, 진동 효과를 기반으로 계산됩니다")
+                    .font(.caption2)
+                    .foregroundStyle(.gray)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 32)
+
                 // Score breakdown
                 scoreBreakdown
                     .padding(.horizontal)
@@ -86,8 +93,10 @@ struct SleepScoreView: View {
                     .font(.title3)
                     .fontWeight(.bold)
                     .foregroundStyle(gradeColors.first ?? .cyan)
+                    .accessibilityLabel("등급: \(score.grade.rawValue)")
             }
         }
+        .accessibilityLabel("수면 점수 \(score.total)점")
     }
 
     // MARK: - Score Breakdown
@@ -169,6 +178,7 @@ struct SleepScoreView: View {
             }
             .frame(height: 5)
         }
+        .accessibilityLabel("\(label) \(score)점")
     }
 
     // MARK: - 7-Day Trend Chart
@@ -224,6 +234,7 @@ struct SleepScoreView: View {
                             .foregroundStyle(.gray)
                     }
                 }
+                .accessibilityLabel("최근 7일 수면 점수 추이")
             }
         }
         .padding(16)
@@ -374,8 +385,8 @@ struct SleepScoreView: View {
         formatter.dateFormat = "E"
 
         return (0..<7).compactMap { dayOffset -> DailyScoreData? in
-            guard let date = calendar.date(byAdding: .day, value: -(6 - dayOffset), to: today) else { return nil }
-            let nextDate = calendar.date(byAdding: .day, value: 1, to: date)!
+            guard let date = calendar.date(byAdding: .day, value: -(6 - dayOffset), to: today),
+                  let nextDate = calendar.date(byAdding: .day, value: 1, to: date) else { return nil }
 
             let daySessions = allSessions.filter { $0.startTime >= date && $0.startTime < nextDate }
             guard let daySession = daySessions.first else { return nil }

@@ -13,6 +13,13 @@ struct DashboardView: View {
     )
     private var completedSessions: [SleepSession]
 
+    @Query(
+        filter: #Predicate<SleepSession> { $0.isActive },
+        sort: \SleepSession.startTime,
+        order: .reverse
+    )
+    private var activeSessions: [SleepSession]
+
     @Query(sort: \DailyCheckIn.date, order: .reverse)
     private var checkIns: [DailyCheckIn]
 
@@ -31,6 +38,11 @@ struct DashboardView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
+                    // 활성 세션 카드
+                    activeSessionCard
+                        .padding(.horizontal)
+                        .padding(.top, 8)
+
                     // 수면 점수 히어로
                     sleepScoreHero
                         .padding(.horizontal)
@@ -98,6 +110,36 @@ struct DashboardView: View {
                         )
                 }
             }
+        }
+    }
+
+    // MARK: - Active Session Card
+
+    @ViewBuilder
+    private var activeSessionCard: some View {
+        if !activeSessions.isEmpty {
+            VStack(spacing: 8) {
+                HStack {
+                    Image(systemName: "moon.fill")
+                        .foregroundStyle(.cyan)
+                    Text(String(localized: "수면 추적 중"))
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                    Spacer()
+                    Circle()
+                        .fill(.green)
+                        .frame(width: 8, height: 8)
+                }
+                Text(String(localized: "워치에서 수면을 모니터링하고 있습니다"))
+                    .font(.caption)
+                    .foregroundStyle(.gray)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.systemGray6))
+            )
         }
     }
 
@@ -268,6 +310,33 @@ struct DashboardView: View {
                             .stroke(Color.cyan.opacity(0.12), lineWidth: 1)
                     )
             )
+        } else if !completedSessions.isEmpty {
+            VStack(spacing: 10) {
+                HStack(spacing: 6) {
+                    Image(systemName: "sparkles")
+                        .foregroundStyle(.cyan)
+                        .font(.caption)
+                    Text(String(localized: "패턴 인사이트"))
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.gray)
+                    Spacer()
+                }
+
+                Text(String(localized: "패턴 분석에는 3일 이상의 기록이 필요합니다. 꾸준히 기록해보세요!"))
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.7))
+                    .lineSpacing(4)
+            }
+            .padding(16)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color.cyan.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14)
+                            .stroke(Color.cyan.opacity(0.12), lineWidth: 1)
+                    )
+            )
         }
     }
 
@@ -309,6 +378,13 @@ struct DashboardView: View {
                         Text(String(localized: "코를 안 골았어요"))
                             .font(.title3)
                             .foregroundStyle(.white)
+
+                        if completedSessions.count > 1 {
+                            Text(String(localized: "감도를 높이거나 마이크 상태를 확인해보세요"))
+                                .font(.caption)
+                                .foregroundStyle(.gray)
+                                .padding(.top, 4)
+                        }
                     } else {
                         HStack(alignment: .firstTextBaseline, spacing: 4) {
                             Text("\(lastSession.totalSnoreCount)")
@@ -522,8 +598,8 @@ struct DashboardView: View {
                 .fontWeight(.medium)
                 .foregroundStyle(.gray)
 
-            if weeklyData.isEmpty || weeklyData.allSatisfy({ $0.count == 0 }) {
-                Text(String(localized: "데이터가 쌓이면 차트가 나타나요"))
+            if weeklyData.filter({ $0.count > 0 }).count < 2 {
+                Text(String(localized: "이번 주 수면을 기록하면 차트가 나타납니다"))
                     .font(.caption)
                     .foregroundStyle(.gray.opacity(0.6))
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -684,8 +760,8 @@ struct DashboardView: View {
         let lastWeek = completedSessions.filter { $0.startTime >= fourteenDaysAgo && $0.startTime < sevenDaysAgo }
 
         if !thisWeek.isEmpty && !lastWeek.isEmpty {
-            let thisWeekAvg = Double(thisWeek.reduce(0) { $0 + $1.totalSnoreCount }) / Double(thisWeek.count)
-            let lastWeekAvg = Double(lastWeek.reduce(0) { $0 + $1.totalSnoreCount }) / Double(lastWeek.count)
+            let thisWeekAvg = Double(thisWeek.reduce(0) { $0 + $1.totalSnoreCount }) / Double(max(thisWeek.count, 1))
+            let lastWeekAvg = Double(lastWeek.reduce(0) { $0 + $1.totalSnoreCount }) / Double(max(lastWeek.count, 1))
 
             if lastWeekAvg > 0 {
                 let changePercent = Int(((lastWeekAvg - thisWeekAvg) / lastWeekAvg) * 100)
@@ -721,7 +797,7 @@ struct DashboardView: View {
 
         return (0..<7).compactMap { dayOffset -> DailySnoreCount? in
             guard let date = calendar.date(byAdding: .day, value: -(6 - dayOffset), to: today) else { return nil }
-            let nextDate = calendar.date(byAdding: .day, value: 1, to: date)!
+            guard let nextDate = calendar.date(byAdding: .day, value: 1, to: date) else { return nil }
 
             let count = completedSessions
                 .filter { $0.startTime >= date && $0.startTime < nextDate }

@@ -24,13 +24,32 @@ class HapticController {
         case third = 3   // 아이폰 에스컬레이션
     }
 
-    // MARK: - 설정
-    private let firstWaitDuration: TimeInterval = 5.0   // 1차 후 대기
-    private let secondWaitDuration: TimeInterval = 10.0  // 2차 후 대기
-    private let finalCooldown: TimeInterval = 30.0       // 최종 쿨다운
+    // MARK: - 에스컬레이션 타이밍
+    private let firstWaitSeconds: TimeInterval = 5.0      // 1차 후 대기
+    private let secondWaitSeconds: TimeInterval = 10.0    // 2차 후 대기
+    private let finalCooldownSeconds: TimeInterval = 30.0 // 최종 쿨다운
+
+    // MARK: - 1차 햅틱 (click) 반복 설정
+    private let firstHapticCountLight: Int = 5
+    private let firstHapticCountMedium: Int = 8
+    private let firstHapticCountStrong: Int = 12
+    private let firstHapticIntervalLight: Double = 0.4
+    private let firstHapticIntervalMedium: Double = 0.3
+    private let firstHapticIntervalStrong: Double = 0.25
+
+    // MARK: - 2차 햅틱 (notification) 반복 설정
+    private let secondHapticCountLight: Int = 5
+    private let secondHapticCountMedium: Int = 10
+    private let secondHapticCountStrong: Int = 15
+    private let secondHapticIntervalLight: Double = 0.4
+    private let secondHapticIntervalMedium: Double = 0.3
+    private let secondHapticIntervalStrong: Double = 0.2
 
     // MARK: - 햅틱 엔진 (테스트 시 주입 가능)
     private let hapticEngine: HapticEngine
+
+    // MARK: - 외부 상태
+    private(set) var currentStage: Int = 0  // 0=none, 1=click, 2=notification, 3=iphone
 
     // MARK: - 내부 상태
     private var currentLevel: EscalationLevel = .first
@@ -42,6 +61,10 @@ class HapticController {
     // MARK: - 초기화
     init(hapticEngine: HapticEngine = DeviceHapticEngine()) {
         self.hapticEngine = hapticEngine
+    }
+
+    deinit {
+        escalationTimer?.invalidate()
     }
 
     // MARK: - 에스컬레이션 트리거
@@ -62,11 +85,12 @@ class HapticController {
         switch currentLevel {
         case .first:
             // 1차: 약한 진동
+            currentStage = 1
             playFirstHaptic()
 
-            // 5초 후 코골이 지속 여부 확인
+            // 1차 대기 후 코골이 지속 여부 확인
             escalationTimer = Timer.scheduledTimer(
-                withTimeInterval: firstWaitDuration,
+                withTimeInterval: firstWaitSeconds,
                 repeats: false
             ) { [weak self] _ in
                 guard let self = self else { return }
@@ -84,11 +108,12 @@ class HapticController {
 
         case .second:
             // 2차: 강한 진동
+            currentStage = 2
             playSecondHaptic()
 
-            // 10초 후 코골이 지속 여부 확인
+            // 2차 대기 후 코골이 지속 여부 확인
             escalationTimer = Timer.scheduledTimer(
-                withTimeInterval: secondWaitDuration,
+                withTimeInterval: secondWaitSeconds,
                 repeats: false
             ) { [weak self] _ in
                 guard let self = self else { return }
@@ -105,13 +130,14 @@ class HapticController {
 
         case .third:
             // 3차: 아이폰 에스컬레이션 요청
+            currentStage = 3
             if settings.iPhoneEscalationEnabled {
                 phoneConnector.sendEscalationRequest()
             }
 
             // 최종 쿨다운 후 에스컬레이션 종료
             escalationTimer = Timer.scheduledTimer(
-                withTimeInterval: finalCooldown,
+                withTimeInterval: finalCooldownSeconds,
                 repeats: false
             ) { [weak self] _ in
                 self?.finishEscalation()
@@ -131,9 +157,9 @@ class HapticController {
         let count: Int
         let interval: Double
         switch hapticIntensity {
-        case .light:  count = 5;  interval = 0.4
-        case .medium: count = 8;  interval = 0.3
-        case .strong: count = 12; interval = 0.25
+        case .light:  count = firstHapticCountLight;  interval = firstHapticIntervalLight
+        case .medium: count = firstHapticCountMedium;  interval = firstHapticIntervalMedium
+        case .strong: count = firstHapticCountStrong; interval = firstHapticIntervalStrong
         }
         for i in 0..<count {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * interval) { [hapticEngine] in
@@ -147,9 +173,9 @@ class HapticController {
         let count: Int
         let interval: Double
         switch hapticIntensity {
-        case .light:  count = 5;  interval = 0.4
-        case .medium: count = 10; interval = 0.3
-        case .strong: count = 15; interval = 0.2
+        case .light:  count = secondHapticCountLight;  interval = secondHapticIntervalLight
+        case .medium: count = secondHapticCountMedium; interval = secondHapticIntervalMedium
+        case .strong: count = secondHapticCountStrong; interval = secondHapticIntervalStrong
         }
         for i in 0..<count {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * interval) { [hapticEngine] in
@@ -164,6 +190,7 @@ class HapticController {
         escalationTimer = nil
         isEscalating = false
         currentLevel = .first
+        currentStage = 0
     }
 
     // MARK: - 설정 업데이트

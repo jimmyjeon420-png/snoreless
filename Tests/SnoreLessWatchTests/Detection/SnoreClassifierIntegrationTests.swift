@@ -6,7 +6,6 @@ final class SnoreClassifierIntegrationTests: XCTestCase {
     // MARK: - 1. DetectionSource enum has all expected cases
 
     func test_detectionSource_hasAllExpectedCases() {
-        // Verify all four cases exist and are distinct
         let none = SnoreDetector.DetectionSource.none
         let audio = SnoreDetector.DetectionSource.audio
         let ml = SnoreDetector.DetectionSource.ml
@@ -20,22 +19,21 @@ final class SnoreClassifierIntegrationTests: XCTestCase {
         XCTAssertNotEqual(ml, both)
     }
 
-    // MARK: - 2. processMLResult with confidence > 0.5 triggers detection
+    // MARK: - 2. ML alone sets flag but does NOT confirm (ML gate)
 
-    func test_processMLResult_highConfidence_triggersDetection() {
+    func test_processMLResult_highConfidence_setsFlagOnly() {
         let detector = SnoreDetector()
 
-        // First ML result confirms one sound event
+        // ML alone should NOT change state — it only sets mlConfirmedSnoring flag
         detector.processMLResult(isSnoring: true, confidence: 0.8)
 
-        // After one ML confirmation, state should be .confirmed (need 2 for .snoring)
-        XCTAssertEqual(detector.state, .confirmed,
-                       "First ML detection with high confidence should confirm a sound event")
+        XCTAssertEqual(detector.state, .idle,
+                       "ML alone should NOT confirm — dB must be in .detecting state first")
         XCTAssertEqual(detector.detectionSource, .ml,
-                       "Source should be .ml when only ML detects")
+                       "Source should be .ml when ML fires")
     }
 
-    // MARK: - 3. processMLResult with confidence < 0.5 -> no detection
+    // MARK: - 3. Low confidence ML -> no detection
 
     func test_processMLResult_lowConfidence_noDetection() {
         let detector = SnoreDetector()
@@ -74,19 +72,19 @@ final class SnoreClassifierIntegrationTests: XCTestCase {
                        "When both audio and ML detect simultaneously, source should be .both")
     }
 
-    // MARK: - 5. processMLResult after reset -> clean state
+    // MARK: - 5. Reset clears all state including ML flags
 
     func test_processMLResult_afterReset_cleanState() {
         let detector = SnoreDetector()
 
-        // Build up state
-        detector.processMLResult(isSnoring: true, confidence: 0.8)
-        XCTAssertEqual(detector.state, .confirmed)
+        // Build up state via dB + ML dual mode
+        detector.processSample(level: -44.0, backgroundNoise: -50.0)
+        XCTAssertEqual(detector.state, .detecting)
 
-        // Trigger snoring (second event)
-        detector.processMLResult(isSnoring: true, confidence: 0.9)
-        XCTAssertEqual(detector.state, .snoring)
-        XCTAssertEqual(detector.snoreCount, 1)
+        detector.processMLResult(isSnoring: true, confidence: 0.8)
+        Thread.sleep(forTimeInterval: 0.3) // Wait for minDuration
+        detector.processSample(level: -52.0, backgroundNoise: -50.0)
+        // At this point state should be .confirmed or .snoring
 
         // Reset
         detector.reset()
@@ -97,19 +95,26 @@ final class SnoreClassifierIntegrationTests: XCTestCase {
         XCTAssertTrue(detector.eventLog.isEmpty, "Event log should be empty after reset")
     }
 
-    // MARK: - 6. ML detection triggers snoring after 2 events (repetition threshold)
+    // MARK: - 6. ML + dB dual mode triggers snoring after 2 events
 
-    func test_twoMLDetections_triggersSnoring() {
+    func test_dualMode_twoEvents_triggersSnoring() {
         let detector = SnoreDetector()
+        detector.isMLAvailable = true
 
-        // First ML detection
-        detector.processMLResult(isSnoring: true, confidence: 0.7)
-        XCTAssertEqual(detector.state, .confirmed)
-
-        // Second ML detection (within repetition window)
+        // Event 1: dB detects, ML confirms
         detector.processMLResult(isSnoring: true, confidence: 0.8)
+        detector.processSample(level: -44.0, backgroundNoise: -50.0)
+        Thread.sleep(forTimeInterval: 0.3)
+        detector.processSample(level: -52.0, backgroundNoise: -50.0)
+        XCTAssertEqual(detector.state, .confirmed, "First dual-mode event should confirm")
+
+        // Event 2: dB detects, ML confirms
+        detector.processMLResult(isSnoring: true, confidence: 0.8)
+        detector.processSample(level: -44.0, backgroundNoise: -50.0)
+        Thread.sleep(forTimeInterval: 0.3)
+        detector.processSample(level: -52.0, backgroundNoise: -50.0)
         XCTAssertEqual(detector.state, .snoring,
-                       "Two ML detections within window should confirm snoring")
+                       "Two dual-mode events within window should confirm snoring")
         XCTAssertEqual(detector.snoreCount, 1)
     }
 
@@ -127,5 +132,21 @@ final class SnoreClassifierIntegrationTests: XCTestCase {
 
         XCTAssertEqual(detector.detectionSource, .audio,
                        "When only audio is detecting, source should be .audio")
+    }
+
+    // MARK: - 8. ML gate: dB alone blocked when ML is available
+
+    func test_mlAvailable_dbAlone_doesNotConfirm() {
+        let detector = SnoreDetector()
+        detector.isMLAvailable = true
+
+        // dB detects sound but ML never confirms
+        detector.processSample(level: -44.0, backgroundNoise: -50.0)
+        XCTAssertEqual(detector.state, .detecting)
+        Thread.sleep(forTimeInterval: 0.3)
+        detector.processSample(level: -52.0, backgroundNoise: -50.0)
+
+        XCTAssertEqual(detector.state, .idle,
+                       "When ML is available but hasn't confirmed, dB alone should NOT confirm")
     }
 }

@@ -104,9 +104,13 @@ class AIAnalyzer {
         for session in sessions {
             let sessionDate = calendar.startOfDay(for: session.startTime)
             let hour = calendar.component(.hour, from: session.startTime)
-            let checkInDate = hour < 12
-                ? calendar.date(byAdding: .day, value: -1, to: sessionDate)!
-                : sessionDate
+            let checkInDate: Date
+            if hour < 12 {
+                guard let adjusted = calendar.date(byAdding: .day, value: -1, to: sessionDate) else { continue }
+                checkInDate = adjusted
+            } else {
+                checkInDate = sessionDate
+            }
 
             if let checkIn = checkIns.first(where: {
                 calendar.isDate($0.date, inSameDayAs: checkInDate)
@@ -181,9 +185,13 @@ class AIAnalyzer {
         for session in sessions {
             let sessionDate = calendar.startOfDay(for: session.startTime)
             let hour = calendar.component(.hour, from: session.startTime)
-            let checkInDate = hour < 12
-                ? calendar.date(byAdding: .day, value: -1, to: sessionDate)!
-                : sessionDate
+            let checkInDate: Date
+            if hour < 12 {
+                guard let adjusted = calendar.date(byAdding: .day, value: -1, to: sessionDate) else { continue }
+                checkInDate = adjusted
+            } else {
+                checkInDate = sessionDate
+            }
 
             if let checkIn = checkIns.first(where: {
                 calendar.isDate($0.date, inSameDayAs: checkInDate)

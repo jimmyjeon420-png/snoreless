@@ -3,6 +3,10 @@ import Foundation
 // MARK: - 워치 <-> 아이폰 통신 메시지
 
 enum SnoreMessageKey {
+    // MARK: - 메시지 버전 (워치/아이폰 간 호환성 체크)
+    static let messageVersion = "messageVersion"
+    static let currentVersion = 1
+
     static let snoreDetected = "snoreDetected"
     static let escalationRequest = "escalationRequest"
     static let sessionStarted = "sessionStarted"
@@ -21,6 +25,21 @@ enum SnoreMessageKey {
     // 파일 전송 메타데이터
     static let snoreRecordingFile = "snoreRecordingFile"
     static let recordingTimestamp = "recordingTimestamp"
+
+    /// Check if a message version is compatible. Returns true if compatible.
+    /// Messages without a version field are treated as legacy (v0) and still accepted.
+    static func isCompatible(_ message: [String: Any]) -> Bool {
+        guard let version = message[messageVersion] as? Int else {
+            // Legacy message without version — accept but log
+            print("[SnoreMessageKey] 버전 필드 없는 레거시 메시지 수신")
+            return true
+        }
+        if version != currentVersion {
+            print("[SnoreMessageKey] ⚠️ 메시지 버전 불일치: received=\(version), expected=\(currentVersion)")
+            return false
+        }
+        return true
+    }
 }
 
 struct SnoreEventData: Codable {

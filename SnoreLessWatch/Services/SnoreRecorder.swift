@@ -9,6 +9,7 @@ class SnoreRecorder {
     // MARK: - 설정
     private let maxClipCount = 10
     private let clipDuration: TimeInterval = 5.0
+    private let clipExpirationDays: TimeInterval = 7 * 24 * 60 * 60  // 7일
 
     // MARK: - 내부 상태
     private var audioRecorder: AVAudioRecorder?
@@ -18,11 +19,19 @@ class SnoreRecorder {
 
     // MARK: - 초기화
     init() {
-        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        guard let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            clipDirectory = FileManager.default.temporaryDirectory.appendingPathComponent("SnoreClips", isDirectory: true)
+            print("[SnoreRecorder] documents directory unavailable, using temp directory")
+            return
+        }
         clipDirectory = docs.appendingPathComponent("SnoreClips", isDirectory: true)
 
         // 디렉토리 생성
-        try? FileManager.default.createDirectory(at: clipDirectory, withIntermediateDirectories: true)
+        do {
+            try FileManager.default.createDirectory(at: clipDirectory, withIntermediateDirectories: true)
+        } catch {
+            print("[SnoreRecorder] clip directory creation failed: \(error)")
+        }
     }
 
     // MARK: - 녹음 트리거 (코골이 확정 시 호출)
@@ -73,19 +82,44 @@ class SnoreRecorder {
     // MARK: - 오래된 클립 삭제
     private func cleanupOldClips() {
         let fm = FileManager.default
-        guard let files = try? fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: [.creationDateKey])
-            .filter({ $0.pathExtension == "m4a" })
-            .sorted(by: { url1, url2 in
-                let date1 = (try? url1.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
-                let date2 = (try? url2.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
-                return date1 < date2
-            })
-        else { return }
+        let files: [URL]
+        do {
+            files = try fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: [.creationDateKey])
+                .filter({ $0.pathExtension == "m4a" })
+                .sorted(by: { url1, url2 in
+                    // resourceValues failure is harmless here — falls back to distantPast for sort order
+                    let date1 = (try? url1.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
+                    let date2 = (try? url2.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
+                    return date1 < date2
+                })
+        } catch {
+            print("[SnoreRecorder] failed to list clip directory for cleanup: \(error)")
+            return
+        }
+
+        // 7일 이상 된 클립 만료 삭제
+        let now = Date()
+        for file in files {
+            if let creationDate = (try? file.resourceValues(forKeys: [.creationDateKey]))?.creationDate,
+               now.timeIntervalSince(creationDate) > clipExpirationDays {
+                try? fm.removeItem(at: file)
+            }
+        }
 
         // 최대 개수 초과 시 오래된 것부터 삭제
-        if files.count > maxClipCount {
-            let toDelete = files.prefix(files.count - maxClipCount)
-            for file in toDelete {
+        let remaining: [URL]
+        do {
+            remaining = try fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: [.creationDateKey])
+                .filter { $0.pathExtension == "m4a" }
+        } catch { return }
+
+        if remaining.count > maxClipCount {
+            let sorted = remaining.sorted {
+                let d1 = (try? $0.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
+                let d2 = (try? $1.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
+                return d1 < d2
+            }
+            for file in sorted.prefix(remaining.count - maxClipCount) {
                 try? fm.removeItem(at: file)
             }
         }
@@ -99,15 +133,21 @@ class SnoreRecorder {
 
         // 가장 최근 파일 전송
         let fm = FileManager.default
-        guard let files = try? fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: [.creationDateKey])
-            .filter({ $0.pathExtension == "m4a" })
-            .sorted(by: { url1, url2 in
-                let date1 = (try? url1.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
-                let date2 = (try? url2.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
-                return date1 > date2
-            }),
-              let latestFile = files.first
-        else { return }
+        let files: [URL]
+        do {
+            files = try fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: [.creationDateKey])
+                .filter({ $0.pathExtension == "m4a" })
+                .sorted(by: { url1, url2 in
+                    // resourceValues failure is harmless here — falls back to distantPast for sort order
+                    let date1 = (try? url1.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
+                    let date2 = (try? url2.resourceValues(forKeys: [.creationDateKey]))?.creationDate ?? .distantPast
+                    return date1 > date2
+                })
+        } catch {
+            print("[SnoreRecorder] failed to list clip directory for transfer: \(error)")
+            return
+        }
+        guard let latestFile = files.first else { return }
 
         let metadata: [String: Any] = [
             "type": "snoreClip",
@@ -121,18 +161,30 @@ class SnoreRecorder {
     // MARK: - 전체 클립 삭제
     func deleteAllClips() {
         let fm = FileManager.default
-        if let files = try? fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: nil) {
+        do {
+            let files = try fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: nil)
             for file in files {
-                try? fm.removeItem(at: file)
+                do {
+                    try fm.removeItem(at: file)
+                } catch {
+                    print("[SnoreRecorder] failed to delete clip \(file.lastPathComponent): \(error)")
+                }
             }
+        } catch {
+            print("[SnoreRecorder] failed to list clip directory for deletion: \(error)")
         }
     }
 
     // MARK: - 클립 개수
     var clipCount: Int {
         let fm = FileManager.default
-        let files = (try? fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: nil)
-            .filter { $0.pathExtension == "m4a" }) ?? []
-        return files.count
+        do {
+            let files = try fm.contentsOfDirectory(at: clipDirectory, includingPropertiesForKeys: nil)
+                .filter { $0.pathExtension == "m4a" }
+            return files.count
+        } catch {
+            print("[SnoreRecorder] failed to count clips: \(error)")
+            return 0
+        }
     }
 }

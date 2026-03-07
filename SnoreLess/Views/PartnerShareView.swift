@@ -159,8 +159,8 @@ struct PartnerShareView: View {
         let today = calendar.startOfDay(for: .now)
 
         return (0..<7).compactMap { offset -> WeeklyItem? in
-            guard let date = calendar.date(byAdding: .day, value: -(6 - offset), to: today) else { return nil }
-            let nextDate = calendar.date(byAdding: .day, value: 1, to: date)!
+            guard let date = calendar.date(byAdding: .day, value: -(6 - offset), to: today),
+                  let nextDate = calendar.date(byAdding: .day, value: 1, to: date) else { return nil }
 
             let count = recentSessions
                 .filter { $0.startTime >= date && $0.startTime < nextDate }

@@ -1,4 +1,5 @@
 import SwiftUI
+import WatchKit
 
 /// Watch 설정 화면
 struct WatchSettingsView: View {
@@ -66,6 +67,19 @@ struct WatchSettingsView: View {
                     Text(hapticIntensityDescription)
                         .font(.caption2)
                         .foregroundStyle(.secondary)
+
+                    Button(String(localized: "진동 테스트")) {
+                        let device = WKInterfaceDevice.current()
+                        device.play(.click)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            device.play(.click)
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                            device.play(.click)
+                        }
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.cyan)
                 }
                 .padding(.horizontal, 4)
             }

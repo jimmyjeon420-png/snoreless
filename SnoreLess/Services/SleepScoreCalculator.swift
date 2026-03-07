@@ -24,6 +24,51 @@ struct SleepScore {
 
 struct SleepScoreCalculator {
 
+    // MARK: - 점수 배점 상한
+    private static let snoreScoreMax: Int = 30
+    private static let responseScoreMax: Double = 30.0
+    private static let durationScoreMax: Int = 25
+    private static let consistencyScoreMax: Int = 15
+
+    // MARK: - 코골이 횟수별 점수
+    private static let snoreScoreZero: Int = 30
+    private static let snoreScoreLow: Int = 25       // 1-2회
+    private static let snoreScoreMid: Int = 18        // 3-5회
+    private static let snoreScoreHigh: Int = 10       // 6-10회
+    private static let snoreScoreExcessive: Int = 5   // 11회+
+
+    // MARK: - 수면 시간 점수
+    private static let durationOptimalScore: Int = 25     // 7-9시간
+    private static let durationNearOptimalScore: Int = 18 // 6-7 or 9-10시간
+    private static let durationFarScore: Int = 10         // 5-6 or 10-11시간
+    private static let durationPoorScore: Int = 5         // 그 외
+
+    // MARK: - 수면 시간 범위 (시간)
+    private static let durationOptimalMin: Double = 7.0
+    private static let durationOptimalMax: Double = 9.0
+    private static let durationNearMin: Double = 6.0
+    private static let durationNearMax: Double = 10.0
+    private static let durationFarMin: Double = 5.0
+    private static let durationFarMax: Double = 11.0
+
+    // MARK: - 일관성 점수 (취침시간 편차 기준, 분)
+    private static let consistencyExcellentThreshold: Double = 30   // 0-30분
+    private static let consistencyGoodThreshold: Double = 60        // 30-60분
+    private static let consistencyFairThreshold: Double = 120       // 60-120분
+    private static let consistencyExcellentScore: Int = 15
+    private static let consistencyGoodScore: Int = 10
+    private static let consistencyFairScore: Int = 5
+    private static let consistencyPoorScore: Int = 0
+
+    // MARK: - 크로스 미드나잇 보정 기준 (시)
+    private static let crossMidnightHourThreshold: Int = 12
+
+    // MARK: - 등급 경계 (총점 기준)
+    private static let gradeExcellentMin: Int = 90
+    private static let gradeGreatMin: Int = 80
+    private static let gradeGoodMin: Int = 70
+    private static let gradeFairMin: Int = 55
+
     /// Calculate a sleep quality score for a session, using recent sessions for consistency.
     static func calculate(session: SleepSession, recentSessions: [SleepSession]) -> SleepScore {
         let snore = calcSnoreScore(session: session)
@@ -51,11 +96,11 @@ struct SleepScoreCalculator {
     private static func calcSnoreScore(session: SleepSession) -> Int {
         let count = session.totalSnoreCount
         switch count {
-        case 0:      return 30
-        case 1...2:  return 25
-        case 3...5:  return 18
-        case 6...10: return 10
-        default:     return 5
+        case 0:      return snoreScoreZero
+        case 1...2:  return snoreScoreLow
+        case 3...5:  return snoreScoreMid
+        case 6...10: return snoreScoreHigh
+        default:     return snoreScoreExcessive
         }
     }
 
@@ -63,11 +108,11 @@ struct SleepScoreCalculator {
 
     private static func calcResponseScore(session: SleepSession) -> Int {
         let events = session.snoreEvents
-        guard !events.isEmpty else { return 30 } // no snores = perfect response
+        guard !events.isEmpty else { return Int(responseScoreMax) } // no snores = perfect response
 
         let stoppedCount = events.filter(\.stoppedAfterHaptic).count
         let rate = Double(stoppedCount) / Double(events.count)
-        return Int(rate * 30.0)
+        return Int(rate * responseScoreMax)
     }
 
     // MARK: - Duration Score (0-25)
@@ -78,12 +123,16 @@ struct SleepScoreCalculator {
         let hours = endTime.timeIntervalSince(session.startTime) / 3600.0
 
         switch hours {
-        case 7.0...9.0:   return 25
-        case 6.0..<7.0,
-             9.0..<10.0:  return 18  // 9.0 already matched above so 9+..10
-        case 5.0..<6.0,
-             10.0..<11.0: return 10
-        default:          return 5
+        case durationOptimalMin...durationOptimalMax:
+            return durationOptimalScore
+        case durationNearMin..<durationOptimalMin,
+             durationOptimalMax..<durationNearMax:
+            return durationNearOptimalScore
+        case durationFarMin..<durationNearMin,
+             durationNearMax..<durationFarMax:
+            return durationFarScore
+        default:
+            return durationPoorScore
         }
     }
 
@@ -92,7 +141,7 @@ struct SleepScoreCalculator {
     private static func calcConsistencyScore(session: SleepSession, recentSessions: [SleepSession]) -> Int {
         // Need at least 2 other sessions for comparison
         let others = recentSessions.filter { $0.id != session.id }
-        guard !others.isEmpty else { return 15 } // first session gets full marks
+        guard !others.isEmpty else { return consistencyExcellentScore } // first session gets full marks
 
         let calendar = Calendar.current
 
@@ -102,7 +151,7 @@ struct SleepScoreCalculator {
                 let comps = calendar.dateComponents([.hour, .minute], from: s.startTime)
                 guard let h = comps.hour, let m = comps.minute else { return nil }
                 // Handle cross-midnight: treat hours 0-6 as 24-30
-                let hour = h < 12 ? h + 24 : h
+                let hour = h < crossMidnightHourThreshold ? h + 24 : h
                 return Double(hour * 3600 + m * 60)
             }
             guard !seconds.isEmpty else { return 0 }
@@ -111,16 +160,16 @@ struct SleepScoreCalculator {
 
         let sessionComps = calendar.dateComponents([.hour, .minute], from: session.startTime)
         guard let sh = sessionComps.hour, let sm = sessionComps.minute else { return 0 }
-        let sessionHour = sh < 12 ? sh + 24 : sh
+        let sessionHour = sh < crossMidnightHourThreshold ? sh + 24 : sh
         let sessionSeconds = Double(sessionHour * 3600 + sm * 60)
 
         let diffMinutes = abs(sessionSeconds - avgStartSeconds) / 60.0
 
         switch diffMinutes {
-        case 0..<30:  return 15
-        case 30..<60: return 10
-        case 60..<120: return 5
-        default:       return 0
+        case 0..<consistencyExcellentThreshold:  return consistencyExcellentScore
+        case consistencyExcellentThreshold..<consistencyGoodThreshold: return consistencyGoodScore
+        case consistencyGoodThreshold..<consistencyFairThreshold: return consistencyFairScore
+        default:       return consistencyPoorScore
         }
     }
 
@@ -128,10 +177,10 @@ struct SleepScoreCalculator {
 
     private static func gradeFor(_ total: Int) -> SleepGrade {
         switch total {
-        case 90...100: return .excellent
-        case 80..<90:  return .great
-        case 70..<80:  return .good
-        case 55..<70:  return .fair
+        case gradeExcellentMin...100: return .excellent
+        case gradeGreatMin..<gradeExcellentMin:  return .great
+        case gradeGoodMin..<gradeGreatMin:  return .good
+        case gradeFairMin..<gradeGoodMin:  return .fair
         default:       return .poor
         }
     }

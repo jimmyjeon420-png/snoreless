@@ -153,6 +153,8 @@ targets:
     sources:
       - path: SnoreLessWatch/Complications
         type: group
+      - path: Shared/StorageKeys.swift
+        type: file
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nicenoodle.snoreless.watchkitapp.widgets

@@ -1,5 +1,7 @@
 import SwiftUI
 import SwiftData
+import AVFoundation
+import UserNotifications
 
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
@@ -33,6 +35,9 @@ struct SettingsView: View {
     @State private var showDeleteRecordingsAlert = false
     @State private var showResetSessionsAlert = false
     @State private var recordingStorageSize: String = "0 KB"
+    @State private var showSyncToast = false
+    @State private var micPermissionGranted = true
+    @State private var notificationPermissionGranted = true
 
     var body: some View {
         NavigationStack {
@@ -271,6 +276,33 @@ struct SettingsView: View {
                     Text(String(localized: "모든 수면 기록과 코골이 이벤트가 삭제됩니다. 이 작업은 되돌릴 수 없습니다."))
                 }
 
+                // 권한 관리
+                Section {
+                    HStack {
+                        Label(String(localized: "마이크"), systemImage: "mic.fill")
+                        Spacer()
+                        Text(micPermissionGranted ? String(localized: "허용됨") : String(localized: "거부됨"))
+                            .foregroundStyle(micPermissionGranted ? .green : .red)
+                    }
+
+                    HStack {
+                        Label(String(localized: "알림"), systemImage: "bell.fill")
+                        Spacer()
+                        Text(notificationPermissionGranted ? String(localized: "허용됨") : String(localized: "거부됨"))
+                            .foregroundStyle(notificationPermissionGranted ? .green : .red)
+                    }
+
+                    if !micPermissionGranted || !notificationPermissionGranted {
+                        Button(String(localized: "설정에서 권한 변경")) {
+                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                UIApplication.shared.open(url)
+                            }
+                        }
+                    }
+                } header: {
+                    Text(String(localized: "권한 관리"))
+                }
+
                 // 정보
                 Section {
                     HStack {
@@ -284,9 +316,27 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle(String(localized: "설정"))
+            .overlay(alignment: .bottom) {
+                if showSyncToast {
+                    Text(String(localized: "워치에 동기화됨"))
+                        .font(.caption)
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(Capsule().fill(Color.green.opacity(0.2)))
+                        .foregroundStyle(.green)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                withAnimation { showSyncToast = false }
+                            }
+                        }
+                        .padding(.bottom, 16)
+                }
+            }
             .onAppear {
                 initializeDatePickers()
                 calculateRecordingStorageSize()
+                checkPermissions()
             }
             .onChange(of: iPhoneEscalation) { _, _ in syncSettingsToWatch() }
             .onChange(of: sensitivity) { _, _ in syncSettingsToWatch() }
@@ -343,6 +393,7 @@ struct SettingsView: View {
             cooldownDuration: TimeInterval(cooldown)
         )
         watchConnector.sendSettings(settings)
+        withAnimation { showSyncToast = true }
     }
 
     // MARK: - 스마트 알람 워치 동기화
@@ -428,6 +479,24 @@ struct SettingsView: View {
             recordingStorageSize = String(format: "%.0f KB", kb)
         } else {
             recordingStorageSize = String(format: "%.1f MB", kb / 1024.0)
+        }
+    }
+
+    // MARK: - 권한 상태 확인
+    private func checkPermissions() {
+        // 마이크 권한
+        switch AVAudioApplication.shared.recordPermission {
+        case .granted:
+            micPermissionGranted = true
+        default:
+            micPermissionGranted = false
+        }
+
+        // 알림 권한
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                notificationPermissionGranted = (settings.authorizationStatus == .authorized)
+            }
         }
     }
 }

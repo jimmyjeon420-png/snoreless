@@ -59,9 +59,9 @@ class SleepDataStore {
 
         let sessions = try modelContext.fetch(descriptor)
 
-        return (0..<days).map { dayOffset in
-            let date = calendar.date(byAdding: .day, value: -dayOffset, to: today)!
-            let nextDate = calendar.date(byAdding: .day, value: 1, to: date)!
+        return (0..<days).compactMap { dayOffset -> DailySnoreStat? in
+            guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: today),
+                  let nextDate = calendar.date(byAdding: .day, value: 1, to: date) else { return nil }
 
             let daySessions = sessions.filter {
                 $0.startTime >= date && $0.startTime < nextDate
@@ -93,12 +93,13 @@ class SleepDataStore {
         let checkInDate: Date
         if hour < 12 {
             // 새벽이면 전날 체크인 매칭
-            checkInDate = calendar.date(byAdding: .day, value: -1, to: sessionDate)!
+            guard let adjusted = calendar.date(byAdding: .day, value: -1, to: sessionDate) else { return nil }
+            checkInDate = adjusted
         } else {
             checkInDate = sessionDate
         }
 
-        let nextDate = calendar.date(byAdding: .day, value: 1, to: checkInDate)!
+        guard let nextDate = calendar.date(byAdding: .day, value: 1, to: checkInDate) else { return nil }
 
         let descriptor = FetchDescriptor<DailyCheckIn>(
             predicate: #Predicate<DailyCheckIn> {
@@ -107,7 +108,12 @@ class SleepDataStore {
             sortBy: [SortDescriptor(\.date, order: .reverse)]
         )
 
-        return try? modelContext.fetch(descriptor).first
+        do {
+            return try modelContext.fetch(descriptor).first
+        } catch {
+            print("[SleepDataStore] check-in fetch failed for date \(sessionStart): \(error)")
+            return nil
+        }
     }
 
     // MARK: - 전체 통계 요약

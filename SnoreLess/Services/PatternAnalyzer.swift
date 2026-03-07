@@ -53,9 +53,12 @@ struct PatternAnalyzer {
             let sessionDate = calendar.startOfDay(for: session.startTime)
             let hour = calendar.component(.hour, from: session.startTime)
             // If session starts after midnight (before noon), match to previous day's check-in
-            let checkInDate = hour < 12
-                ? calendar.date(byAdding: .day, value: -1, to: sessionDate)!
-                : sessionDate
+            let checkInDate: Date
+            if hour < 12, let previousDay = calendar.date(byAdding: .day, value: -1, to: sessionDate) {
+                checkInDate = previousDay
+            } else {
+                checkInDate = sessionDate
+            }
 
             if let checkIn = checkIns.first(where: {
                 calendar.isDate($0.date, inSameDayAs: checkInDate)

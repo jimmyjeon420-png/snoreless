@@ -36,8 +36,8 @@ class HealthKitManager: ObservableObject {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: date)
         // 수면은 전날 밤부터 시작할 수 있으므로 전날 저녁 6시부터 조회
-        let queryStart = calendar.date(byAdding: .hour, value: -6, to: startOfDay)!
-        let queryEnd = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        let queryStart = calendar.date(byAdding: .hour, value: -6, to: startOfDay) ?? startOfDay.addingTimeInterval(-21600)
+        let queryEnd = calendar.date(byAdding: .day, value: 1, to: startOfDay) ?? startOfDay.addingTimeInterval(86400)
 
         let sleepType = HKCategoryType(.sleepAnalysis)
         let predicate = HKQuery.predicateForSamples(

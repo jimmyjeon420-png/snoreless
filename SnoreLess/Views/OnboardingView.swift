@@ -1,4 +1,5 @@
 import SwiftUI
+import WatchConnectivity
 
 struct OnboardingView: View {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
@@ -196,6 +197,27 @@ struct OnboardingView: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(4)
                     .padding(.top, 4)
+            }
+
+            // 워치 연결 상태
+            if WCSession.isSupported() {
+                HStack {
+                    Image(systemName: "applewatch.radiowaves.left.and.right")
+                        .foregroundStyle(.green)
+                    Text(String(localized: "Apple Watch 연결됨"))
+                        .font(.subheadline)
+                        .foregroundStyle(.green)
+                }
+                .padding(.top, 8)
+            } else {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundStyle(.orange)
+                    Text(String(localized: "Apple Watch가 필요합니다"))
+                        .font(.subheadline)
+                        .foregroundStyle(.orange)
+                }
+                .padding(.top, 8)
             }
 
             Spacer()

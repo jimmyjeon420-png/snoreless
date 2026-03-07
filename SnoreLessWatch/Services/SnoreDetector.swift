@@ -41,6 +41,10 @@ class SnoreDetector: ObservableObject {
     private var mlLastConfirmTime: Date?
     private let mlConfirmWindow: TimeInterval = 3.0  // ML 확인 유효 시간
 
+    // MARK: - 상수
+    private static let defaultEventIntensity: Double = 0.7
+    private static let mlMinConfidence: Double = 0.5
+
     // MARK: - 감지 설정 (init으로 주입 가능 — 테스트용)
     private var thresholdAboveBackground: Double
     private var minDuration: TimeInterval
@@ -65,12 +69,14 @@ class SnoreDetector: ObservableObject {
     }
 
     // MARK: - 내부 추적
+    private static let maxRecentConfirmations = 50
     private var detectionStartTime: Date?       // 큰 소리 시작 시점
     private var recentConfirmations: [Date] = [] // 최근 확인된 소리 이벤트 타임스탬프
     private var lastSnoreTime: Date?            // 마지막 코골이 확정 시점
     private var isInCooldown = false
 
     // MARK: - 이벤트 로그 (세션 종료 시 전송용)
+    private static let maxEventLogSize = 500
     private(set) var eventLog: [SnoreEventData] = []
 
     // MARK: - 샘플 처리
@@ -155,8 +161,11 @@ class SnoreDetector: ObservableObject {
             time.timeIntervalSince(event) <= repetitionWindow
         }
 
-        // 현재 이벤트 추가
+        // 현재 이벤트 추가 (상한 초과 시 가장 오래된 것 제거)
         recentConfirmations.append(time)
+        if recentConfirmations.count > Self.maxRecentConfirmations {
+            recentConfirmations.removeFirst()
+        }
 
         if recentConfirmations.count >= repetitionThreshold {
             // 코골이 확정
@@ -179,11 +188,14 @@ class SnoreDetector: ObservableObject {
         let eventData = SnoreEventData(
             timestamp: time,
             duration: minDuration,
-            intensity: 0.7,
+            intensity: Self.defaultEventIntensity,
             hapticLevel: 0,
             stoppedAfterHaptic: false
         )
-        eventLog.append(eventData)
+        if eventLog.count < Self.maxEventLogSize {
+            eventLog.append(eventData)
+        }
+        persistEventLogToDisk()
 
         // 콜백 호출
         onSnoreDetected?(eventData)
@@ -215,7 +227,7 @@ class SnoreDetector: ObservableObject {
             }
         }
 
-        if isSnoring && confidence > 0.5 {
+        if isSnoring && confidence > Self.mlMinConfidence {
             // ML이 코골이로 판정 — 플래그 세팅
             mlConfirmedSnoring = true
             mlLastConfirmTime = now
@@ -248,6 +260,23 @@ class SnoreDetector: ObservableObject {
         return state == .snoring || state == .detecting
     }
 
+    // MARK: - 이벤트 로그 디스크 저장
+    private func persistEventLogToDisk() {
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(eventLog) {
+            UserDefaults.standard.set(data, forKey: StorageKeys.pendingEventLog)
+        }
+    }
+
+    static func loadPersistedEventLog() -> [SnoreEventData] {
+        guard let data = UserDefaults.standard.data(forKey: StorageKeys.pendingEventLog) else { return [] }
+        return (try? JSONDecoder().decode([SnoreEventData].self, from: data)) ?? []
+    }
+
+    static func clearPersistedEventLog() {
+        UserDefaults.standard.removeObject(forKey: StorageKeys.pendingEventLog)
+    }
+
     // MARK: - 리셋
     func reset() {
         state = .idle
@@ -260,5 +289,6 @@ class SnoreDetector: ObservableObject {
         eventLog.removeAll()
         mlConfirmedSnoring = false
         mlLastConfirmTime = nil
+        Self.clearPersistedEventLog()
     }
 }
