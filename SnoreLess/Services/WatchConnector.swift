@@ -104,17 +104,25 @@ class WatchConnector: NSObject, ObservableObject {
         session.backgroundNoiseLevel = sessionData.backgroundNoiseLevel
         session.isActive = (sessionData.endTime == nil)
 
-        // 코골이 이벤트 변환
+        // 코골이/기침/잠꼬대 이벤트 변환
         for eventData in sessionData.snoreEvents {
             let event = SnoreEvent(
                 timestamp: eventData.timestamp,
                 duration: eventData.duration,
                 intensity: eventData.intensity,
                 hapticLevel: eventData.hapticLevel,
-                stoppedAfterHaptic: eventData.stoppedAfterHaptic
+                stoppedAfterHaptic: eventData.stoppedAfterHaptic,
+                soundType: eventData.soundType.rawValue
             )
             event.session = session
             session.snoreEvents.append(event)
+        }
+
+        // 데시벨 타임라인 변환
+        for sample in sessionData.decibelTimeline {
+            let reading = DecibelReading(timestamp: sample.timestamp, db: sample.db)
+            reading.session = session
+            session.decibelReadings.append(reading)
         }
 
         modelContext.insert(session)

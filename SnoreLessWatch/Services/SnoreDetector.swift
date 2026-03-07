@@ -29,6 +29,7 @@ class SnoreDetector: ObservableObject {
 
     // MARK: - 콜백
     var onSnoreDetected: ((SnoreEventData) -> Void)?
+    var onSoundEventDetected: ((SnoreEventData) -> Void)?  // 기침/잠꼬대 등 (햅틱 미발동)
 
     // MARK: - 배경 소음 기준
     var backgroundNoiseLevel: Double = -60.0
@@ -211,10 +212,28 @@ class SnoreDetector: ObservableObject {
     }
 
     // MARK: - ML 결과 처리
-    /// SnoreClassifier에서 호출 — ML이 코골이를 감지했을 때 플래그 세팅 + 보조 확정
-    func processMLResult(isSnoring: Bool, confidence: Double) {
+    /// SnoreClassifier에서 호출 — ML 분류 결과를 소리 타입별로 처리
+    func processMLResult(soundType: SoundEventType, confidence: Double) {
         let now = Date()
 
+        // 기침/잠꼬대: 즉시 이벤트 기록 (코골이 파이프라인 안 거침, 햅틱 안 함)
+        if soundType == .cough || soundType == .talking {
+            let eventData = SnoreEventData(
+                timestamp: now,
+                duration: 0.5,
+                intensity: Self.defaultEventIntensity,
+                hapticLevel: 0,
+                stoppedAfterHaptic: false,
+                soundType: soundType
+            )
+            if eventLog.count < Self.maxEventLogSize {
+                eventLog.append(eventData)
+            }
+            onSoundEventDetected?(eventData)
+            return
+        }
+
+        // 코골이: 기존 파이프라인 유지
         // 쿨다운 중이면 무시
         if isInCooldown {
             if let lastSnore = lastSnoreTime,
@@ -227,15 +246,13 @@ class SnoreDetector: ObservableObject {
             }
         }
 
-        if isSnoring && confidence > Self.mlMinConfidence {
-            // ML이 코골이로 판정 — 플래그 세팅
+        if confidence > Self.mlMinConfidence {
             mlConfirmedSnoring = true
             mlLastConfirmTime = now
 
             let currentSource: DetectionSource = (state == .detecting) ? .both : .ml
             detectionSource = currentSource
 
-            // dB도 이미 detecting 상태이면 바로 확정
             if state == .detecting {
                 if let startTime = detectionStartTime,
                    now.timeIntervalSince(startTime) >= minDuration {
@@ -243,7 +260,6 @@ class SnoreDetector: ObservableObject {
                 }
             }
         } else {
-            // ML이 코골이 아님 → 플래그 해제
             mlConfirmedSnoring = false
 
             if state == .detecting || state == .snoring {

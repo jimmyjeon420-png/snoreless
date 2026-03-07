@@ -8,7 +8,8 @@ struct SnoreLessApp: App {
         let schema = Schema([
             SleepSession.self,
             SnoreEvent.self,
-            DailyCheckIn.self
+            DailyCheckIn.self,
+            DecibelReading.self
         ])
         let modelConfiguration = ModelConfiguration(
             schema: schema,

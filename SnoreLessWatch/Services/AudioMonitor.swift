@@ -40,6 +40,12 @@ class AudioMonitor: NSObject, ObservableObject {
     private let calibrationInterval: TimeInterval = 0.5   // 0.5초마다 샘플
     private var calibrationStartDate: Date?
 
+    // MARK: - 데시벨 타임라인
+    private var decibelTimeline: [DecibelSample] = []
+    private var lastTimelineSampleDate: Date?
+    private let timelineSampleInterval: TimeInterval = 30  // 30초 간격
+    private static let maxTimelineSamples = 960  // 8시간분
+
     // MARK: - 세션 관리
     private var sessionStartDate: Date?
     private var cancellables = Set<AnyCancellable>()
@@ -94,13 +100,14 @@ class AudioMonitor: NSObject, ObservableObject {
             }
             .store(in: &cancellables)
 
-        // ML 분류기 결과를 SnoreDetector에 전달
-        snoreClassifier.$isSnoring
-            .combineLatest(snoreClassifier.$confidence)
+        // ML 분류기 결과를 SnoreDetector에 전달 (다중 소리 타입)
+        snoreClassifier.$latestResult
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] isSnoring, confidence in
+            .sink { [weak self] result in
                 guard let self = self, self.snoreClassifier.isAvailable else { return }
-                self.snoreDetector.processMLResult(isSnoring: isSnoring, confidence: confidence)
+                if let result = result {
+                    self.snoreDetector.processMLResult(soundType: result.soundType, confidence: result.confidence)
+                }
             }
             .store(in: &cancellables)
     }
@@ -258,7 +265,8 @@ class AudioMonitor: NSObject, ObservableObject {
                 endTime: Date(),
                 snoreEvents: snoreDetector.eventLog,
                 totalSnoreDuration: totalDuration,
-                backgroundNoiseLevel: backgroundNoiseLevel
+                backgroundNoiseLevel: backgroundNoiseLevel,
+                decibelTimeline: decibelTimeline
             )
             phoneConnector.sendSleepSession(sessionData)
         }
@@ -274,6 +282,8 @@ class AudioMonitor: NSObject, ObservableObject {
         calibrationSamples.removeAll()
         backgroundNoiseLevel = Self.defaultBackgroundNoiseDb
         sessionStartDate = nil
+        decibelTimeline.removeAll()
+        lastTimelineSampleDate = nil
     }
 
     // MARK: - 오디오 버퍼 → dB 변환 (오디오 스레드에서 호출, 스레드 안전)
@@ -308,7 +318,23 @@ class AudioMonitor: NSObject, ObservableObject {
                 level: db,
                 backgroundNoise: backgroundNoiseLevel
             )
+
+            // dB 타임라인 샘플링 (30초 간격)
+            let now = Date()
+            if let lastSample = lastTimelineSampleDate {
+                if now.timeIntervalSince(lastSample) >= timelineSampleInterval {
+                    appendTimelineSample(db: db, at: now)
+                }
+            } else {
+                appendTimelineSample(db: db, at: now)
+            }
         }
+    }
+
+    private func appendTimelineSample(db: Double, at time: Date) {
+        guard decibelTimeline.count < Self.maxTimelineSamples else { return }
+        decibelTimeline.append(DecibelSample(timestamp: time, db: db))
+        lastTimelineSampleDate = time
     }
 
     // MARK: - 캘리브레이션 (배경 소음 측정)

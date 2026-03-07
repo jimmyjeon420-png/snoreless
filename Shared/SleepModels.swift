@@ -16,6 +16,9 @@ final class SleepSession {
     @Relationship(deleteRule: .cascade)
     var snoreEvents: [SnoreEvent]
 
+    @Relationship(deleteRule: .cascade)
+    var decibelReadings: [DecibelReading]
+
     var checkIn: DailyCheckIn?
 
     init(startTime: Date = .now) {
@@ -27,6 +30,7 @@ final class SleepSession {
         self.backgroundNoiseLevel = 0
         self.isActive = true
         self.snoreEvents = []
+        self.decibelReadings = []
         self.checkIn = nil
     }
 
@@ -55,16 +59,36 @@ final class SnoreEvent {
     var intensity: Double
     var hapticLevel: Int
     var stoppedAfterHaptic: Bool
+    var soundType: String  // SoundEventType.rawValue
 
     var session: SleepSession?
 
-    init(timestamp: Date = .now, duration: TimeInterval = 0, intensity: Double = 0, hapticLevel: Int = 1, stoppedAfterHaptic: Bool = false) {
+    init(timestamp: Date = .now, duration: TimeInterval = 0, intensity: Double = 0, hapticLevel: Int = 1, stoppedAfterHaptic: Bool = false, soundType: String = "snoring") {
         self.id = UUID()
         self.timestamp = timestamp
         self.duration = duration
         self.intensity = intensity
         self.hapticLevel = hapticLevel
         self.stoppedAfterHaptic = stoppedAfterHaptic
+        self.soundType = soundType
+    }
+
+    var soundEventType: SoundEventType {
+        SoundEventType(rawValue: soundType) ?? .snoring
+    }
+}
+
+@Model
+final class DecibelReading {
+    var id: UUID
+    var timestamp: Date
+    var db: Double
+    var session: SleepSession?
+
+    init(timestamp: Date, db: Double) {
+        self.id = UUID()
+        self.timestamp = timestamp
+        self.db = db
     }
 }
 

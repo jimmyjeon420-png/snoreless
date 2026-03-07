@@ -42,12 +42,49 @@ enum SnoreMessageKey {
     }
 }
 
+// MARK: - 소리 종류
+
+enum SoundEventType: String, Codable {
+    case snoring    // 코골이
+    case cough      // 기침
+    case talking    // 잠꼬대
+    case unknown
+}
+
 struct SnoreEventData: Codable {
     let timestamp: Date
-    let duration: TimeInterval      // 코골이 지속 시간 (초)
+    let duration: TimeInterval      // 지속 시간 (초)
     let intensity: Double            // 소리 강도 (dB)
     let hapticLevel: Int             // 1=약, 2=중, 3=강(아이폰)
     let stoppedAfterHaptic: Bool     // 햅틱 후 멈췄는지
+    let soundType: SoundEventType    // 소리 종류
+
+    // 하위 호환: soundType 없는 기존 데이터는 .snoring으로
+    init(timestamp: Date, duration: TimeInterval, intensity: Double, hapticLevel: Int, stoppedAfterHaptic: Bool, soundType: SoundEventType = .snoring) {
+        self.timestamp = timestamp
+        self.duration = duration
+        self.intensity = intensity
+        self.hapticLevel = hapticLevel
+        self.stoppedAfterHaptic = stoppedAfterHaptic
+        self.soundType = soundType
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        timestamp = try container.decode(Date.self, forKey: .timestamp)
+        duration = try container.decode(TimeInterval.self, forKey: .duration)
+        intensity = try container.decode(Double.self, forKey: .intensity)
+        hapticLevel = try container.decode(Int.self, forKey: .hapticLevel)
+        stoppedAfterHaptic = try container.decode(Bool.self, forKey: .stoppedAfterHaptic)
+        soundType = try container.decodeIfPresent(SoundEventType.self, forKey: .soundType) ?? .snoring
+    }
+}
+
+// MARK: - 데시벨 타임라인 샘플
+
+struct DecibelSample: Codable {
+    let timestamp: Date
+    let db: Double
 }
 
 struct SleepSessionData: Codable {
@@ -55,7 +92,28 @@ struct SleepSessionData: Codable {
     let endTime: Date?
     let snoreEvents: [SnoreEventData]
     let totalSnoreDuration: TimeInterval
-    let backgroundNoiseLevel: Double  // 캘리브레이션된 배경 소음
+    let backgroundNoiseLevel: Double
+    let decibelTimeline: [DecibelSample]
+
+    // 하위 호환: decibelTimeline 없는 기존 데이터는 빈 배열
+    init(startTime: Date, endTime: Date?, snoreEvents: [SnoreEventData], totalSnoreDuration: TimeInterval, backgroundNoiseLevel: Double, decibelTimeline: [DecibelSample] = []) {
+        self.startTime = startTime
+        self.endTime = endTime
+        self.snoreEvents = snoreEvents
+        self.totalSnoreDuration = totalSnoreDuration
+        self.backgroundNoiseLevel = backgroundNoiseLevel
+        self.decibelTimeline = decibelTimeline
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        startTime = try container.decode(Date.self, forKey: .startTime)
+        endTime = try container.decodeIfPresent(Date.self, forKey: .endTime)
+        snoreEvents = try container.decode([SnoreEventData].self, forKey: .snoreEvents)
+        totalSnoreDuration = try container.decode(TimeInterval.self, forKey: .totalSnoreDuration)
+        backgroundNoiseLevel = try container.decode(Double.self, forKey: .backgroundNoiseLevel)
+        decibelTimeline = try container.decodeIfPresent([DecibelSample].self, forKey: .decibelTimeline) ?? []
+    }
 }
 
 struct AppSettings: Codable {

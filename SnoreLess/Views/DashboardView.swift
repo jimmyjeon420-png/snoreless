@@ -58,6 +58,11 @@ struct DashboardView: View {
                         .padding(.horizontal)
                         .padding(.top, 16)
 
+                    // 소리 타임라인 카드
+                    soundTimelineCard
+                        .padding(.horizontal)
+                        .padding(.top, 16)
+
                     // 액션 버튼들
                     actionButtons
                         .padding(.horizontal)
@@ -207,6 +212,87 @@ struct DashboardView: View {
                         .fill(Color(.systemGray6).opacity(0.6))
                 )
             }
+        }
+    }
+
+    // MARK: - Sound Timeline Card
+
+    @ViewBuilder
+    private var soundTimelineCard: some View {
+        if let session = completedSessions.first {
+            let snoreCount = session.snoreEvents.filter { $0.soundEventType == .snoring }.count
+            let coughCount = session.snoreEvents.filter { $0.soundEventType == .cough }.count
+            let talkingCount = session.snoreEvents.filter { $0.soundEventType == .talking }.count
+            let hasTimeline = !session.decibelReadings.isEmpty
+
+            NavigationLink {
+                DecibelTimelineView(session: session)
+            } label: {
+                VStack(alignment: .leading, spacing: 12) {
+                    HStack {
+                        Image(systemName: "waveform")
+                            .foregroundStyle(.cyan)
+                            .font(.caption)
+                        Text(String(localized: "밤새 소리 분석"))
+                            .font(.subheadline)
+                            .fontWeight(.medium)
+                            .foregroundStyle(.gray)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .font(.caption2)
+                            .foregroundStyle(.gray.opacity(0.5))
+                    }
+
+                    if hasTimeline {
+                        // 미니 dB 차트
+                        miniDecibelChart(readings: session.decibelReadings.sorted { $0.timestamp < $1.timestamp })
+                            .frame(height: 60)
+                    }
+
+                    // 소리 종류별 아이콘 + 횟수
+                    HStack(spacing: 20) {
+                        soundBadge(icon: "moon.zzz.fill", count: snoreCount, color: .orange)
+                        soundBadge(icon: "lungs.fill", count: coughCount, color: .yellow)
+                        soundBadge(icon: "text.bubble.fill", count: talkingCount, color: .purple)
+                        Spacer()
+                    }
+                }
+                .padding(16)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color(.systemGray6).opacity(0.4))
+                )
+            }
+        }
+    }
+
+    private func miniDecibelChart(readings: [DecibelReading]) -> some View {
+        Chart(readings, id: \.id) { reading in
+            AreaMark(
+                x: .value("", reading.timestamp),
+                y: .value("", max(min(reading.db, -20), -80) + 80)
+            )
+            .foregroundStyle(
+                LinearGradient(
+                    colors: [.cyan.opacity(0.3), .cyan.opacity(0.05)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
+        }
+        .chartXAxis(.hidden)
+        .chartYAxis(.hidden)
+    }
+
+    private func soundBadge(icon: String, count: Int, color: Color) -> some View {
+        HStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.caption2)
+                .foregroundStyle(count > 0 ? color : .gray.opacity(0.4))
+            Text("\(count)")
+                .font(.caption)
+                .fontWeight(.semibold)
+                .foregroundStyle(count > 0 ? .white : .gray.opacity(0.5))
         }
     }
 
